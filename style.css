@@ -1,0 +1,30 @@
+*{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+.container {
+   width: 50%;
+   margin: 0px auto;
+}
+
+.container_crypto {
+   width: 100;
+   background-color: antiquewhite;
+   display: flex;
+   margin-bottom: 15px;
+   border-radius: 10px;
+   padding: 10px;
+   gap: 20px;
+
+}
+
+.container_image {
+   display: flex;
+}
+
+.container_image > img {
+   width: 50px;
+   margin: auto;
+}
