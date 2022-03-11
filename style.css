@@ -76,16 +76,16 @@ p, h1, h2, a {
 }
 
 /* left side */
-.left-side {
+.side-navigation {
    background-color: var(--color-background-grey);
-   width: 20%;
+   min-width: 20%;
    height: 100vmin;
    display: flex;
    flex-direction: column;
    align-items: center;
 }
 
-.left-side div {
+.side-navigation div {
    width: 80%;
    margin-top: 20px;
    display: inline-flex;
@@ -94,16 +94,16 @@ p, h1, h2, a {
    border-radius: 15px;
 }
 
-.left-side div p{
+.side-navigation div p{
    color: var(--color-grey);
    transition: color 200ms;
 }
 
-.left-side div:hover p{
+.side-navigation div:hover p{
    color: var(--color-black);
 }
 
-.left-side div span {
+.side-navigation div span {
    margin-right: 10px;
    font-size: 24px;
    color: var(--color-grey);
@@ -133,11 +133,22 @@ p, h1, h2, a {
 
 .container {
    border-radius: 15px;
-   width: 300px;
+   width: 32%;
+   min-width: 300px;
    height: 150px;
-   background-color: #9BCEA4;
+   
    display: flex;
    flex-direction: column;
+}
+
+#one {
+   background-color: #9BCEA4;
+}
+#two {
+   background-color: #AFC0D8;
+}
+#three {
+   background-color: #E7C3B2;
 }
 
 .info {
@@ -157,7 +168,66 @@ p, h1, h2, a {
 
 }
 
-#graphique {
+#graphique1, 
+#graphique2,
+#graphique3 {
    max-height: 50%;
    border: solid 1px red;
+}
+
+
+
+
+/* Favs */
+
+.dashboard-favs {
+   width: 100%;
+}
+
+.dashboard-favs-title {
+   display: inline-flex;
+}
+
+.dashboard-favs-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+}
+
+
+
+/* Skeleton */
+.skeleton-container {
+   width: 500px;
+   height: 200px;
+   padding: 15px;
+   background-color: #9BCEA4;
+   display: flex;
+   flex-direction: column;
+   border-radius: 15px;
+   gap: 10px;
+}
+
+.skeleton {
+   border-radius: 20px;
+   animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+   0% {
+      background-color: rgba(25, 25, 25, 0.025);
+   }
+   100% {
+      background-color: rgba(25, 25, 25, 0.1);
+   }
+ }
+
+.skeleton-title {
+   width: 50%;
+   height: 32px;
+}
+
+.skeleton-text {
+   width: 100%;
+   height: 24px;
 }

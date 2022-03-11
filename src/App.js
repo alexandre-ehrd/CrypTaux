@@ -1,7 +1,11 @@
-const ctx = document.getElementById('graphique');
-const BODY = document.body; 
+const ctx = document.getElementById('graphique1');
+const ctx2 = document.getElementById('graphique3');
+const ctx3 = document.getElementById('graphique2');
+const BODY = document.body;
 
-const myChart = new Chart(ctx, {
+
+function graphique(element) {
+   const myChart = new Chart(element, {
       type: 'line',
       data: {
          labels: ["1", "2", "3", "4", "5", "6", "7"],
@@ -29,7 +33,7 @@ const myChart = new Chart(ctx, {
                ticks: {
                   display: false
                },
-               beginAtZero: true,
+               beginAtZero: false,
                grid: {
                   color: 'transparent',
                   borderColor: 'transparent'  // <-- this line is answer to initial question
@@ -44,16 +48,20 @@ const myChart = new Chart(ctx, {
          plugins: {
             legend: {
                display: false
-           }
+            }
          },
          layout: {
             padding: {
-              left: -10
+               left: -10
             }
          }
       }
    });
+}
 
+graphique(ctx);
+graphique(ctx2);
+graphique(ctx3);
 
 console.log("Test")
 
