@@ -1,39 +1,38 @@
 const ctx = document.getElementById('graphique');
 const BODY = document.body; 
 
-
-
-
-
-async function fetch_data(){
-   await Fetch_Billboard('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc');
-
-   const myChart = new Chart(ctx, {
+const myChart = new Chart(ctx, {
       type: 'line',
       data: {
          labels: ["1", "2", "3", "4", "5", "6", "7"],
          datasets: [{
             label: 'My First Dataset',
             data: [65, 59, 80, 81, 56, 55, 40],
-            fill: true,
-            backgroundColor : "rgba(220, 220, 220, 0.5)",
-            borderColor: 'rgb(75, 192, 192)', // Couleur de la ligne
+            fill: false,
+            backgroundColor : "rgba(220, 220, 220, 0.5)", // Si fill=true
+            borderColor: 'rgba(20, 20, 20, .3)', // Couleur de la ligne
             tension: 0.3
          }]
       },
       options: {
          scales: {
             x: {
+               ticks: {
+                  display: false
+               },
                grid: {
                   color: 'transparent',
-                  borderColor: 'rgba(220, 220, 220, 0.5)'  // <-- this line is answer to initial question
+                  borderColor: 'transparent'  // <-- this line is answer to initial question
                }
             },
             y: {
+               ticks: {
+                  display: false
+               },
                beginAtZero: true,
                grid: {
-                  color: 'rgba(220, 220, 220, 0.5)',
-                  borderColor: 'rgba(220, 220, 220, 0.5)'  // <-- this line is answer to initial question
+                  color: 'transparent',
+                  borderColor: 'transparent'  // <-- this line is answer to initial question
                }
             }
          },
@@ -42,23 +41,39 @@ async function fetch_data(){
                radius: 0
             }
          },
-         yAxes: [{
-            gridLines: {
-                zeroLineColor: 'rgb(255, 255, 255)'
+         plugins: {
+            legend: {
+               display: false
+           }
+         },
+         layout: {
+            padding: {
+              left: -10
             }
-        }]
+         }
       }
    });
+
+
+console.log("Test")
+
+
+async function fetch_data(){
+   await Fetch_Billboard('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc');
+
+   
     
 }
 
-fetch_data()
+/* fetch_data() */
 
 function Fetch_Billboard(URL) {
    return new Promise((resolve, reject) => {
       fetch(URL).then(response => {
          if (response.ok){
             response.json().then(coin_list => {
+               console.log(coin_list.length)
+               
 
                for (let i = 0; i < coin_list.length; i++) {
                   /* console.log(coin_list[i]["image"]) */
