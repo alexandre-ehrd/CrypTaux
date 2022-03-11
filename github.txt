@@ -1,0 +1,12 @@
+Listes des commandes Github :
+A faire dans un terminal
+
+
+## Récupérer les modifications
+git pull --ff-only
+
+## Sauvegarder tes modifications
+git add .
+git commit -m "CE QUE TU AS FAIT"
+        (par exemple si tu bosses sur les polices tu mets : git commit -m "police")
+git push
