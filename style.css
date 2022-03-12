@@ -164,8 +164,6 @@ p, h1, h2, a {
    width: 60px;
    height: 60px;
    background-color: #000000;
-
-
 }
 
 #graphique1, 
@@ -179,7 +177,6 @@ p, h1, h2, a {
 
 
 /* Favs */
-
 .dashboard-favs {
    width: 100%;
 }
