@@ -1,15 +1,14 @@
 :root{
-   --color-background-grey: #F8F8F8;
    --color-backgroud-white: #FEFFFF;
+   --color-background-grey: #F8F8F8;
    
    --color-blue: #02555B;
    --color-orange: #E5734A;
    --color-grey: #929292;
 
    --color-black: #000000;
-
-
 }
+
 *{
    margin: 0;
    padding: 0;
@@ -19,6 +18,24 @@
 p, h1, h2, a {
    font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
+
+a {
+   text-decoration: none;
+}
+
+body {
+   background-color: var(--color-backgroud-white);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 .container_image {
@@ -34,7 +51,7 @@ p, h1, h2, a {
 #title {
    font-size: 2rem;
    font-weight: 700;
-   color: var(--color-blue);
+   color: var(--color-blue) !important;
 }
 
 #title-orange {
@@ -78,11 +95,14 @@ p, h1, h2, a {
 /* left side */
 .side-navigation {
    background-color: var(--color-background-grey);
-   min-width: 20%;
+   width: 20%;
    height: 100vmin;
    display: flex;
    flex-direction: column;
+   justify-content: space-around;
    align-items: center;
+
+   
 }
 
 .side-navigation div {
