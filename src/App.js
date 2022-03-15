@@ -1,20 +1,20 @@
 const ctx = document.getElementById('graphique1');
-const ctx2 = document.getElementById('graphique3');
-const ctx3 = document.getElementById('graphique2');
+const ctx2 = document.getElementById('graphique2');
+const ctx3 = document.getElementById('graphique3');
 const BODY = document.body;
 
 
-function graphique(element) {
+function graphique(element, data, legende) {
    const myChart = new Chart(element, {
       type: 'line',
       data: {
-         labels: ["1", "2", "3", "4", "5", "6", "7"],
+         labels: legende,
          datasets: [{
             label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            backgroundColor : "rgba(220, 220, 220, 0.5)", // Si fill=true
-            borderColor: 'rgba(20, 20, 20, .3)', // Couleur de la ligne
+            data: data,
+            fill: true,
+            backgroundColor : 'rgba(20, 20, 20, 0.1)', // Si fill=true
+            borderColor: 'rgba(20, 20, 20, 0.3)', // Couleur de la ligne
             tension: 0.3
          }]
       },
@@ -22,7 +22,7 @@ function graphique(element) {
          scales: {
             x: {
                ticks: {
-                  display: false
+                  display: false // Graduation axe
                },
                grid: {
                   color: 'transparent',
@@ -31,7 +31,7 @@ function graphique(element) {
             },
             y: {
                ticks: {
-                  display: false
+                  display: false, // Graduation axe
                },
                beginAtZero: false,
                grid: {
@@ -52,28 +52,46 @@ function graphique(element) {
          },
          layout: {
             padding: {
-               left: -10
+               left: -10,
+               bottom: -10
             }
          }
       }
    });
 }
 
-graphique(ctx);
-graphique(ctx2);
-graphique(ctx3);
 
-console.log("Test")
 
 
 async function fetch_data(){
-   await Fetch_Billboard('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc');
+   /* await Fetch_Billboard('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'); */
+   await test_data('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=7&interval=daily', ctx)
+   await test_data('https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=eur&days=7&interval=daily', ctx2)
+   await test_data('https://api.coingecko.com/api/v3/coins/shiba-inu/market_chart?vs_currency=eur&days=7&interval=daily', ctx3)
+}
+fetch_data()
 
-   
-    
+function test_data(URL, element) {
+   return new Promise((resolve, reject) => {
+      fetch(URL).then(response => {
+         if (response.ok){
+            response.json().then(response => {
+               historic_price = response['prices'];
+               legende = Object.keys(historic_price)
+               historic_price = historic_price.map(x => x[1])
+               console.log(URL, historic_price)
+               graphique(element, historic_price, legende)
+               resolve();
+            })
+         }
+         else{
+            console.error(`L\'Api TMDB renvoie une erreur pour la requête ${Carousel_Request}`);
+            reject();
+         }
+      })
+   })
 }
 
-/* fetch_data() */
 
 function Fetch_Billboard(URL) {
    return new Promise((resolve, reject) => {

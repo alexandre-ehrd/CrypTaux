@@ -45,3 +45,16 @@
    display: flex;
    flex-direction: column;
 }
+
+.favs-button-select {
+   background-color: var(--color-orange);
+}
+
+
+
+
+
+
+input[type=submit] {
+   background-color: var(--color-blue);
+}
