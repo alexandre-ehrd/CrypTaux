@@ -9,24 +9,29 @@
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
       <title>Cryptaux - Connexion</title>
-      <link rel="stylesheet" href="src/Connexion.css">
       <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="src/Connexion.css">
    </head>
    <body>
       <p id="title">Cryp<span id="title-orange">taux</span>.</p>
-      <div class="contenu">
+
+
+      <div class="body-container">
          <div class="login-container">
-            <h1 id="test">Connexion</h1>
-            <form class="form-login">
+            <h1>Connexion</h1>
+
+            <form class="form-login" action="index.html">
                <div class="form-username-container">
-                  
-                  <label for="bjr">Nom d’utilisateur</label>
-                  <input type="text" name="bjr" placeholder="Écrivez votre nom d’utilisateur...">
+                  <label for="username">Nom d’utilisateur</label>
+                  <input type="text" placeholder="Écrivez votre nom d’utilisateur..." value="Thalex" name="username" required="required">
                </div>
                <div>
-                  <p>Vos fav's : <span>0/5 sélectionné(s)</span></p>
-                  <input type="button" class="" id="Tag_0_Tâche" value="Bitcoin" onclick="Favs_Manager(this)">
-                  <input type="button" class="" id="Tag_0_Tâche" value="Etherum" onclick="Favs_Manager(this)">
+                  <p>Vos fav's : <span id="cryptocurrency-counter"></span></p>
+                  <input type="button" class="cryptocurrency-favs-button" value="Bitcoin" onclick="Favs_Button_Manager(this)">
+                  <input type="button" class="cryptocurrency-favs-button" value="Etherum" onclick="Favs_Button_Manager(this)">
+                  <input type="button" class="cryptocurrency-favs-button" value="Tether" onclick="Favs_Button_Manager(this)">
+                  <input type="button" class="cryptocurrency-favs-button" value="Dogecoin" onclick="Favs_Button_Manager(this)">
+                  <input type="button" class="cryptocurrency-favs-button" value="Shiba Inu" onclick="Favs_Button_Manager(this)">
                </div>
                <input type="submit" value="Suivant">
             </form>

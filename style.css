@@ -5,15 +5,29 @@
    --color-blue: #02555B;
    --color-orange: #E5734A;
    --color-grey: #929292;
+   --color-white: #FFFFFF;
+
 
    --color-black: #000000;
+   --border-radius-small: 5px;
 }
 
-*{
+* {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+
+body {
+   background-color: #929292;
+}
+
+button, input[type="button"], input[type="submit"], input[type="reset"] {
+	/* border: none; */
+	cursor: pointer;
+	outline: none;
 }
 
 
@@ -24,6 +38,8 @@ a {
 body {
    background-color: var(--color-backgroud-white);
 }
+
+
 
 
 
