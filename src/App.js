@@ -2,6 +2,7 @@ const ctx = document.getElementById('graphique1');
 const ctx2 = document.getElementById('graphique2');
 const ctx3 = document.getElementById('graphique3');
 const BODY = document.body;
+const pathUsername = document.getElementById('path-username');
 
 
 function graphique(element, data, legende) {
@@ -67,7 +68,7 @@ async function fetch_data(){
    /* await Fetch_Billboard('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'); */
    await test_data('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=7&interval=daily', ctx)
    await test_data('https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=eur&days=7&interval=daily', ctx2)
-   await test_data('https://api.coingecko.com/api/v3/coins/shiba-inu/market_chart?vs_currency=eur&days=7&interval=daily', ctx3)
+   // await test_data('https://api.coingecko.com/api/v3/coins/shiba-inu/market_chart?vs_currency=eur&days=7&interval=daily', ctx3)
 }
 fetch_data()
 
@@ -93,7 +94,24 @@ function test_data(URL, element) {
 }
 
 
-function Fetch_Billboard(URL) {
+function fetch_json() {
+   fetch("./src/data.json").then(response => {
+      if (response.ok) {
+         response.json().then(data => {
+            // Changer le nom
+            pathUsername.innerHTML = data['username']
+         })
+      }
+      else {
+         console.error("Erreur : Pas d'accès aux données");
+      }
+   })
+}
+
+
+fetch_json();
+
+function fetch_Billboard(URL) {
    return new Promise((resolve, reject) => {
       fetch(URL).then(response => {
          if (response.ok){
@@ -114,12 +132,7 @@ function Fetch_Billboard(URL) {
                      </div>
                   </div>
                `);
-                  
                }
-
-
-
-               
                resolve();
             })
          }

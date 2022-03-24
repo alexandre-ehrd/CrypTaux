@@ -9,25 +9,88 @@
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
       <title>Cryptaux</title>
-      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="header.css">
+      <link rel="stylesheet" href="navigation.css">
    </head>
    <body>
-      <section class="header">
+
+      <header>
          <div class="header-left-side">
-            <a href="#">
+            <a href="connexion.html">
                <h1 id="title">Cryp<span id="title-orange">taux</span>.</h1>
             </a>
          </div>
-
          <div class="header-right-side">
+            <div class="path">
+               <h2 id="path-username">Thalex</h2>
+               <a href="#">Tableau de bord</a>
+            </div>
+         </div>
+      </header>
+
+      <section class="contenu">
+
+         
+         <aside class="side-navigation">
+            <nav>
+               <ul id="navigation-list">
+                  <li id="select">
+                     <span class="bi bi-grid"></span>
+                     <p>Tableau de bord</p>
+                     <!-- <p><span class="bi bi-grid"></span>Tableau de bord</p> -->
+                  </li>
+                  <li>
+                     <span class="bi bi-suit-heart"></span>
+                     <p>Fav's</p>
+                  </li>
+                  <li>
+                     <span class="bi bi-wallet"></span>
+                     <p>Mon portefeuille</p>
+                  </li>
+                  <li>
+                     <span class="bi bi-arrow-left-right"></span>
+                     <p>Échanges</p>
+                  </li>
+               </nav>
+            </ul>
+            <a href="connexion.html" class="bi bi-box-arrow-left" id="">Se déconnecter</a>
+         </aside>
+
+         <div class="container" id="one">
+            <div class="info">
+               <h3>BTC </h3>
+            </div>
+            <canvas id="graphique1"></canvas>
+         </div>
+         <div class="container" id="two">
+            <div class="info"></div>
+            <canvas id="graphique2"></canvas>
+         </div>
+
+      </section>
+
+
+
+
+
+
+
+
+      <section class="header">
+         
+
+         <!-- <div class="header-right-side">
             <div class="path">
                <p>Thalex</p>
                <p>Tableau de bord</p>
                <p>Test</p>
             </div>
          </div>
-      </section>
-
+      </section> -->
+      <!-- <p></p>
+      <p></p>
+      <p></p>
+      <p></p>
 
       <section id="test">
 
@@ -86,7 +149,7 @@
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quae rem laborum ab atque deleniti?</p>
                      </div>
                   </i>
-               </div>
+               </div> -->
                
                
                <!-- <div class="popover">
