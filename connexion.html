@@ -13,35 +13,44 @@
       <link rel="stylesheet" href="src/Connexion.css">
    </head>
    <body>
-      <div>
+      <div id="centre">
          <aside>
-            <p>Connexion</p>
-         </aside>
-      </div>
-
-<!--       <p id="title">Cryp<span id="title-orange">taux</span>.</p> -->
-      
-      <!-- <div class="body-container">
-         <div class="login-container">
-            <h1>Connexion</h1>
-
-            <form class="form-login" action="index.html">
-               <div class="form-username-container">
-                  <label for="username">Nom d’utilisateur</label>
-                  <input type="text" placeholder="Écrivez votre nom d’utilisateur..." value="Thalex" name="username" required="required">
+            <div class="body-container">
+               <div class="login-container">
+                  <h1>Connexion</h1>
+                  <form class="form-login" action="index.html">
+                     <div class="form-username-container">
+                        <label for="username">Nom d’utilisateur</label>
+                        <input type="text" placeholder="Écrivez votre nom d’utilisateur..." value="" name="username" required="required">
+                        <label for="username">Mot de passe </label> 
+                        <label>
+                           <input type="password" placeholder="Ecrivez votre mot de passe...">
+                           <!-- <input type="password" placeholder="Confirmer votre mot de passe..."> -->
+                           <div class="password-icon">
+                             <i data-feather="eye"></i>
+                             <i data-feather="eye-off"></i>
+                           </div>
+                        </label>
+                        <script src="https://unpkg.com/feather-icons"></script>
+                        <script>
+                           feather.replace();
+                        </script>
+                     </div>
+                     <input type="submit" value="S'INSCRIRE">
+                     <p>Vous avez déjà un compte? <a  href="">Connectez-vous</a></p>
+                  </for>
+                  <p>EHRHARD Alexandre & ECKSTEIN Théo</p>
                </div>
                <div>
-                  <p>Vos fav's : <span id="cryptocurrency-counter"></span></p>
-                  <input type="button" class="cryptocurrency-favs-button" value="Bitcoin" onclick="Favs_Button_Manager(this)">
-                  <input type="button" class="cryptocurrency-favs-button" value="Etherum" onclick="Favs_Button_Manager(this)">
-                  <input type="button" class="cryptocurrency-favs-button" value="Tether" onclick="Favs_Button_Manager(this)">
-                  <input type="button" class="cryptocurrency-favs-button" value="Dogecoin" onclick="Favs_Button_Manager(this)">
-                  <input type="button" class="cryptocurrency-favs-button" value="Shiba Inu" onclick="Favs_Button_Manager(this)">
-               </div>
-               <input type="submit" value="Suivant">
-            </form>
-         </div>
-      </div> -->
+               </aside>
+                  <div>
+                     <section>
+                        <h1>L’outil ultime pour les crypto-monnaies.</h1>
+                        <p>Consultez en un coup d’œil le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre porté dans une interface moderne. </p>
+                        <p id="title">Cryp<span id="title-orange">taux</span>.</p>
+                     </section>
+                  <div>
+            </div>
       <script src="src/Connexion.js"></script>
    </body>
 </html>
