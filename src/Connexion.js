@@ -2,7 +2,7 @@ var counterCryptocurrency = document.getElementById('cryptocurrency-counter');
 var buttonsCryptocurrency = document.getElementsByClassName('cryptocurrency-favs-button');
 var listCryptocurrency = []
 
-Favs_Counter();
+/* Favs_Counter(); */
 
 function Favs_Button_Manager(button) {
    if (button.className.split(" ").slice(-1) != 'favs-button-select') {
