@@ -39,6 +39,12 @@ aside
    line-height: 40px;
 }
 
+#inscription {
+   font-size: 40px;
+   padding-left: 20px; ;
+}
+
+
 label {
    position: relative;
  }
@@ -79,18 +85,33 @@ input[type=submit] {
    color: var(--color-white);
 }
 
-#title {
-   font-size: 2rem;
-   font-weight: 700;
-   color: var(--color-blue) !important;
-}
-
 section {
    display: center;
    margin : 5px;
 }
 
+#title {
+   font-size: 20px;
+   font-weight: 700;
+   color: var(--color-blue) !important;
+   position: center;
+   padding-left: 40%;
+   padding-top: 180px;
+}
 #title-orange {
+   color: var(--color-orange);
+}
+
+#text {
+   position: center;
+   font-size: 28px;
+   font-weight: 400;
+   line-height: 25px;
+   padding-left: 70px;
+   padding-top: 30px;
+   
+}
+#text-orange {
    color: var(--color-orange);
 }
 
@@ -98,4 +119,12 @@ section {
 	display:flex;
 	flex-direction:row;
 	justify-content:space-between;
+}
+
+#titre-gauche {
+   font-size: 50px;
+   padding-left: 70px;
+   padding-top: 80px;
+   line-height : 55px;
+   color: var(--color-blue); 
 }
