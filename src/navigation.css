@@ -1,0 +1,57 @@
+@import './style.css';
+
+aside {
+   width: 20%;
+   max-height: 100vh;
+   padding: var(--padding);
+   background-color: var(--color-background-grey);
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+}
+
+nav {
+   width: 100%;
+}
+
+#navigation-list {
+   min-width: 100%;
+   list-style-type: none;
+}
+
+#navigation-list li {
+   margin-top: 20px;
+   cursor: pointer;
+   padding: 10px 20px;
+   border-radius: 15px;
+   display: flex;
+   align-items: center;
+
+}
+
+#navigation-list li p{
+   color: var(--color-grey);
+   transition: color 200ms;
+}
+
+#navigation-list li:hover p{
+   color: var(--color-black);
+}
+
+#navigation-list li > span {
+   margin-right: 10px;
+   font-size: 24px;
+   color: var(--color-grey);
+}
+
+#select {
+   background-color: var(--color-dark-grey);
+   box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
+   -webkit-box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
+   -moz-box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
+}
+
+#select > * {
+   color: var(--color-white) !important;
+}

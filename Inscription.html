@@ -8,7 +8,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-      <title>Cryptaux - Connexion</title>
+      <title>Cryptaux - Inscription</title>
       <link rel="stylesheet" href="src/style.css">
       <link rel="stylesheet" href="src/Connexion.css">
    </head>
@@ -16,7 +16,11 @@
       <aside>
          <section class="form-container">
             <form action="index.html">
-               <h1 id="form-title">Connexion</h1>
+               <h1 id="form-title">Inscription</h1>
+               <div class="form-input">
+                  <label for="username">Nom d’utilisateur</label>
+                  <input class="user-input" type="text" name="username" placeholder="Nom d'utilisateur" value=""  required="required">
+               </div>
                <div class="form-input">
                   <label for="username">Adresse mail</label>
                   <input class="user-input" type="mail" name="username" placeholder="Adresse mail" value=""  required="required">
@@ -30,8 +34,8 @@
                   </div>
                </div>
                <div class="form-input">
-                  <input type="submit" value="Se connecter">
-                  <p style="text-align: center;">Vous n'avez pas de compte ? <a  href="inscription.html">Inscrivez-vous</a></p>
+                  <input type="submit" value="S'inscrire">
+                  <p style="text-align: center;">Vous avez déjà un compte ? <a  href="connexion.html">Connectez-vous</a></p>
                </div>
             </form>
             <p class="text-bottom-creator-logo">EHRHARD Alexandre & ECKSTEIN Théo</p>
