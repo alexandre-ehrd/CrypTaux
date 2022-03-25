@@ -1,4 +1,4 @@
-* {
+* > * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
@@ -19,26 +19,29 @@
    --color-black: #000000;
 
    --padding: 15px;
+   --padding-large: 30px;
    --border-radius-small: 5px;
    --header-size: 75px;
 }
 
-
 body {
-   background-color: #929292;
+   background-color: var(--color-backgroud-white);
 }
 
-button, input[type="button"], input[type="submit"], input[type="reset"] {
-	cursor: pointer;
-	outline: none;
+p {
+   font-size: 1rem;
 }
 
 a {
    text-decoration: none;
 }
 
-body {
-   background-color: var(--color-backgroud-white);
+
+
+
+button, input[type="button"], input[type="submit"], input[type="reset"] {
+	cursor: pointer;
+	outline: none;
 }
 
 
