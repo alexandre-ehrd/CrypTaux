@@ -1,5 +1,5 @@
 <?php
-require('login.php');
+require('login_key.php');
 
 try {
    echo "Connecting to $server...<br>";
@@ -13,8 +13,12 @@ try {
 }
 
 
-$reponse=$db->query('SELECT mail FROM cryptaux')->fetchAll(PDO::FETCH_OBJ);
+$reponse=$db->query('SELECT * FROM cryptaux')->fetchAll(PDO::FETCH_OBJ);
 foreach ($reponse as $row) {
-   echo 'le nom est '.$row->mail.'<br>'; 
+   echo $row->mail.$row->username.'<br>'; 
 } 
+
+header("Location: page2.html");
+exit();
+
 ?>
