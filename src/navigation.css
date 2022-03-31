@@ -35,23 +35,23 @@ nav {
    transition: color 200ms;
 }
 
-#navigation-list li:hover p{
+#navigation-list li:hover * {
    color: var(--color-black);
 }
 
-#navigation-list li > span {
+#navigation-list li > i {
    margin-right: 10px;
    font-size: 24px;
    color: var(--color-grey);
 }
 
-#select {
+.select {
    background-color: var(--color-dark-grey);
    box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
    -webkit-box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
    -moz-box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
 }
 
-#select > * {
+.select > * {
    color: var(--color-white) !important;
 }
