@@ -2,8 +2,6 @@ const ctx = document.getElementById('graphique1');
 const ctx2 = document.getElementById('graphique2');
 const ctx3 = document.getElementById('graphique3');
 const BODY = document.body;
-const pathUsername = document.getElementById('path-username');
-
 
 function graphique(element, data, legende) {
    const myChart = new Chart(element, {
@@ -66,7 +64,7 @@ function graphique(element, data, legende) {
 
 async function fetch_data(){
    /* await Fetch_Billboard('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc'); */
-   await test_data('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=7&interval=daily', ctx)
+   await test_data('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=daily', ctx)
    await test_data('https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=eur&days=7&interval=daily', ctx2)
    // await test_data('https://api.coingecko.com/api/v3/coins/shiba-inu/market_chart?vs_currency=eur&days=7&interval=daily', ctx3)
 }
@@ -83,6 +81,12 @@ function test_data(URL, element) {
                console.log(URL, historic_price)
                graphique(element, historic_price, legende)
                resolve();
+               
+               console.log(historic_price);
+               value_depart = historic_price[0];
+               value_arrive = historic_price[historic_price.length-1];
+               taux = ( (value_arrive-value_depart) / value_depart) * 100;
+               console.log(taux);
             })
          }
          else{
@@ -99,7 +103,7 @@ function fetch_json() {
       if (response.ok) {
          response.json().then(data => {
             // Changer le nom
-            pathUsername.innerHTML = data['username']
+            console.log("Accès au json")
          })
       }
       else {
@@ -109,7 +113,7 @@ function fetch_json() {
 }
 
 
-fetch_json();
+/* fetch_json(); */
 
 function fetch_Billboard(URL) {
    return new Promise((resolve, reject) => {

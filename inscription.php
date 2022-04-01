@@ -11,11 +11,13 @@
       <title>Cryptaux - Inscription</title>
       <link rel="stylesheet" href="src/style.css">
       <link rel="stylesheet" href="src/Connexion.css">
+      <?php session_start();?>
    </head>
    <body>
+      <?php require('connect_database.php');?>
       <aside>
          <section class="form-container">
-            <form action="index.html">
+            <form method="post">
                <h1 id="form-title">Inscription</h1>
                <div class="form-input">
                   <label for="username">Nom d’utilisateur</label>
@@ -23,7 +25,7 @@
                </div>
                <div class="form-input">
                   <label for="username">Adresse mail</label>
-                  <input class="user-input" type="mail" name="username" placeholder="Adresse mail" value=""  required="required">
+                  <input class="user-input" type="mail" name="mail" placeholder="Adresse mail" value=""  required="required">
                </div>
                <div class="form-input">   
                   <label for="password">Mot de passe</label>
@@ -33,11 +35,41 @@
                      <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                   </div>
                </div>
+               <?php
+               // Le formulaire a été envoyé
+               if (!empty($_POST)) {
+                  
+                  // Récupérer les données du formulaire
+                  $mail_user = $_POST["mail"];
+                  $username_user = $_POST["username"];
+                  $password_user = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hashage du mot de passe
+                  
+                  // L'adresse mail possède le bon format
+                  if(filter_var($mail_user, FILTER_VALIDATE_EMAIL)){
+                     $result = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'");
+                     $count = $result->fetchColumn();
+
+                     // L'adresse mail ne se trouve pas encore dans la BDD
+                     if ($count == 0) {
+                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', 'favs')");
+                        $_SESSION['username'] = $username;
+                        // Changer de page
+                        header("Location: index.php");
+                     } else {
+                        // Rediriger l'utilisateur vers la page de connexion
+                        header("Location: connexion.php");
+                     }
+                  } else{
+                     echo "L'adresse e-mail n'est pas valide ❌";
+                  }
+               }
+               ?>
                <div class="form-input">
                   <input type="submit" value="S'inscrire">
-                  <p style="text-align: center;">Vous avez déjà un compte ? <a  href="connexion.html">Connectez-vous</a></p>
+                  <p style="text-align: center;">Vous avez déjà un compte ? <a  href="connexion.php">Connectez-vous</a></p>
                </div>
             </form>
+            
             <p class="text-bottom-creator-logo">EHRHARD Alexandre & ECKSTEIN Théo</p>
          </section>
       </aside>

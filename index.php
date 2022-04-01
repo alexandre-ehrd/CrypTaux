@@ -12,9 +12,9 @@
       <link rel="stylesheet" href="src/style.css">
       <link rel="stylesheet" href="src/header.css">
       <link rel="stylesheet" href="src/navigation.css">
+      <?php session_start();?>
    </head>
    <body>
-
       <header>
          <div class="header-left-side">
             <a href="connexion.html">
@@ -23,22 +23,19 @@
          </div>
          <div class="header-right-side">
             <div class="path">
-               <h2 id="path-username">Thalex</h2>
+               <h2 id='path-username'><?php echo $_SESSION['username'];?></h2>
                <a href="#">Tableau de bord</a>
             </div>
          </div>
       </header>
 
       <section class="contenu">
-
-         
          <aside class="side-navigation">
             <nav>
                <ul id="navigation-list">
-                  <li id="select">
+                  <li class="select">
                      <i class="bi bi-grid"></i>
                      <p>Tableau de bord</p>
-                     <!-- <p><span class="bi bi-grid"></span>Tableau de bord</p> -->
                   </li>
                   <li>
                      <i class="bi bi-suit-heart"></i>
@@ -49,24 +46,52 @@
                      <p>Mon portefeuille</p>
                   </li>
                   <li>
-                     <i class="bi bi-arrow-left-right"></span>
+                     <i class="bi bi-arrow-left-right"></i>
                      <p>Échanges</p>
                   </li>
-               </nav>
-            </ul>
-            <a href="connexion.html" class="bi bi-box-arrow-left" id="">Se déconnecter</a>
+               </ul>
+            </nav>
+            <a href="connexion.php" class="bi bi-box-arrow-left" id="">Se déconnecter</a>
          </aside>
 
-         <div class="container" id="one">
-            <div class="info">
-               <h3>BTC </h3>
+         <div class="contenu-wrapper">
+            <div class="tableau-bord-wrapper">
+               
+               <div class="dashboard-favs">
+                  
+                  <h3>Fav's</h3>
+                  <div class="container" id="one">
+                     <div class="info">
+                        <div class="info-logo">
+                           <img src="src/img/logo.png" alt="BTC">
+                        </div>
+                        <div class="info-price-name">
+                           <p>47418.52$</p>
+                           <p>BTC</p>
+                        </div>
+                        <div>
+                           <p>+4,71%</p>
+                        </div>
+                     </div>
+                     <canvas id="graphique1"></canvas>
+                  </div>
+                  
+      
+      
+                  <div class="container" id="two">
+                     <div class="info"></div>
+                     <canvas id="graphique2"></canvas>
+                  </div>
+               </div>
+
+
+               </div>
+
+            
             </div>
-            <canvas id="graphique1"></canvas>
-         </div>
-         <div class="container" id="two">
-            <div class="info"></div>
-            <canvas id="graphique2"></canvas>
-         </div>
+
+            
+            
 
       </section>
 
@@ -162,19 +187,6 @@
                </div> -->
             </div>
          </section>
-
-
-
-            <!-- <div class="container">
-            
-   		   
-   	   </div> -->
-         
-
-         <section class="dashboard-portefeuille">
-            
-         </section>
-         
 
          <!-- <div class="skeleton-container">
             <div class="skeleton skeleton-title">
