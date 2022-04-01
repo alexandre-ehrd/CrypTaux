@@ -38,25 +38,30 @@
                <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
+                  
                   // Récupérer les données du formulaire
                   $mail_user = $_POST["mail"];
                   $username_user = $_POST["username"];
                   $password_user = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hashage du mot de passe
-
-                  $result = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'");
-                  $count = $result->fetchColumn();
-
-                  if ($count == 0) {
-                     $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', 'favs')");
-                     // Changer de page
-                     header("Location: index.php");
-                     exit();
-                  } else {
-                     // Rediriger l'utilisateur vers la page de connexion
-                     header("Location: connexion.php");
-                     exit();
-                  }
                   
+                  // L'adresse mail possède le bon format
+                  if(filter_var($mail_user, FILTER_VALIDATE_EMAIL)){
+                     $result = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'");
+                     $count = $result->fetchColumn();
+
+                     // L'adresse mail ne se trouve pas encore dans la BDD
+                     if ($count == 0) {
+                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', 'favs')");
+                        $_SESSION['username'] = $username;
+                        // Changer de page
+                        header("Location: index.php");
+                     } else {
+                        // Rediriger l'utilisateur vers la page de connexion
+                        header("Location: connexion.php");
+                     }
+                  } else{
+                     echo "L'adresse e-mail n'est pas valide ❌";
+                  }
                }
                ?>
                <div class="form-input">

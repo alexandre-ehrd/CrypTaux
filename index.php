@@ -23,7 +23,7 @@
          </div>
          <div class="header-right-side">
             <div class="path">
-               <h2 id='path-username'><?php echo "PHP";?></h2>
+               <h2 id='path-username'><?php echo $_SESSION['username'];?></h2>
                <a href="#">Tableau de bord</a>
             </div>
          </div>

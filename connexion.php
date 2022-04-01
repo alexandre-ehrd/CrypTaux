@@ -47,8 +47,7 @@
                      $password = $reponse[0]->password;
                   
                      if (password_verify($password_user, $password)) {
-                        session_start(); // On démarre la session
-                        $_SESSION["username"] = $username;
+                        $_SESSION['username'] = $username;
                         // Changer de page
                         header("Location: index.php");
                         exit();
