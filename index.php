@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="src/style.css">
       <link rel="stylesheet" href="src/header.css">
       <link rel="stylesheet" href="src/navigation.css">
+      <?php session_start();?>
    </head>
    <body>
       <header>
@@ -22,7 +23,7 @@
          </div>
          <div class="header-right-side">
             <div class="path">
-               <h2 id="path-username">Thalex</h2>
+               <h2 id='path-username'><?php echo "PHP";?></h2>
                <a href="#">Tableau de bord</a>
             </div>
          </div>
@@ -74,6 +75,7 @@
                      </div>
                      <canvas id="graphique1"></canvas>
                   </div>
+                  
       
       
                   <div class="container" id="two">

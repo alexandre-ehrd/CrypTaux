@@ -11,15 +11,17 @@
       <title>Cryptaux - Connexion</title>
       <link rel="stylesheet" href="src/style.css">
       <link rel="stylesheet" href="src/Connexion.css">
+      <?php session_start();?>
    </head>
    <body>
+      <?php require('connect_database.php');?>
       <aside>
          <section class="form-container">
-            <form action="connexion.php" method="post">
+            <form method="post">
                <h1 id="form-title">Connexion</h1>
                <div class="form-input">
                   <label for="username">Adresse mail</label>
-                  <input class="user-input" type="mail" name="username" placeholder="Adresse mail" value=""  required="required">
+                  <input class="user-input" type="mail" name="mail" placeholder="Adresse mail" value=""  required="required">
                </div>
                <div class="form-input">   
                   <label for="password">Mot de passe</label>
@@ -29,9 +31,38 @@
                      <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                   </div>
                </div>
+               <?php
+               // Le formulaire a été envoyé
+               if (!empty($_POST)) {
+                  // Récupérer les données du formulaire
+                  $mail_user = $_POST["mail"];
+                  $password_user = $_POST["password"];
+
+                  // La personne est-elle dans la base de données ?
+                  $is_inscrit = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'")->fetchColumn();
+                  
+                  if ($is_inscrit > 0) {                     
+                     $reponse=$db->query("SELECT username, password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                     $username = $reponse[0]->username;
+                     $password = $reponse[0]->password;
+                  
+                     if (password_verify($password_user, $password)) {
+                        session_start(); // On démarre la session
+                        $_SESSION["username"] = $username;
+                        // Changer de page
+                        header("Location: index.php");
+                        exit();
+                     } else {
+                        echo "Mot de passe incorrect ❌";
+                     }
+                  } else {
+                     echo "Adresse mail inconnue ❌";
+                  }
+               }
+               ?>
                <div class="form-input">
                   <input type="submit" value="Se connecter">
-                  <p style="text-align: center;">Vous n'avez pas de compte ? <a  href="inscription.html">Inscrivez-vous</a></p>
+                  <p style="text-align: center;">Vous n'avez pas de compte ? <a  href="inscription.php">Inscrivez-vous</a></p>
                </div>
             </form>
             <p class="text-bottom-creator-logo">EHRHARD Alexandre & ECKSTEIN Théo</p>

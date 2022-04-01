@@ -2,8 +2,6 @@ const ctx = document.getElementById('graphique1');
 const ctx2 = document.getElementById('graphique2');
 const ctx3 = document.getElementById('graphique3');
 const BODY = document.body;
-const pathUsername = document.getElementById('path-username');
-
 
 function graphique(element, data, legende) {
    const myChart = new Chart(element, {
@@ -105,7 +103,7 @@ function fetch_json() {
       if (response.ok) {
          response.json().then(data => {
             // Changer le nom
-            pathUsername.innerHTML = data['username']
+            console.log("Accès au json")
          })
       }
       else {
@@ -115,7 +113,7 @@ function fetch_json() {
 }
 
 
-fetch_json();
+/* fetch_json(); */
 
 function fetch_Billboard(URL) {
    return new Promise((resolve, reject) => {

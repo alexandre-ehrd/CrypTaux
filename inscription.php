@@ -11,12 +11,13 @@
       <title>Cryptaux - Inscription</title>
       <link rel="stylesheet" href="src/style.css">
       <link rel="stylesheet" href="src/Connexion.css">
+      <?php session_start();?>
    </head>
    <body>
       <?php require('connect_database.php');?>
       <aside>
          <section class="form-container">
-            <form action="inscription.php" method="post">
+            <form method="post">
                <h1 id="form-title">Inscription</h1>
                <div class="form-input">
                   <label for="username">Nom d’utilisateur</label>
@@ -48,16 +49,19 @@
                   if ($count == 0) {
                      $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', 'favs')");
                      // Changer de page
-                     header("Location: index.html");
+                     header("Location: index.php");
                      exit();
                   } else {
-                     echo "Cette adresse mail est déjà utilisée ! ❌";
+                     // Rediriger l'utilisateur vers la page de connexion
+                     header("Location: connexion.php");
+                     exit();
                   }
+                  
                }
                ?>
                <div class="form-input">
                   <input type="submit" value="S'inscrire">
-                  <p style="text-align: center;">Vous avez déjà un compte ? <a  href="connexion.html">Connectez-vous</a></p>
+                  <p style="text-align: center;">Vous avez déjà un compte ? <a  href="connexion.php">Connectez-vous</a></p>
                </div>
             </form>
             
