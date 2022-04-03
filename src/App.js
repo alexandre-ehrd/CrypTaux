@@ -148,5 +148,3 @@ function fetch_Billboard(URL) {
    })
 }
 
-
-

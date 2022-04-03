@@ -23,7 +23,16 @@
          </div>
          <div class="header-right-side">
             <div class="path">
-               <h2 id='path-username'><?php echo $_SESSION['username'];?></h2>
+               <h2 id='path-username'>
+                  <?php
+                     if (isset($_SESSION['username'])) {
+                        echo $_SESSION['username'];
+                     }
+                     else {
+                        echo "Anonymous";
+                     }
+                  ?>
+               </h2>
                <a href="#">Tableau de bord</a>
             </div>
          </div>
@@ -58,7 +67,24 @@
             <div class="tableau-bord-wrapper">
                
                <div class="dashboard-favs">
+
+
+                  <?php 
+                     if (isset($_SESSION['favs']) && $_SESSION['username'] == 'admin') {
+                        $favs = $_SESSION['favs'];
                   
+                        $favs = explode(",", $favs);
+                        foreach ($favs  as $fav){
+                           echo $fav;
+                           // Appeller la fonction qui créer une vignette de monnaie favorite
+                        }
+                     }
+                     else {
+                        echo "Pas d'accès au Fav's";
+                     }
+
+                  
+                  ?>
                   <h3>Fav's</h3>
                   <div class="container" id="one">
                      <div class="info">
@@ -83,6 +109,10 @@
                      <canvas id="graphique2"></canvas>
                   </div>
                </div>
+
+               <input id="search-bar" type="text" name="" id="">
+               
+               <p id="log"></p>
 
 
                </div>
@@ -207,10 +237,9 @@
 
       
       
-      <!-- <i class="bi bi-chevron-right"></i> -->
-      
-      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       <script src="./src/App.js"></script>
+      <script src="./src/Recherche.js"></script>
+      <script src="./src/FavThumbnail.js"></script>
    </body>
 </html>

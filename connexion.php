@@ -42,12 +42,19 @@
                   $is_inscrit = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'")->fetchColumn();
                   
                   if ($is_inscrit > 0) {                     
-                     $reponse=$db->query("SELECT username, password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
-                     $username = $reponse[0]->username;
+                     $reponse=$db->query("SELECT password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
                      $password = $reponse[0]->password;
                   
                      if (password_verify($password_user, $password)) {
+                        // Accéder au nom d'utilisateur et aux favs
+                        $reponse=$db->query("SELECT username, favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                        
+                        $username = $reponse[0]->username;
+                        $favs = $reponse[0]->favs;
+
                         $_SESSION['username'] = $username;
+                        $_SESSION['favs'] = $favs;
+
                         // Changer de page
                         header("Location: index.php");
                         exit();
