@@ -108,17 +108,13 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
    display: flex;
    flex-direction: column;
    overflow: hidden;
+   background-color: #9ed6ec;
 }
 
-#one {
-   background-color: #9BCEA4;
+.fav-chart {
+   max-height: 50%;
 }
-#two {
-   background-color: #AFC0D8;
-}
-#three {
-   background-color: #E7C3B2;
-}
+
 
 .info {
    height: 50%;
@@ -132,28 +128,17 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
    height: 100%;
    border-radius: 15px;
    background-color: #000000;
+   padding: 10px;
 }
 
 .info-logo img {
    height: 100%;
+   aspect-ratio: 1 / 1;
 }
 
 
 
 
-
-
-
-
-
-
-
-
-#graphique1, 
-#graphique2,
-#graphique3 {
-   max-height: 50%;
-}
 
 
 /* Favs */

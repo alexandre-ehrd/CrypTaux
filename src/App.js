@@ -68,13 +68,14 @@ async function fetch_data(){
    await test_data('https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=eur&days=7&interval=daily', ctx2)
    // await test_data('https://api.coingecko.com/api/v3/coins/shiba-inu/market_chart?vs_currency=eur&days=7&interval=daily', ctx3)
 }
-fetch_data()
+/* fetch_data() */
 
 function test_data(URL, element) {
    return new Promise((resolve, reject) => {
       fetch(URL).then(response => {
          if (response.ok){
             response.json().then(response => {
+               console.log(response);
                historic_price = response['prices'];
                legende = Object.keys(historic_price)
                historic_price = historic_price.map(x => x[1])
@@ -90,7 +91,7 @@ function test_data(URL, element) {
             })
          }
          else{
-            console.error(`L\'Api TMDB renvoie une erreur pour la requête ${Carousel_Request}`);
+            console.error(`Impossible d'accéder à l'Api CoinGecko`);
             reject();
          }
       })
