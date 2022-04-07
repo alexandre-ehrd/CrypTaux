@@ -9,8 +9,8 @@
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
       <title>Cryptaux - Inscription</title>
-      <link rel="stylesheet" href="src/style.css">
-      <link rel="stylesheet" href="src/Connexion.css">
+      <link rel="stylesheet" href="src/styles/style.css">
+      <link rel="stylesheet" href="src/styles/Connexion.css">
       <?php session_start();?>
    </head>
    <body>
@@ -51,7 +51,7 @@
 
                      // L'adresse mail ne se trouve pas encore dans la BDD
                      if ($count == 0) {
-                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', 'favs')");
+                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '')");
                         $_SESSION['username'] = $username;
                         // Changer de page
                         header("Location: index.php");

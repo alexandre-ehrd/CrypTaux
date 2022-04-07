@@ -78,7 +78,7 @@
                   <div class="dashboard-favs-container">
 
                      <?php 
-                     if (isset($_SESSION['favs']) && $_SESSION['username'] == 'Thalex') {
+                     if (isset($_SESSION['favs']) && $_SESSION['favs'] != '' && $_SESSION['username'] == 'Thalex') {
                         
                         $favs = $_SESSION['favs'];
                         // Séparer les monnaies
@@ -108,7 +108,7 @@
                         }
                      }
                      else {
-                        echo "Vous n'êtes pas admin...";
+                        echo "Pour voir vos Fav's vous devez être administrateur...";
                      }
                      ?>
                   </div>
@@ -117,7 +117,6 @@
                <input id="search-bar" type="text" name="" id="">
                
                <p id="log"></p>
-
 
                </div>
 

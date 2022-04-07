@@ -22,6 +22,7 @@
    --padding-large: 30px;
    --border-radius-small: 5px;
    --header-size: 75px;
+   --navigation-size: 20%;
 }
 
 body {
@@ -45,18 +46,21 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
 
 
 
+
 .contenu {
    width: 100%;
-   height: 100vh;
+   min-height: 100vh;
    padding-top: var(--header-size);
    display: flex;
+   position: relative;
 }
 
 .contenu-wrapper {
-   width: 80%;
+   width: 100%;
    height: 100vh;
-   background-color: #faf7c8;
+   background-color: var(--color-backgroud-white);
    padding: var(--padding);
+   padding-left: calc(var(--navigation-size) + var(--padding));
 }
 
 

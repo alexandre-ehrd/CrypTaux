@@ -2,13 +2,14 @@
 
 aside {
    width: 20%;
-   max-height: 100vh;
+   min-height: calc(100vh - var(--header-size));
    padding: var(--padding);
    background-color: var(--color-background-grey);
    display: flex;
    flex-direction: column;
    justify-content: space-between;
    align-items: center;
+   position: fixed;
 }
 
 nav {
