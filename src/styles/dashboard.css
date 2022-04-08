@@ -1,0 +1,19 @@
+@import './style.css';
+
+
+.container {
+   background-color: #c7f4cf;
+}
+
+.fav-symbol {
+   font-size: 0.8rem;
+   font-weight: 300;
+   color: var(--color-grey);
+}
+
+
+.fav-taux {
+   font-size: 0.5em;
+   font-weight: 800;
+}
+

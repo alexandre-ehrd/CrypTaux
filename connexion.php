@@ -9,8 +9,8 @@
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
       <title>Cryptaux - Connexion</title>
-      <link rel="stylesheet" href="src/style.css">
-      <link rel="stylesheet" href="src/Connexion.css">
+      <link rel="stylesheet" href="src/styles/style.css">
+      <link rel="stylesheet" href="src/styles/Connexion.css">
       <?php session_start();?>
    </head>
    <body>
@@ -26,7 +26,7 @@
                <div class="form-input">   
                   <label for="password">Mot de passe</label>
                   <div class="user-input password-input">
-                     <input type="password" name="password" placeholder="Nom d'utilisateur" value=""  required="required">
+                     <input type="password" name="password" placeholder="Mot de passe" value=""  required="required">
                      <i id="icon-eye-show" class="bi bi-eye"></i>
                      <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                   </div>
@@ -42,12 +42,19 @@
                   $is_inscrit = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'")->fetchColumn();
                   
                   if ($is_inscrit > 0) {                     
-                     $reponse=$db->query("SELECT username, password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
-                     $username = $reponse[0]->username;
+                     $reponse=$db->query("SELECT password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
                      $password = $reponse[0]->password;
                   
                      if (password_verify($password_user, $password)) {
+                        // Accéder au nom d'utilisateur et aux favs
+                        $reponse=$db->query("SELECT username, favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                        
+                        $username = $reponse[0]->username;
+                        $favs = $reponse[0]->favs;
+
                         $_SESSION['username'] = $username;
+                        $_SESSION['favs'] = $favs;
+
                         // Changer de page
                         header("Location: index.php");
                         exit();
@@ -74,6 +81,6 @@
          </div>
          <p id="title" class="text-bottom-creator-logo">Cryp<span id="title-orange">taux</span>.</p>
       </div>
-      <script src="src/Connexion.js"></script>
+      <script src="src/scripts/Connexion.js"></script>
    </body>
 </html>
