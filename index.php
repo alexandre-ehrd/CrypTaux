@@ -40,9 +40,13 @@
             </div>
          </div>
       </header>
-
+      <hr>
       <section class="contenu">
-         <aside class="side-navigation">
+         <?php
+            require('side_navigation.php');
+            sideNavigationCreate(0);
+         ?>
+         <!-- <aside class="side-navigation">
             <nav>
                <ul id="navigation-list">
                   <li class="select">
@@ -67,7 +71,7 @@
                <i class="bi bi-box-arrow-left"></i>
                Se déconnecter
             </a>
-         </aside>
+         </aside> -->
 
          <div class="contenu-wrapper">
             <div class="tableau-bord-wrapper">
@@ -119,7 +123,8 @@
                <p id="log"></p>
 
                </div>
-
+               
+               
             
             </div>
 
@@ -176,13 +181,13 @@
 
 
       
-      
-      <script src="src/Recherche.js"></script>
-      <script src="src/FavThumbnail.js"></script>
-
-
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-      <script src="src/App.js"></script>
+      
+      <script src="src/scripts/Recherche.js"></script>
+      <script src="src/scripts/FavThumbnail.js"></script>
+      <script src="src/scripts/App.js"></script>
+
+
       
    </body>
 </html>

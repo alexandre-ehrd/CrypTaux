@@ -30,7 +30,7 @@
                <div class="form-input">   
                   <label for="password">Mot de passe</label>
                   <div class="user-input password-input">
-                     <input type="password" name="password" placeholder="Nom d'utilisateur" value=""  required="required">
+                     <input type="password" name="password" placeholder="Mot de passe" value=""  required="required">
                      <i id="icon-eye-show" class="bi bi-eye"></i>
                      <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                   </div>
@@ -80,6 +80,6 @@
          </div>
          <p id="title" class="text-bottom-creator-logo">Cryp<span id="title-orange">taux</span>.</p>
       </div>
-      <script src="src/Connexion.js"></script>
+      <script src="src/scripts/Connexion.js"></script>
    </body>
 </html>
