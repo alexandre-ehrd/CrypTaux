@@ -37,9 +37,13 @@ a {
    text-decoration: none;
 }
 
-hr {
-   border: none;
-   border-top: 1px solid var(--color-grey);
+h2 {
+   font-weight: 700;
+}
+
+h3 {
+   font-size: 1.4rem;
+   font-weight: 600;
 }
 
 button, input[type="button"], input[type="submit"], input[type="reset"] {
@@ -47,9 +51,10 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
 	outline: none;
 }
 
-
-
-
+hr {
+   border: none;
+   border-top: 1px solid var(--color-grey);
+}
 
 
 .contenu {
@@ -68,10 +73,6 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
    padding-left: calc(var(--navigation-size) + var(--padding));
 }
 
-
-
-
-
 .container_image {
    display: flex;
 }
@@ -85,20 +86,16 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
 #title {
    font-size: 2rem;
    font-weight: 700;
-   color: var(--color-blue) !important;
+   color: var(--color-blue);
 }
 
 #title-orange {
    color: var(--color-orange);
 }
 
-
-
 #test {
    display: flex;
 }
-
-
 
 #right-container {
    min-width: 80%;
@@ -106,7 +103,6 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
    flex-direction: column;
    gap: 50px;
 }
-
 
 .container {
    border-radius: 15px;
@@ -123,7 +119,6 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
 .fav-chart {
    max-height: 50%;
 }
-
 
 .info {
    height: 50%;
@@ -144,9 +139,6 @@ button, input[type="button"], input[type="submit"], input[type="reset"] {
    height: 100%;
    aspect-ratio: 1 / 1;
 }
-
-
-
 
 
 

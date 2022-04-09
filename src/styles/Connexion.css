@@ -81,6 +81,18 @@ input[type=submit] {
    color: var(--color-white);
 }
 
+.have-account-redirection {
+   text-align: center;
+   color: var(--color-grey);
+   font-weight: 200;
+}
+
+.have-account-redirection a {
+   font-size: 1.1rem;
+   color: var(--color-orange);
+   font-weight: 400;
+}
+
 .text-bottom-creator-logo {
    width: 100%;
    padding: 0;

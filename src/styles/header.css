@@ -7,7 +7,8 @@ header {
    top: 0;
    display: inline-flex;
    z-index: 10;
-   background-color: aliceblue;
+   background-color: #FEFFFF;
+   border-bottom: solid 1px var(--color-grey);
 }
 
 .header-left-side {
@@ -27,19 +28,32 @@ header {
 }
 
 .path {
-   height: 100%;
    display: flex;
    align-items: flex-end;
    flex-direction: row;
-   align-items: center;
+   align-items: baseline;
 }
 
-.path > *::after {
-   content: '/';
+.path h2,
+.path p {
+   cursor: default;
+}
+
+.path > p {
+   font-size: 1.1rem;
+   color: var(--color-blue);
+   font-weight: 200;
    padding: 0px 10px;
 }
 
-.path > *:last-child::after {
-   content: '';
-   padding: 0px;
+.path > a {
+   font-weight: 400;
+   font-size: 1.2rem;
+   color: var(--color-grey);
+   transition: color 200ms;
+}
+
+.path > a:hover {
+   color: var(--color-orange);
+   text-decoration: underline;
 }

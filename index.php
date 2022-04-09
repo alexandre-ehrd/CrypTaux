@@ -36,43 +36,16 @@
                      }
                   ?>
                </h2>
+               <p>></p>
                <a href="#">Tableau de bord</a>
             </div>
          </div>
       </header>
-      <hr>
       <section class="contenu">
          <?php
             require('side_navigation.php');
             sideNavigationCreate(0);
          ?>
-         <!-- <aside class="side-navigation">
-            <nav>
-               <ul id="navigation-list">
-                  <li class="select">
-                     <i class="bi bi-grid"></i>
-                     <p>Tableau de bord</p>
-                  </li>
-                  <li>
-                     <i class="bi bi-suit-heart"></i>
-                     <p>Fav's</p>
-                  </li>
-                  <li>
-                     <i class="bi bi-wallet"></i>
-                     <p>Mon portefeuille</p>
-                  </li>
-                  <li>
-                     <i class="bi bi-arrow-left-right"></i>
-                     <p>Échanges</p>
-                  </li>
-               </ul>
-            </nav>
-            <a href="connexion.php" >
-               <i class="bi bi-box-arrow-left"></i>
-               Se déconnecter
-            </a>
-         </aside> -->
-
          <div class="contenu-wrapper">
             <div class="tableau-bord-wrapper">
 
