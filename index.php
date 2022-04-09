@@ -46,6 +46,7 @@
             require('side_navigation.php');
             sideNavigationCreate(0);
          ?>
+
          <div class="contenu-wrapper">
             <div class="tableau-bord-wrapper">
 
@@ -90,20 +91,8 @@
                      ?>
                   </div>
                </div>
-
-               <input id="search-bar" type="text" name="" id="">
-               
-               <p id="log"></p>
-
-               </div>
-               
-               
-            
             </div>
-
-            
-            
-
+         </div>
       </section>
 
 

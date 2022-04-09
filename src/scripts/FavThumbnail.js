@@ -41,6 +41,7 @@ function fetchData(URL, element) {
 
                // Ajouter le logo dans la thumbnail
                var logoURL = `https://api.coingecko.com/api/v3/coins/${element.id}`;
+               
                fetch(logoURL).then(response => {
                   if (response.ok){
                      response.json().then(response => {

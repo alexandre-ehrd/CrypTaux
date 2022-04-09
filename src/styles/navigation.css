@@ -26,9 +26,11 @@ nav {
    cursor: pointer;
    padding: 10px 20px;
    border-radius: 15px;
+}
+
+#navigation-list li > a {
    display: flex;
    align-items: center;
-
 }
 
 #navigation-list li p{
@@ -40,19 +42,19 @@ nav {
    color: var(--color-black);
 }
 
-#navigation-list li > i {
+#navigation-list li i {
    margin-right: 10px;
    font-size: 24px;
    color: var(--color-grey);
 }
 
-.select {
+.navigation-list-item-select {
    background-color: var(--color-dark-grey);
    box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
    -webkit-box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
    -moz-box-shadow: 2px 12px 9px -6px rgba(0,0,0,0.15);
 }
 
-.select > * {
+.navigation-list-item-select a > * {
    color: var(--color-white) !important;
 }
