@@ -51,8 +51,12 @@
             <div class="tableau-bord-wrapper">
 
                <div class="dashboard-favs">
-
-                  <h3>Fav's</h3>
+                  <div class="title-tableau-bord">
+                     <h3>Fav's</h3>
+                     <a href="favs.php">
+                        <i class="bi bi-chevron-right"></i>
+                     </a>
+                  </div>
                   <div class="dashboard-favs-container">
 
                      <?php 
@@ -86,7 +90,7 @@
                         }
                      }
                      else {
-                        echo "Pour voir vos Fav's vous devez être administrateur...";
+                        echo "Vous devez être administrateur... ✨";
                      }
                      ?>
                   </div>

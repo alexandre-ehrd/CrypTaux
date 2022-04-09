@@ -1,6 +1,16 @@
 @import './style.css';
 
 
+.title-tableau-bord {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.title-tableau-bord a {
+   color: var(--color-grey);
+}
+
 .container {
    background-color: #c7f4cf;
 }
@@ -16,4 +26,3 @@
    font-size: 0.5em;
    font-weight: 800;
 }
-
