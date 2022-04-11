@@ -33,7 +33,7 @@
                   <i id="icon-eye-show" class="bi bi-eye"></i>
                   <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                </div>
-               <!-- <?php
+               <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
                   
@@ -61,7 +61,7 @@
                      echo "L'adresse e-mail n'est pas valide ❌";
                   }
                }
-               ?> -->
+               ?>
                <div class="form-input">
                   <input type="submit" value="S'inscrire">
                   <p class="have-account-redirection">Vous avez déjà un compte ? <a href="connexion.php">Connectez-vous</a></p>

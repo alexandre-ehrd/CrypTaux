@@ -29,7 +29,7 @@
                   <i id="icon-eye-show" class="bi bi-eye"></i>
                   <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                </div>
-               <!-- <?php
+               <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
                   // Récupérer les données du formulaire
@@ -63,7 +63,7 @@
                      echo "Adresse mail inconnue ❌";
                   }
                }
-               ?> -->
+               ?>
                <div class="form-input">
                   <input type="submit" value="Se connecter">
                   <p class="have-account-redirection">Vous n'avez pas de compte ? <a href="inscription.php">Inscrivez-vous</a></p>
