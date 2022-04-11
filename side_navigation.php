@@ -1,6 +1,6 @@
 <?php 
 
-function sideNavigationCreate($selected)
+function sideNavigationCreateElement($selected)
 {
    echo "
    <aside class='side-navigation'>
@@ -41,5 +41,3 @@ function sideNavigationCreate($selected)
 }
 
 ?>
-
-<a href=""></a>

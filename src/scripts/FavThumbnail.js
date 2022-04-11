@@ -1,15 +1,21 @@
 const allThumbnail = document.getElementsByClassName('container');
 
-console.log(allThumbnail);
 
 
 async function requestThumbnail(){
    for (thumbnail of allThumbnail) {
       // Appeler la fonction qui remplie le tableau
       await fetchData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
+      thumbnail.addEventListener("click", function() {
+         openCryptocurrency(this.id);
+      });
    }
 }
 
+function openCryptocurrency(id) {
+   console.log(id);
+   window.open("cryptocurrency.php?id="+id, "_self");
+}
 
 function fetchData(URL, element) {
    return new Promise((resolve, reject) => {
@@ -19,8 +25,7 @@ function fetchData(URL, element) {
                historic_price = response['prices'];
                legende = Object.keys(historic_price)
                historic_price = historic_price.map(x => x[1])
-               var canvas_element = element.getElementsByTagName('canvas')[0];
-               createChart(canvas_element, historic_price, legende)
+               
                
                value_depart = historic_price[0];
                value_arrive = historic_price[historic_price.length-1];
@@ -50,6 +55,11 @@ function fetchData(URL, element) {
                      })
                   }
                })
+
+               thumbnail.style.visibility = 'visible';
+              
+               var canvas_element = element.getElementsByTagName('canvas')[0];
+               createChart(canvas_element, historic_price, legende)
 
                
 

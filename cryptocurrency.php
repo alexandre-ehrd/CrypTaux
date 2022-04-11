@@ -8,12 +8,21 @@
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-      <title>Cryptaux</title>
-      <link rel="stylesheet" href="src/styles/style.css">
-      <link rel="stylesheet" href="src/styles/header.css">
-      <link rel="stylesheet" href="src/styles/navigation.css">
-      <link rel="stylesheet" href="src/styles/dashboard.css">
       <?php
+         // Récupérer l'URL de la page
+         $url = $_SERVER['REQUEST_URI'];
+         // La fonction parse retourne un tableau associatif qui contient les différents composants de l'URL
+         $url_components = parse_url($url);
+         parse_str($url_components['query'], $urlQuery);
+         $idCryptocurrency = $urlQuery['id'];
+
+         // Impossible d'accéder à la cryptomonnaie demandée
+         if (!isset($idCryptocurrency)) {
+            header("Location: favs.php");
+            exit();
+         }
+
+         // Récupérer les données de l'utilisateur
          session_start();
          
          // Impossible d'accéder à la session de l'utilisateur
@@ -23,12 +32,20 @@
             exit();
          }
       ?>
+      <title>
+         Cryptaux - <?php echo $idCryptocurrency ?>
+      </title>
+      <link rel="stylesheet" href="src/styles/style.css">
+      <link rel="stylesheet" href="src/styles/header.css">
+      <link rel="stylesheet" href="src/styles/navigation.css">
+      <link rel="stylesheet" href="src/styles/dashboard.css">
    </head>
    <body>
       <?php
          require('header.php');
          $array = [
             "Fav's" => "favs.php",
+            $idCryptocurrency => $url,
          ];
          headerCreateElement($_SESSION['username'], $array);
       ?>
@@ -37,12 +54,6 @@
             require('side_navigation.php');
             sideNavigationCreateElement(1);
          ?>
-         <div class="contenu-wrapper">
-            <div class="tableau-bord-wrapper">
-               <input id="search-bar" type="text" name="" id="">
-               <p id="log"></p>
-            </div>
-         </div>
       </section>
 
 

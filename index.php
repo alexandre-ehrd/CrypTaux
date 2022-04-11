@@ -13,38 +13,29 @@
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/dashboard.css">
-      <?php session_start();?>
+      <?php
+         session_start();
+         
+         // Impossible d'accéder à la session de l'utilisateur
+         if (!isset($_SESSION['username'])) {
+            // Redirigier l'utilisateur vers la page de connexion
+            header("Location: connexion.php");
+            exit();
+         }
+      ?>
    </head>
    <body>
-      <header>
-         <div class="header-left-side">
-            <a href="connexion.html">
-               <h1 id="title">Cryp<span id="title-orange">taux</span>.</h1>
-            </a>
-         </div>
-         <div class="header-right-side">
-            <div class="path">
-               <h2 id='path-username'>
-                  <?php
-                     if (isset($_SESSION['username'])) {
-                        echo $_SESSION['username'];
-                     }
-                     else {
-                        // Impossible d'accéder à la session de l'utilisateur
-                        header("Location: connexion.php");
-                        exit();
-                     }
-                  ?>
-               </h2>
-               <p>></p>
-               <a href="#">Tableau de bord</a>
-            </div>
-         </div>
-      </header>
+      <?php
+         require('header.php');
+         $array = [
+            "Tableau de bord" => "index.php",
+         ];
+         headerCreateElement($_SESSION['username'], $array);
+      ?>
       <section class="contenu">
          <?php
             require('side_navigation.php');
-            sideNavigationCreate(0);
+            sideNavigationCreateElement(0);
          ?>
 
          <div class="contenu-wrapper">
@@ -71,7 +62,7 @@
                            [$name, $symbol] = [$fav[0], $fav[1]];
                            // Créer une vignette de monnaie favorite
                            echo "
-                           <div class='container' id='$name'>
+                           <div class='container' id='$name' style='visibility: hidden;'>
                               <div class='info'>
                                  <div class='info-logo'>
                                     <img src='' alt='$name'>

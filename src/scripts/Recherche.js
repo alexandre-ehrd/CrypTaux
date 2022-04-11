@@ -3,6 +3,9 @@ const log = document.getElementById('log');
 
 input.addEventListener('input', updateValue);
 
+var t = ""
+console.log("alex");
+
 function updateValue(e) {
    // La longueur du texte dans le champs de recherche n'est pas nulle
    if (e.target.value.length > 0) {
@@ -18,9 +21,13 @@ function updateValue(e) {
                // Vider le texte de log
                log.innerHTML = "";
                for (let i = 0; i < listCrypto.length; i++) {
+                  t += `${listCrypto[i]["id"]},${listCrypto[i]["symbol"]}/`;
+                  
                   log.innerHTML += listCrypto[i]["name"] + ` [${listCrypto[i]["symbol"]}]`+ "<br>";
                }
+               console.log(t);
             })
+            
          }
          else {
             console.error("Erreur : Pas d'accès aux données");
@@ -31,3 +38,4 @@ function updateValue(e) {
       log.innerHTML = "";
    }
 }
+

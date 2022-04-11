@@ -50,7 +50,10 @@
                      // L'adresse mail ne se trouve pas encore dans la BDD
                      if ($count == 0) {
                         $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '')");
-                        $_SESSION['username'] = $username;
+                        
+                        $_SESSION['username'] = $username_user;
+                        $_SESSION['favs'] = '';
+
                         // Changer de page
                         header("Location: index.php");
                      } else {
