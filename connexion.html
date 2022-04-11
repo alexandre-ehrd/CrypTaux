@@ -20,9 +20,12 @@
             <form method="post">
                <h1 id="form-title">Connexion</h1>
                <div class="form-input">
-                  <label for="username">Adresse mail</label>
                   <input class="user-input" type="mail" name="mail" placeholder="Adresse mail" value=""  required="required">
+                  <label for="username">Adresse mail</label>
                </div>
+
+
+
                <div class="form-input">   
                   <label for="password">Mot de passe</label>
                   <div class="user-input password-input">
@@ -31,7 +34,7 @@
                      <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                   </div>
                </div>
-               <?php
+               <!-- <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
                   // Récupérer les données du formulaire
@@ -65,7 +68,7 @@
                      echo "Adresse mail inconnue ❌";
                   }
                }
-               ?>
+               ?> -->
                <div class="form-input">
                   <input type="submit" value="Se connecter">
                   <p class="have-account-redirection">Vous n'avez pas de compte ? <a href="inscription.php">Inscrivez-vous</a></p>
@@ -77,7 +80,7 @@
       <div id="hero-banner">
          <div class="hero-banner-container">
             <h2 id="hero-banner-slogan">L’outil ultime<br>pour les<br>crypto-monnaies.</h2>
-            <p id="hero-banner-text">Consultez en <span style="color: var(--color-orange);">un coup d’œil</span> le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre porté dans une interface moderne. </p>
+            <p id="hero-banner-text">Consultez en <span style="color: var(--color-orange);">un coup d’œil</span> le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre portée dans une interface moderne. </p>
          </div>
          <p id="title" class="text-bottom-creator-logo">Cryp<span id="title-orange">taux</span>.</p>
       </div>

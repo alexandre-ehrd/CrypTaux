@@ -22,7 +22,7 @@ nav {
 }
 
 #navigation-list li {
-   margin-top: 20px;
+   margin-bottom: 20px;
    cursor: pointer;
    padding: 10px 20px;
    border-radius: 15px;
