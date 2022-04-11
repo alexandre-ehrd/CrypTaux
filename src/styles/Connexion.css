@@ -40,30 +40,67 @@ form {
 .form-input {
    display: flex;
    flex-direction: column;
+   position: relative;
 }
 
 .user-input {
+   height: 50px;
    padding: 10px 15px;
    background-color: transparent;
    border: 2px solid var(--color-grey);
    box-sizing: border-box;
    border-radius: 8px;
+   font-size: 1rem;
+   transition: border 200ms;
 }
-.user-input:focus , .password-input input:focus {
+.user-input:focus{
    outline: none;
+   border: 2px solid var(--color-blue);
+}
+.password-input-focus {
+   border: 2px solid var(--color-blue) !important;
 }
 
-.password-input {
-   width: 100%;
-   display: flex;
-   justify-content: space-between;
-   gap: 5px;
+.user-input ~ label {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   font-size: 0.8rem;
+   color: var(--color-grey);
+   padding: 0 3px;
+   margin-left: 12px;
+   pointer-events: none;
+   background-color: var(--color-background-grey);
+   transition: all 200ms;
 }
 
-.password-input input {
-   width: 100%;
-   background-color: transparent;
+.user-input:focus ~ label,
+.user-input:valid ~ label {
+   top: 0;
+}
+
+.user-input:focus ~ label{
+   color: var(--color-blue);
+}
+
+#password-input {
+   border: 2px solid var(--color-grey);
+   border-radius: 8px;
+   transition: border 200ms;
+}
+
+#password-input input {
+   width: 94%;
    border: none;
+}
+
+#password-input i {
+   visibility: hidden;
+   position: absolute;
+   top: 50%;
+   right: 15px;
+   transform: translateY(-50%);
+   color: var(--color-grey);
 }
 
 #icon-eye-hide {
@@ -74,11 +111,23 @@ input[type=submit] {
    padding: 15px;
    margin-top: 65px;
    margin-bottom: 10px;
-   background-color: var(--color-blue);
+   background-color: var(--color-orange);
    border: none;
    border-radius: var(--border-radius-small);
    font-size: 15px;
    color: var(--color-white);
+}
+
+.have-account-redirection {
+   text-align: center;
+   color: var(--color-grey);
+   font-weight: 200;
+}
+
+.have-account-redirection a {
+   font-size: 1.1rem;
+   color: var(--color-orange);
+   font-weight: 400;
 }
 
 .text-bottom-creator-logo {

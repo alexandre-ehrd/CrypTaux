@@ -20,22 +20,20 @@
             <form method="post">
                <h1 id="form-title">Inscription</h1>
                <div class="form-input">
+                  <input class="user-input" type="text" name="username" value="" required="required" autocomplete="email" autofocus>
                   <label for="username">Nom d’utilisateur</label>
-                  <input class="user-input" type="text" name="username" placeholder="Nom d'utilisateur" value=""  required="required">
                </div>
                <div class="form-input">
+                  <input class="user-input" type="mail" name="mail" value="" required="required" autocomplete="email">
                   <label for="username">Adresse mail</label>
-                  <input class="user-input" type="mail" name="mail" placeholder="Adresse mail" value=""  required="required">
                </div>
-               <div class="form-input">   
+               <div class="form-input" id="password-input">   
+                  <input class="user-input" type="password" name="password" value=""  required="required">
                   <label for="password">Mot de passe</label>
-                  <div class="user-input password-input">
-                     <input type="password" name="password" placeholder="Mot de passe" value=""  required="required">
-                     <i id="icon-eye-show" class="bi bi-eye"></i>
-                     <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
-                  </div>
+                  <i id="icon-eye-show" class="bi bi-eye"></i>
+                  <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                </div>
-               <?php
+               <!-- <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
                   
@@ -63,10 +61,10 @@
                      echo "L'adresse e-mail n'est pas valide ❌";
                   }
                }
-               ?>
+               ?> -->
                <div class="form-input">
                   <input type="submit" value="S'inscrire">
-                  <p style="text-align: center;">Vous avez déjà un compte ? <a  href="connexion.php">Connectez-vous</a></p>
+                  <p class="have-account-redirection">Vous avez déjà un compte ? <a href="connexion.php">Connectez-vous</a></p>
                </div>
             </form>
             
@@ -76,7 +74,7 @@
       <div id="hero-banner">
          <div class="hero-banner-container">
             <h2 id="hero-banner-slogan">L’outil ultime<br>pour les<br>crypto-monnaies.</h2>
-            <p id="hero-banner-text">Consultez en <span style="color: var(--color-orange);">un coup d’œil</span> le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre porté dans une interface moderne. </p>
+            <p id="hero-banner-text">Consultez en un coup d’œil le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre portée dans une interface moderne. </p>
          </div>
          <p id="title" class="text-bottom-creator-logo">Cryp<span id="title-orange">taux</span>.</p>
       </div>
