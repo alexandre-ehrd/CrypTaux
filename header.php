@@ -11,7 +11,7 @@ function headerCreateElement($username, $path)
    echo "
    <header>
          <div class='header-left-side'>
-            <a href='index.html'>
+            <a href='index.php'>
                <h1 id='title'>Cryp<span id='title-orange'>taux</span>.</h1>
             </a>
          </div>
