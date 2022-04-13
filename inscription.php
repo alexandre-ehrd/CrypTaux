@@ -67,7 +67,7 @@
                ?>
                <div class="form-input">
                   <input type="submit" value="S'inscrire">
-                  <p class="have-account-redirection">Vous avez déjà un compte ? <a href="connexion.html">Connectez-vous</a></p>
+                  <p class="have-account-redirection">Vous avez déjà un compte ? <a href="connexion.php">Connectez-vous</a></p>
                </div>
             </form>
             

@@ -66,7 +66,7 @@
                ?>
                <div class="form-input">
                   <input type="submit" value="Se connecter">
-                  <p class="have-account-redirection">Vous n'avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a></p>
+                  <p class="have-account-redirection">Vous n'avez pas de compte ? <a href="inscription.php">Inscrivez-vous</a></p>
                </div>
             </form>
             <p class="text-bottom-creator-logo">EHRHARD Alexandre & ECKSTEIN Théo</p>

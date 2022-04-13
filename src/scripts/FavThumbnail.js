@@ -74,7 +74,6 @@ async function fetchDB(URL, element) {
                
                let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
                let imageURL = response['image']['small'];
-               console.log(imageURL);
                 
                img.src = googleProxyURL + encodeURIComponent(imageURL);
 
@@ -83,27 +82,7 @@ async function fetchDB(URL, element) {
                   console.log(color, element.id);
                   element.style.backgroundColor = `rgba(${color}, 0.3)`;
                });
-
-               // img.src = response['image']['small'];
                
-               
-
-               /* img.crossOrigin = "Anonymous";
-
-               
-               const colorThief = new ColorThief();
-               
-               // Make sure image is finished loading
-               if (img.complete) {
-                  console.log(colorThief.getColor(img));
-               } 
-               else {
-                  img.addEventListener('load', function() {
-                     console.log(colorThief.getColor(img));
-                 });
-               } */
-
-
                // Nom et symbole
                var cryptocurrencyName = response['name'];
                var cryptocurrencySymbol = response['symbol'];
@@ -185,26 +164,6 @@ function createChart(element, data, legende) {
    });
 }
 
+console.log("test")
+
 requestThumbnail();
-
-/* const img = document.getElementById('IMGTEST');
-const DIVCanvas = document.querySelector('.IMGCanvas');
-
-console.log(DIVCanvas)
-
-
-
-// Make sure image is finished loading
-if (img.complete) {
-   console.log("IMAGE CHARGEE");
-   console.log(colorThief.getColor(img));
-} 
-else {
-   console.log("IMAGE NON CHARGEE");
-   img.addEventListener('load', function() {
-      console.log(colorThief.getColor(img));
-      DIVCanvas.style.backgroundColor = `rgba(${colorThief.getColor(img)}, 0.5)`;
-
-  });
-}
- */
