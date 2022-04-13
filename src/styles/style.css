@@ -26,6 +26,7 @@
    --navigation-size: 20%;
 }
 
+
 body {
    background-color: var(--color-backgroud-white);
 }
@@ -56,6 +57,11 @@ hr {
    border: none;
    border-top: 1px solid var(--color-grey);
 }
+
+
+
+
+
 
 
 .contenu {

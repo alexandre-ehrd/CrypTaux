@@ -8,7 +8,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-      <title>Cryptaux - Inscription</title>
+      <title>Cryptaux - Connexion</title>
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/Connexion.css">
       <?php session_start();?>
@@ -18,59 +18,57 @@
       <aside>
          <section class="form-container">
             <form method="post">
-               <h1 id="form-title">Inscription</h1>
+               <h1 id="form-title">Connexion</h1>
                <div class="form-input">
-                  <input class="user-input" type="text" name="username" value="" required="required" autocomplete="email" autofocus>
-                  <label for="username">Nom d’utilisateur</label>
-               </div>
-               <div class="form-input">
-                  <input class="user-input" type="mail" name="mail" value="" required="required" autocomplete="email">
+                  <input class="user-input" type="mail" name="mail" placeholder="" value="" required="required" autofocus>
                   <label for="username">Adresse mail</label>
                </div>
                <div class="form-input" id="password-input">   
-                  <input class="user-input" type="password" name="password" value=""  required="required">
+                  <input class="user-input" type="password" name="password" value="" required="required">
                   <label for="password">Mot de passe</label>
                   <i id="icon-eye-show" class="bi bi-eye"></i>
                   <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                </div>
-               <!-- <?php
+               <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
-                  
                   // Récupérer les données du formulaire
                   $mail_user = $_POST["mail"];
-                  $username_user = $_POST["username"];
-                  $password_user = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hashage du mot de passe
-                  
-                  // L'adresse mail possède le bon format
-                  if(filter_var($mail_user, FILTER_VALIDATE_EMAIL)){
-                     $result = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'");
-                     $count = $result->fetchColumn();
+                  $password_user = $_POST["password"];
 
-                     // L'adresse mail ne se trouve pas encore dans la BDD
-                     if ($count == 0) {
-                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '')");
+                  // La personne est-elle dans la base de données ?
+                  $is_inscrit = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'")->fetchColumn();
+                  
+                  if ($is_inscrit > 0) {                     
+                     $reponse=$db->query("SELECT password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                     $password = $reponse[0]->password;
+                  
+                     if (password_verify($password_user, $password)) {
+                        // Accéder au nom d'utilisateur et aux favs
+                        $reponse=$db->query("SELECT username, favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
                         
-                        $_SESSION['username'] = $username_user;
-                        $_SESSION['favs'] = '';
+                        $username = $reponse[0]->username;
+                        $favs = $reponse[0]->favs;
+
+                        $_SESSION['username'] = $username;
+                        $_SESSION['favs'] = $favs;
 
                         // Changer de page
                         header("Location: index.php");
+                        exit();
                      } else {
-                        // Rediriger l'utilisateur vers la page de connexion
-                        header("Location: connexion.php");
+                        echo "Mot de passe incorrect ❌";
                      }
-                  } else{
-                     echo "L'adresse e-mail n'est pas valide ❌";
+                  } else {
+                     echo "Adresse mail inconnue ❌";
                   }
                }
-               ?> -->
+               ?>
                <div class="form-input">
-                  <input type="submit" value="S'inscrire">
-                  <p class="have-account-redirection">Vous avez déjà un compte ? <a href="connexion.html">Connectez-vous</a></p>
+                  <input type="submit" value="Se connecter">
+                  <p class="have-account-redirection">Vous n'avez pas de compte ? <a href="inscription.html">Inscrivez-vous</a></p>
                </div>
             </form>
-            
             <p class="text-bottom-creator-logo">EHRHARD Alexandre & ECKSTEIN Théo</p>
          </section>
       </aside>
