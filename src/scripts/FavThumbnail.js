@@ -1,32 +1,34 @@
 const allThumbnail = document.getElementsByClassName('container');
-
+const colorThief = new ColorThief();
 
 
 async function requestThumbnail(){
    for (thumbnail of allThumbnail) {
       // Appeler la fonction qui remplie le tableau
-      await fetchData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
-      thumbnail.addEventListener("click", function() {
-         openCryptocurrency(this.id);
-      });
+      await fetchHistoricData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
+      await fetchDB(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}`, thumbnail)
    }
 }
 
-function openCryptocurrency(id) {
+function openCryptocurrency(id, symbol, name) {
    console.log(id);
-   window.open("cryptocurrency.php?id="+id, "_self");
+   window.open(`cryptocurrency.php?name=${name}&symbol=${symbol}&id=${id}`, "_self");
 }
 
-function fetchData(URL, element) {
+
+async function fetchHistoricData(URL, element) {
    return new Promise((resolve, reject) => {
-      fetch(URL).then(response => {
+      fetch(URL)
+      .then(response => {
          if (response.ok){
             response.json().then(response => {
-               historic_price = response['prices'];
-               legende = Object.keys(historic_price)
+               var historic_price = response['prices'];
                historic_price = historic_price.map(x => x[1])
                
-               
+               var legende = Object.keys(historic_price)
+
+
+
                value_depart = historic_price[0];
                value_arrive = historic_price[historic_price.length-1];
                taux = ( (value_arrive-value_depart) / value_depart) * 100;
@@ -39,30 +41,11 @@ function fetchData(URL, element) {
                   taux_element.innerHTML = `${taux.toFixed(2)}%`;
                }
 
-               var price_element = element.querySelector('.fav-price');
-               price_element.innerHTML = `${value_arrive.toFixed(7)}$`;
-
-
-
-               // Ajouter le logo dans la thumbnail
-               var logoURL = `https://api.coingecko.com/api/v3/coins/${element.id}`;
-               
-               fetch(logoURL).then(response => {
-                  if (response.ok){
-                     response.json().then(response => {
-                        var img = element.getElementsByTagName('img')[0];
-                        img.src = response['image']['small'];
-                     })
-                  }
-               })
-
-               thumbnail.style.visibility = 'visible';
-              
                var canvas_element = element.getElementsByTagName('canvas')[0];
                createChart(canvas_element, historic_price, legende)
 
-               
-
+               var price_element = element.querySelector('.fav-price');
+               price_element.innerHTML = `${value_arrive.toFixed(7)}$`;
 
                resolve();
             })
@@ -72,6 +55,77 @@ function fetchData(URL, element) {
             reject();
          }
       })
+      .catch((error) => {
+         console.log("Trop de requetes");
+         reject();
+      });
+   })
+}
+
+
+async function fetchDB(URL, element) {
+   return new Promise((resolve, reject) => {
+      fetch(URL)
+      .then(response => {
+         if (response.ok){
+            response.json().then(response => {
+               // Image
+               var img = element.getElementsByTagName('img')[0];
+               
+               let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+               let imageURL = response['image']['small'];
+               console.log(imageURL);
+                
+               img.src = googleProxyURL + encodeURIComponent(imageURL);
+
+               img.addEventListener('load', function() {
+                  var color = colorThief.getColor(img);
+                  console.log(color, element.id);
+                  element.style.backgroundColor = `rgba(${color}, 0.3)`;
+               });
+
+               // img.src = response['image']['small'];
+               
+               
+
+               /* img.crossOrigin = "Anonymous";
+
+               
+               const colorThief = new ColorThief();
+               
+               // Make sure image is finished loading
+               if (img.complete) {
+                  console.log(colorThief.getColor(img));
+               } 
+               else {
+                  img.addEventListener('load', function() {
+                     console.log(colorThief.getColor(img));
+                 });
+               } */
+
+
+               // Nom et symbole
+               var cryptocurrencyName = response['name'];
+               var cryptocurrencySymbol = response['symbol'];
+               element.style.visibility = 'visible';
+               
+
+               element.addEventListener("click", function() {
+                  openCryptocurrency(element.id, cryptocurrencySymbol, cryptocurrencyName);
+               });
+
+               resolve();
+            })
+         }
+         else{
+            console.error(`Impossible d'accéder à l'Api CoinGecko`);
+            reject();
+         }
+      })
+      .catch((error) => {
+         console.log("Trop de requetes");
+         reject();
+      });
    })
 }
 
@@ -131,6 +185,26 @@ function createChart(element, data, legende) {
    });
 }
 
-
-
 requestThumbnail();
+
+/* const img = document.getElementById('IMGTEST');
+const DIVCanvas = document.querySelector('.IMGCanvas');
+
+console.log(DIVCanvas)
+
+
+
+// Make sure image is finished loading
+if (img.complete) {
+   console.log("IMAGE CHARGEE");
+   console.log(colorThief.getColor(img));
+} 
+else {
+   console.log("IMAGE NON CHARGEE");
+   img.addEventListener('load', function() {
+      console.log(colorThief.getColor(img));
+      DIVCanvas.style.backgroundColor = `rgba(${colorThief.getColor(img)}, 0.5)`;
+
+  });
+}
+ */

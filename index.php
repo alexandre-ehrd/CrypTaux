@@ -48,6 +48,7 @@
                         <i class="bi bi-chevron-right"></i>
                      </a>
                   </div>
+                  
                   <div class="dashboard-favs-container">
 
                      <?php 
@@ -65,7 +66,7 @@
                            <div class='container' id='$name' style='visibility: hidden;'>
                               <div class='info'>
                                  <div class='info-logo'>
-                                    <img src='' alt='$name'>
+                                    <img src='' alt='$name' crossorigin='anonymous'>
                                  </div>
                                  <div class='info-price-name'>
                                     <p class='fav-price'></p>
@@ -139,8 +140,8 @@
 
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
-      <script src="src/scripts/Recherche.js"></script>
       <script src="src/scripts/FavThumbnail.js"></script>
       <script src="src/scripts/App.js"></script>
 

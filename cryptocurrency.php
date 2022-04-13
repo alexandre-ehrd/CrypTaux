@@ -14,6 +14,8 @@
          // La fonction parse retourne un tableau associatif qui contient les différents composants de l'URL
          $url_components = parse_url($url);
          parse_str($url_components['query'], $urlQuery);
+         $nameCryptocurrency = $urlQuery['name'];
+         $symbolCryptocurrency = $urlQuery['symbol'];
          $idCryptocurrency = $urlQuery['id'];
 
          // Impossible d'accéder à la cryptomonnaie demandée
@@ -33,7 +35,7 @@
          }
       ?>
       <title>
-         Cryptaux - <?php echo $idCryptocurrency ?>
+         Cryptaux - <?php echo $nameCryptocurrency ?>
       </title>
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
@@ -45,7 +47,7 @@
          require('header.php');
          $array = [
             "Fav's" => "favs.php",
-            $idCryptocurrency => $url,
+            $nameCryptocurrency => $url,
          ];
          headerCreateElement($_SESSION['username'], $array);
       ?>

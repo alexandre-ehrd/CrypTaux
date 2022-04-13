@@ -10,18 +10,18 @@ function headerCreateElement($username, $path)
 
    echo "
    <header>
-         <div class='header-left-side'>
-            <a href='index.html'>
-               <h1 id='title'>Cryp<span id='title-orange'>taux</span>.</h1>
-            </a>
+      <div class='header-left-side'>
+         <a href='index.php'>
+            <h1 id='title'>Cryp<span id='title-orange'>taux</span>.</h1>
+         </a>
+      </div>
+      <div class='header-right-side'>
+         <div class='path'>
+            <h2 id='path-username'>$username</h2>
+            $pathElement
          </div>
-         <div class='header-right-side'>
-            <div class='path'>
-               <h2 id='path-username'>$username</h2>
-               $pathElement
-            </div>
-         </div>
-      </header>
+      </div>
+   </header>
    ";
 }
 
