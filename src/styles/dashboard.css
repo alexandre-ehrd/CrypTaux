@@ -1,6 +1,10 @@
 @import './style.css';
 
 
+.dashboard-favs {
+   width: 100%;
+}
+
 .title-tableau-bord {
    display: flex;
    align-items: center;
@@ -11,8 +15,42 @@
    color: var(--color-grey);
 }
 
-.container {
-   background-color: #c7f4cf;
+.dashboard-favs-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+}
+
+.thumbnail-currency {
+   border-radius: 15px;
+   width: 25%;
+   min-width: 300px;
+   height: 150px;
+   
+   display: flex;
+   flex-direction: column;
+   overflow: hidden;
+   background-color: #9ed6ec;
+}
+
+.info-currency {
+   height: 50%;
+   padding: 15px;
+   display: flex;
+   gap: 10px;
+}
+
+.info-logo-currency {
+   width: fit-content;
+   height: 100%;
+   border-radius: 15px;
+   background-color: #000000;
+   padding: 10px;
+}
+
+.info-logo-currency > img {
+   height: 100%;
+   aspect-ratio: 1 / 1;
 }
 
 .fav-symbol {
@@ -21,8 +59,11 @@
    color: var(--color-grey);
 }
 
-
 .fav-taux {
    font-size: 0.5em;
    font-weight: 800;
+}
+
+.fav-chart {
+   max-height: 50%;
 }
