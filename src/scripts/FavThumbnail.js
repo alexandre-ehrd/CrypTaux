@@ -1,6 +1,8 @@
-const allThumbnail = document.getElementsByClassName('container');
+const allThumbnail = document.getElementsByClassName('thumbnail-currency');
+
 const colorThief = new ColorThief();
 
+requestThumbnail();
 
 async function requestThumbnail(){
    for (thumbnail of allThumbnail) {
@@ -10,10 +12,7 @@ async function requestThumbnail(){
    }
 }
 
-function openCryptocurrency(id, symbol, name) {
-   console.log(id);
-   window.open(`cryptocurrency.php?name=${name}&symbol=${symbol}&id=${id}`, "_self");
-}
+
 
 
 async function fetchHistoricData(URL, element) {
@@ -25,10 +24,8 @@ async function fetchHistoricData(URL, element) {
                var historic_price = response['prices'];
                historic_price = historic_price.map(x => x[1])
                
-               var legende = Object.keys(historic_price)
-
-
-
+               var legende = Object.keys(historic_price);
+               
                value_depart = historic_price[0];
                value_arrive = historic_price[historic_price.length-1];
                taux = ( (value_arrive-value_depart) / value_depart) * 100;
@@ -74,12 +71,10 @@ async function fetchDB(URL, element) {
                
                let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
                let imageURL = response['image']['small'];
-                
                img.src = googleProxyURL + encodeURIComponent(imageURL);
 
                img.addEventListener('load', function() {
                   var color = colorThief.getColor(img);
-                  console.log(color, element.id);
                   element.style.backgroundColor = `rgba(${color}, 0.3)`;
                });
                
@@ -107,6 +102,13 @@ async function fetchDB(URL, element) {
       });
    })
 }
+
+
+function openCryptocurrency(id, symbol, name) {
+   console.log(id);
+   window.open(`cryptocurrency.php?name=${name}&symbol=${symbol}&id=${id}`, "_self");
+}
+
 
 function createChart(element, data, legende) {
    const myChart = new Chart(element, {
@@ -163,7 +165,3 @@ function createChart(element, data, legende) {
       }
    });
 }
-
-console.log("test")
-
-requestThumbnail();
