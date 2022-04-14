@@ -42,38 +42,39 @@
                <input id="search-bar" type="text" name="" id="">
                <p id="log"></p>
             </div>
-
-            <?php 
-               if (isset($_SESSION['favs']) && $_SESSION['favs'] != '') {
-                  $favs = $_SESSION['favs'];
-                  // Séparer les monnaies
-                  $favs = explode("/", $favs);
-
-                  foreach ($favs as $fav){
-                     $fav = explode(",", $fav);
-                     [$name, $symbol] = [$fav[0], $fav[1]];
-                     // Créer une vignette de monnaie favorite
-                     echo "
-                     <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
-                        <div class='info-currency'>
-                           <div class='info-logo-currency'>
-                              <img src='' alt='$name' crossorigin='anonymous'>
+            <div class="container-thumbnail-currency">
+               <?php 
+                  if (isset($_SESSION['favs']) && $_SESSION['favs'] != '') {
+                     $favs = $_SESSION['favs'];
+                     // Séparer les monnaies
+                     $favs = explode("/", $favs);
+                     
+                     foreach ($favs as $fav){
+                        $fav = explode(",", $fav);
+                        [$name, $symbol] = [$fav[0], $fav[1]];
+                        // Créer une vignette de monnaie favorite
+                        echo "
+                        <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
+                           <div class='info-currency'>
+                              <div class='info-logo-currency'>
+                                 <img src='' alt='$name' crossorigin='anonymous'>
+                              </div>
+                              <div>
+                                 <p class='fav-price'></p>
+                                 <p class='fav-symbol'>$symbol</p>
+                              </div>
+                              <p class='fav-taux'></p>   
                            </div>
-                           <div>
-                              <p class='fav-price'></p>
-                              <p class='fav-symbol'>$symbol</p>
-                           </div>
-                           <p class='fav-taux'></p>   
+                           <canvas class='fav-chart'></canvas>
                         </div>
-                        <canvas class='fav-chart'></canvas>
-                     </div>
-                     ";
+                        ";
+                     }
                   }
-               }
-               else {
-                  echo "Vous n'avez pas de fav's";
-               }
-            ?>
+                  else {
+                     echo "Vous n'avez pas de fav's";
+                  }
+               ?>
+            </div>
 
       </section>
       
