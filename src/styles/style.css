@@ -59,12 +59,7 @@ hr {
 }
 
 
-
-
-
-
-
-.contenu {
+.container {
    width: 100%;
    min-height: 100vh;
    padding-top: var(--header-size);
@@ -72,14 +67,13 @@ hr {
    position: relative;
 }
 
-.contenu-wrapper {
+.container-page {
    width: 100%;
    height: 100vh;
    background-color: var(--color-backgroud-white);
    padding: var(--padding);
    padding-left: calc(var(--navigation-size) + var(--padding));
 }
-
 
 
 #logo {
@@ -91,6 +85,10 @@ hr {
 #logo-orange {
    color: var(--color-orange);
 }
+
+
+
+
 
 
 
@@ -135,13 +133,6 @@ hr {
 }
 
 
-
-
-
-
-
-
-
 .popover  > i {
    position: relative;
 }
@@ -154,6 +145,7 @@ hr {
    top: 0%;
    left: 50%;
    opacity: 0;
+   z-index: 15;
    transform: translateX(-50%) translateY(-100%) ;
    transition: opacity 500ms ;
 }
@@ -162,15 +154,3 @@ hr {
    visibility: visible;
    opacity: 1;
 }
-
-
-
-
-
-.IMGCanvas {
-   width: 50px;
-   height: 50px;
-   border: solid 1px #000000;
-}
-
-/* 243 */

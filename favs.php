@@ -32,74 +32,67 @@
          ];
          headerCreateElement($_SESSION['username'], $array);
       ?>
-      <section class="contenu">
+      <section class="container">
          <?php
             require('side_navigation.php');
             sideNavigationCreateElement(1);
          ?>
-         <div class="contenu-wrapper">
+         <div class="container-page">
             <div class="tableau-bord-wrapper">
                <input id="search-bar" type="text" name="" id="">
                <p id="log"></p>
             </div>
-         </div>
-      </section>
 
+            <?php 
+               if (isset($_SESSION['favs']) && $_SESSION['favs'] != '') {
+                  $favs = $_SESSION['favs'];
+                  // Séparer les monnaies
+                  $favs = explode("/", $favs);
 
-
-
-
-
-
-
-      <section class="header">
-         <div>
-
-               <!-- <div class="popover">
-                  <i class="bi bi-question-circle">
-                     <div class="popover-content-container">
-                        <h4>Lorem.</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quae rem laborum ab atque deleniti?</p>
+                  foreach ($favs as $fav){
+                     $fav = explode(",", $fav);
+                     [$name, $symbol] = [$fav[0], $fav[1]];
+                     // Créer une vignette de monnaie favorite
+                     echo "
+                     <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
+                        <div class='info-currency'>
+                           <div class='info-logo-currency'>
+                              <img src='' alt='$name' crossorigin='anonymous'>
+                           </div>
+                           <div>
+                              <p class='fav-price'></p>
+                              <p class='fav-symbol'>$symbol</p>
+                           </div>
+                           <p class='fav-taux'></p>   
+                        </div>
+                        <canvas class='fav-chart'></canvas>
                      </div>
-                  </i>
-               </div> -->
-               
-               
-               <!-- <div class="popover">
-                  <i class="bi bi-question-circle first-popover"></i>
-                  <div class="popover-container">
-                     <h4>Lorem.</h4>
-                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quae rem laborum ab atque deleniti?</p>
-                  </div>
-               </div> -->
-            </div>
-         </section>
-
-         <!-- <div class="skeleton-container">
-            <div class="skeleton skeleton-title">
-               <p></p>
-            </div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-         </div> -->
-
-
+                     ";
+                  }
+               }
+               else {
+                  echo "Vous n'avez pas de fav's";
+               }
+            ?>
 
       </section>
-
       
+      <!-- <div class="skeleton-container">
+         <div class="skeleton skeleton-title">
+            <p></p>
+         </div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+      </div> -->
 
 
-      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
       <script src="src/scripts/Recherche.js"></script>
       <script src="src/scripts/FavThumbnail.js"></script>
       <script src="src/scripts/App.js"></script>
-
-
-      
    </body>
 </html>

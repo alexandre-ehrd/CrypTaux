@@ -19,13 +19,13 @@ function sideNavigationCreateElement($selected)
                </a>
             </li>
             <li class=".($selected == 2 ? 'navigation-list-item-select' : '').">
-               <a href='index.php'>
+               <a href='wallet.php'>
                   <i class='bi bi-wallet'></i>
                   <p>Mon portefeuille</p>
                </a>
             </li>
             <li class=".($selected == 3 ? 'navigation-list-item-select' : '').">
-               <a href='index.php'>
+               <a href='exchange.php'>
                   <i class='bi bi-arrow-left-right'></i>
                   <p>Échanges</p>
                </a>

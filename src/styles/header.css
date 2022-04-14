@@ -9,6 +9,7 @@ header {
    z-index: 10;
    background-color: #FEFFFF;
    border-bottom: solid 1px var(--color-light-grey);
+   margin-bottom: 500px;
 }
 
 .header-left-side {
