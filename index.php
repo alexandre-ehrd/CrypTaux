@@ -49,11 +49,9 @@
                      </a>
                   </div>
                   
-                  <div class="dashboard-favs-container">
-
+                  <div class="container-thumbnail-currency">
                      <?php 
                         if (isset($_SESSION['favs']) && $_SESSION['favs'] != '' && $_SESSION['username'] == 'Thalex') {
-
                            $favs = $_SESSION['favs'];
                            // Séparer les monnaies
                            $favs = explode("/", $favs);
@@ -63,7 +61,7 @@
                               [$name, $symbol] = [$fav[0], $fav[1]];
                               // Créer une vignette de monnaie favorite
                               echo "
-                              <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
+                              <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;'>
                                  <div class='info-currency'>
                                     <div class='info-logo-currency'>
                                        <img src='' alt='$name' crossorigin='anonymous'>
@@ -140,8 +138,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
-      <script src="src/scripts/FavThumbnail.js"></script>
-      <script src="src/scripts/App.js"></script>
+      <script src="src/scripts/FavThumbnail.js" type="module"></script>
+      <script src="src/scripts/App.js" type="module"></script>
 
 
       

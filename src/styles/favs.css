@@ -1,0 +1,39 @@
+@import './style.css';
+
+.search-bar-wrapper {
+   width: min-content;
+   display: flex;
+   gap: var(--padding);
+   padding: 10px 15px;
+   border: 2px solid var(--color-grey);
+   border-radius: var(--border-radius-input);
+   
+}
+
+#search-bar {
+   border: none;
+   outline: none;
+   background-color: transparent;
+
+}
+
+#search-bar::-webkit-contacts-auto-fill-button, 
+#search-bar::-webkit-credentials-auto-fill-button {
+   visibility: hidden;
+}
+
+/* 
+.user-input {
+   height: 50px;
+   padding: 10px 15px;
+   background-color: transparent;
+   border: 2px solid var(--color-grey);
+   box-sizing: border-box;
+   border-radius: 8px;
+   font-size: 1rem;
+   transition: border 200ms;
+}
+.user-input:focus{
+   outline: none;
+   border: 2px solid var(--color-blue);
+} */

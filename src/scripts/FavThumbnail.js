@@ -2,16 +2,19 @@ const allThumbnail = document.getElementsByClassName('thumbnail-currency');
 
 const colorThief = new ColorThief();
 
-requestThumbnail();
 
 async function requestThumbnail(){
-   for (thumbnail of allThumbnail) {
-      // Appeler la fonction qui remplie le tableau
-      await fetchHistoricData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
-      await fetchDB(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}`, thumbnail)
+   for (var thumbnail of allThumbnail) {
+      // La thumbnail n'est pas encore affichée mais elle doit l'être
+      if (thumbnail.style.display != "none" && thumbnail.classList.contains("thumbnail-hide")) {
+         thumbnail.classList.remove("thumbnail-hide");
+         
+         // Appeler la fonction qui remplie le tableau
+         await fetchHistoricData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
+         await fetchDB(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}`, thumbnail)
+      }
    }
 }
-
 
 
 
@@ -19,16 +22,17 @@ async function fetchHistoricData(URL, element) {
    return new Promise((resolve, reject) => {
       fetch(URL)
       .then(response => {
-         if (response.ok){
+         console.log("Requête");
+         if (response.ok) {
             response.json().then(response => {
                var historic_price = response['prices'];
                historic_price = historic_price.map(x => x[1])
                
                var legende = Object.keys(historic_price);
                
-               value_depart = historic_price[0];
-               value_arrive = historic_price[historic_price.length-1];
-               taux = ( (value_arrive-value_depart) / value_depart) * 100;
+               var value_depart = historic_price[0];
+               var value_arrive = historic_price[historic_price.length-1];
+               var taux = ( (value_arrive-value_depart) / value_depart) * 100;
                
                var taux_element = element.querySelector('.fav-taux');
                if (taux > 0) {
@@ -64,6 +68,7 @@ async function fetchDB(URL, element) {
    return new Promise((resolve, reject) => {
       fetch(URL)
       .then(response => {
+         console.log("Requête");
          if (response.ok){
             response.json().then(response => {
                // Image
@@ -165,3 +170,7 @@ function createChart(element, data, legende) {
       }
    });
 }
+
+
+
+export {requestThumbnail};

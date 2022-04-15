@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
-      <link rel="stylesheet" href="src/styles/dashboard.css">
+      <link rel="stylesheet" href="src/styles/favs.css">
       <?php
          session_start();
          
@@ -39,7 +39,15 @@
          ?>
          <div class="container-page">
             <div class="tableau-bord-wrapper">
-               <input id="search-bar" type="text" name="" id="">
+
+               <div class="search-bar-wrapper">
+                  <input id="search-bar" type="text" name="" placeholder="Recherche">
+                  <i class="bi bi-search"></i>
+               </div>
+
+
+
+
                <p id="log"></p>
             </div>
             <div class="container-thumbnail-currency">
@@ -93,7 +101,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
       <script src="src/scripts/Recherche.js"></script>
-      <script src="src/scripts/FavThumbnail.js"></script>
-      <script src="src/scripts/App.js"></script>
+      <script src="src/scripts/FavThumbnail.js" type="module"></script>
+      <script src="src/scripts/App.js" type="module"></script>
    </body>
 </html>

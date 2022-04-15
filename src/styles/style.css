@@ -22,8 +22,11 @@
    --padding: 15px;
    --padding-large: 30px;
    --border-radius-small: 5px;
+   --border-radius-input: 8px;
    --header-size: 75px;
    --navigation-size: 20%;
+
+   --input-border: 8px;
 }
 
 
@@ -141,24 +144,78 @@ hr {
 }
 
 
-.popover  > i {
+
+.popover-text {
+   display: inline;
+}
+
+.popover {
+   cursor: help;
+   width: min-content;
    position: relative;
+   margin-left: var(--padding);
+   color: var(--color-grey);
+   
 }
 
-.popover-content-container {
-   visibility: hidden;
-   min-width: 200px;
-   background-color: #E5734A;
-   position: absolute;
-   top: 0%;
-   left: 50%;
-   opacity: 0;
-   z-index: 15;
-   transform: translateX(-50%) translateY(-100%) ;
-   transition: opacity 500ms ;
+.popover:hover {
+   color: var(--color-orange);
 }
 
-.popover i:hover > .popover-content-container {
+.popover:hover .popover-content {
    visibility: visible;
    opacity: 1;
+}
+
+.popover-content {
+   cursor: default;
+   width: 300px;
+   padding: var(--padding);
+   position: absolute;
+   
+   z-index: 15;
+   background-color: var(--color-background-grey);
+   border-radius: 10px;
+   border: solid 1px var(--color-blue);
+   -webkit-box-shadow: 5px 0px 15px 5px rgba(25, 25, 25, 0.05); 
+   box-shadow: 5px 0px 15px 5px rgba(25, 25, 25, 0.05);
+   visibility: hidden;
+   opacity: 0;
+   transition: opacity 200ms;
+}
+
+.popover-top {
+   top: -12px;
+   left: 50%;
+   transform: translateX(-50%) translateY(-100%);
+}
+
+.popover-bottom {
+   top: 100%;
+   left: 50%;
+   transform: translateX(-50%) translateY(12px);
+}
+
+.popover-content::before {
+   content: "";
+   width: 20px;
+   height: 20px;
+   position: absolute;
+   background-color: inherit;
+}
+
+.popover-top::before {
+   top: calc(100% - 10px);
+   left: 50%;
+   transform: translateX(calc(-50% - 2px)) rotateZ(45deg);
+   border-right: solid 1px var(--color-blue);
+   border-bottom: solid 1px var(--color-blue);
+}
+
+.popover-bottom::before {
+   top: -11px;
+   left: 50%;
+   transform: translateX(calc(-50%)) rotateZ(45deg);
+   border-left: solid 1px var(--color-blue);
+   border-top: solid 1px var(--color-blue);
 }
