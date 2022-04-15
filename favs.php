@@ -13,6 +13,7 @@
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/favs.css">
+      <link rel="stylesheet" href="src/styles/thumbnailFav.css">
       <?php
          session_start();
          
@@ -100,8 +101,9 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
-      <script src="src/scripts/Recherche.js"></script>
+      <script src="src/scripts/Favs.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
-      <script src="src/scripts/App.js" type="module"></script>
+      
+      <script src="src/scripts/Recherche.js"></script>
    </body>
 </html>

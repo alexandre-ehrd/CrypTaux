@@ -1,22 +1,4 @@
-const allThumbnail = document.getElementsByClassName('thumbnail-currency');
-
 const colorThief = new ColorThief();
-
-
-async function requestThumbnail(){
-   for (var thumbnail of allThumbnail) {
-      // La thumbnail n'est pas encore affichée mais elle doit l'être
-      if (thumbnail.style.display != "none" && thumbnail.classList.contains("thumbnail-hide")) {
-         thumbnail.classList.remove("thumbnail-hide");
-         
-         // Appeler la fonction qui remplie le tableau
-         await fetchHistoricData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
-         await fetchDB(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}`, thumbnail)
-      }
-   }
-}
-
-
 
 async function fetchHistoricData(URL, element) {
    return new Promise((resolve, reject) => {
@@ -64,7 +46,7 @@ async function fetchHistoricData(URL, element) {
 }
 
 
-async function fetchDB(URL, element) {
+async function fetchCryptocurrency(URL, element) {
    return new Promise((resolve, reject) => {
       fetch(URL)
       .then(response => {
@@ -173,4 +155,4 @@ function createChart(element, data, legende) {
 
 
 
-export {requestThumbnail};
+export {fetchHistoricData, fetchCryptocurrency};

@@ -24,7 +24,8 @@
    --border-radius-small: 5px;
    --border-radius-input: 8px;
    --header-size: 75px;
-   --navigation-size: 20%;
+   /* --navigation-size: 20%; */
+   --navigation-size: 250px;
 
    --input-border: 8px;
 }
@@ -95,7 +96,37 @@ hr {
 
 #logo-orange {
    color: var(--color-orange);
+   
 }
+
+
+
+
+.container-page-bottom {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--padding);
+}
+
+.container-page-bottom > div {
+   min-width: 300px;
+   flex-grow: 3;
+}
+
+#wallet-dashboard {
+   background-color: #9BCEA4;
+}
+
+#exchange-dashboard {
+   background-color: #8fc1e8;
+}
+
+#famous-dashboard {
+   background-color: #e68b8b;
+}
+
+
+
 
 
 

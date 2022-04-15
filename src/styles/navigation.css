@@ -1,7 +1,7 @@
 @import './style.css';
 
 aside {
-   width: 20%;
+   width: var(--navigation-size);
    min-height: calc(100vh - var(--header-size));
    padding: var(--padding);
    background-color: var(--color-background-grey);
