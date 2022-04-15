@@ -57,9 +57,6 @@ form {
    outline: none;
    border: 2px solid var(--color-blue);
 }
-.password-input-focus {
-   border: 2px solid var(--color-blue) !important;
-}
 
 .user-input ~ label {
    position: absolute;
@@ -83,18 +80,18 @@ form {
    color: var(--color-blue);
 }
 
-#password-input {
-   border: 2px solid var(--color-grey);
-   border-radius: var(--border-radius-input);
-   transition: border 200ms;
+.user-input::-webkit-contacts-auto-fill-button, 
+.user-input::-webkit-credentials-auto-fill-button {
+   position: absolute;
+   right: var(--padding);
+   background-color: var(--color-grey);
+}
+#password-input input::-webkit-contacts-auto-fill-button, 
+#password-input input::-webkit-credentials-auto-fill-button {
+   right: calc(25px + var(--padding));
 }
 
-#password-input input {
-   width: 94%;
-   border: none;
-}
-
-#password-input i {
+.form-input > i {
    visibility: hidden;
    position: absolute;
    top: 50%;

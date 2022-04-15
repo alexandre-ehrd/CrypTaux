@@ -32,7 +32,7 @@ function sideNavigationCreateElement($selected)
             </li>
          </ul>
       </nav>
-      <a href='connexion.php' >
+      <a href='connexion.php' id='logout-button'>
          <i class='bi bi-box-arrow-left'></i>
          Se déconnecter
       </a>

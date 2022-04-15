@@ -58,3 +58,8 @@ nav {
 .navigation-list-item-select a > * {
    color: var(--color-white) !important;
 }
+
+#logout-button {
+   font-size: 1rem;
+   font-weight: 300;
+}

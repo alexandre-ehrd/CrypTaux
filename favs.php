@@ -51,6 +51,7 @@
 
                <p id="log"></p>
             </div>
+            <h3>Mes fav's</h3>
             <div class="container-thumbnail-currency">
                <?php 
                   if (isset($_SESSION['favs']) && $_SESSION['favs'] != '') {

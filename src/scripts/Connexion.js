@@ -1,16 +1,7 @@
-const eyeShow = document.getElementById("icon-eye-show");
-const eyeHide = document.getElementById("icon-eye-hide");
-const passwordInputParent = document.getElementById("password-input");
 const passwordInput = document.querySelector("input[type=password]");
 
-
-passwordInput.addEventListener("focus", () => {
-   passwordInputParent.classList.add("password-input-focus");
-});
-
-passwordInput.addEventListener("focusout", () => {
-   passwordInputParent.classList.remove("password-input-focus");
-});
+const eyeShow = document.getElementById("icon-eye-show");
+const eyeHide = document.getElementById("icon-eye-hide");
 
 
 passwordInput.addEventListener('input', () => {
@@ -22,7 +13,6 @@ passwordInput.addEventListener('input', () => {
       eyeHide.style.visibility = "visible";
    }
 });
-
 
 eyeShow.addEventListener("click", () => {
    eyeShow.style.display = "none";
