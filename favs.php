@@ -39,18 +39,26 @@
             sideNavigationCreateElement(1);
          ?>
          <div class="container-page">
-            <div class="tableau-bord-wrapper">
-
-               <div class="search-bar-wrapper">
-                  <input id="search-bar" type="text" name="" placeholder="Recherche">
-                  <i class="bi bi-search"></i>
+            <div class="container-search-bar">
+               <div class="search-bar-wrapper" title="Rechercher">
+                  <input id="search-bar" type="text" name="" placeholder="Rechercher">
+                  <i class="bi bi-search" id="search-button"></i>
                </div>
-
-
-
-
-               <p id="log"></p>
             </div>
+            <!-- Cryptomonnaies -->
+            <h3 id="cryptocurrency-text-result" style="display: none;">Cryptomonnaies</h3>
+            <div id="cryptocurrency-search-result" class="container-thumbnail-currency" style="display: none;"></div>
+
+            <!-- Exchange -->
+            <div id="exchange-text-result-parent" style="display: none;">
+               <h3 id="exchange-text-result" class="popover-text">Exchanges</h3>
+               <?php
+                  require('popover.php');
+                  popoverCreateElement("popover-bottom", "Un exchange est une plateforme spécialisée qui permet d’acheter ou de vendre des cryptomonnaies.", "https://en.wikipedia.org/wiki/Cryptocurrency_exchange");
+               ?>
+            </div>
+            <div id="exchange-search-result" style="display: none;"></div>
+
             <h3>Mes fav's</h3>
             <div class="container-thumbnail-currency">
                <?php 
@@ -66,9 +74,7 @@
                         echo "
                         <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
                            <div class='info-currency'>
-                              <div class='info-logo-currency'>
-                                 <img src='' alt='$name' crossorigin='anonymous'>
-                              </div>
+                              <img src='' alt='$name' crossorigin='anonymous'>
                               <div>
                                  <p class='fav-price'></p>
                                  <p class='fav-symbol'>$symbol</p>
@@ -103,8 +109,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
       <script src="src/scripts/Favs.js" type="module"></script>
+      <script src="src/scripts/Recherche.js" type="module"></script>
+
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
-      
-      <script src="src/scripts/Recherche.js"></script>
    </body>
 </html>

@@ -24,7 +24,7 @@ async function hideThumbnails() {
          thumbnail.style.display = "block";
 
          // Contour
-         thumbnail.style.border = "none";
+         thumbnail.style.border = "solid 1px transparent";
          if (i == (gridColonneCount)) {
             thumbnail.style.border = "solid 1px red";
          }

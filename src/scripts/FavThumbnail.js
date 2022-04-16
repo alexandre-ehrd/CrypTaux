@@ -154,5 +154,4 @@ function createChart(element, data, legende) {
 }
 
 
-
 export {fetchHistoricData, fetchCryptocurrency};

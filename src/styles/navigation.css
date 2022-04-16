@@ -25,7 +25,7 @@ nav {
    margin-bottom: 20px;
    cursor: pointer;
    padding: 10px 20px;
-   border-radius: 15px;
+   border-radius: var(--border-radius-large);
 }
 
 #navigation-list li > a {

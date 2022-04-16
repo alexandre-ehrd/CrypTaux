@@ -46,7 +46,7 @@
       <?php
          require('header.php');
          $array = [
-            "Fav's" => "favs.php",
+            "Fav's" => "javascript:history.go(-1)",
             $nameCryptocurrency => $url,
          ];
          headerCreateElement($_SESSION['username'], $array);
@@ -65,7 +65,6 @@
             <span class="popover">
                <i class="bi bi-question-circle"></i>
                <div class="popover-top popover-content">
-                  <h4>Lorem.</h4>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, quis.</p>
                   <a href="">Lorem, ipsum.</a>
                </div>
@@ -75,7 +74,6 @@
             <span class="popover">
                <i class="bi bi-question-circle"></i>
                <div class="popover-bottom popover-content">
-                  <h4>Lorem.</h4>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, quis.</p>
                   <a href="">Lorem, ipsum.</a>
                </div>

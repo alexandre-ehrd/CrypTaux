@@ -60,9 +60,7 @@
                         echo "
                         <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;'>
                            <div class='info-currency'>
-                              <div class='info-logo-currency'>
-                                 <img src='' alt='$name' crossorigin='anonymous'>
-                              </div>
+                              <img src='' alt='$name' crossorigin='anonymous'>
                               <div>
                                  <p class='fav-price'></p>
                                  <p class='fav-symbol'>$symbol</p>

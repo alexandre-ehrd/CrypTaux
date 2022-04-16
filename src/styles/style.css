@@ -23,11 +23,11 @@
    --padding-large: 30px;
    --border-radius-small: 5px;
    --border-radius-input: 8px;
+   --border-radius-large: 15px;
    --header-size: 75px;
    /* --navigation-size: 20%; */
    --navigation-size: 250px;
 
-   --input-border: 8px;
 }
 
 
@@ -85,6 +85,9 @@ hr {
    background-color: var(--color-backgroud-white);
    padding: var(--padding);
    padding-left: calc(var(--navigation-size) + var(--padding));
+   display: flex;
+   flex-direction: column;
+   gap: var(--padding);
 }
 
 
@@ -99,31 +102,98 @@ hr {
    
 }
 
+.popover-text {
+   display: inline;
+}
 
+.popover {
+   cursor: help;
+   width: min-content;
+   position: relative;
+   margin-left: var(--padding);
+   color: var(--color-grey);
+}
 
+.popover i:hover {
+   color: var(--color-orange);
+}
 
-.container-page-bottom {
+.popover i:hover + .popover-content,
+.popover-content:hover {
+   visibility: visible;
+   opacity: 1;
+}
+
+.popover-content {
+   cursor: default;
+   width: 300px;
+   padding: var(--padding);
    display: flex;
-   flex-wrap: wrap;
+   flex-direction: column;
    gap: var(--padding);
+   position: absolute;
+   z-index: 15;
+   background-color: var(--color-background-grey);
+   border-radius: 10px;
+   border: solid 1px var(--color-blue);
+   -webkit-box-shadow: 5px 0px 15px 5px rgba(25, 25, 25, 0.05); 
+   box-shadow: 5px 0px 15px 5px rgba(25, 25, 25, 0.05);
+   visibility: hidden;
+   opacity: 0;
+   transition: opacity 200ms;
 }
 
-.container-page-bottom > div {
-   min-width: 300px;
-   flex-grow: 3;
+.popover-top {
+   top: -10px;
+   left: 50%;
+   transform: translateX(calc(-50% + 2px)) translateY(-100%);
 }
 
-#wallet-dashboard {
-   background-color: #9BCEA4;
+.popover-bottom {
+   top: 100%;
+   left: 50%;
+   transform: translateX(calc(-50% - 2px)) translateY(10px);
 }
 
-#exchange-dashboard {
-   background-color: #8fc1e8;
+.popover-content::before {
+   content: "";
+   width: 20px;
+   height: 20px;
+   position: absolute;
+   background-color: inherit;
+}
+.popover-top::before {
+   top: calc(100% - 10px);
+   left: 50%;
+   transform: translateX(calc(-50% - 2px)) rotateZ(45deg);
+   border-right: solid 1px var(--color-blue);
+   border-bottom: solid 1px var(--color-blue);
+}
+.popover-bottom::before {
+   top: -11px;
+   left: 50%;
+   transform: translateX(calc(-50%)) rotateZ(45deg);
+   border-left: solid 1px var(--color-blue);
+   border-top: solid 1px var(--color-blue);
 }
 
-#famous-dashboard {
-   background-color: #e68b8b;
+.popover-content p {
+   color: var(--color-black);
 }
+
+.popover-content a {
+   color: var(--color-blue);
+   font-size: 0.9rem;
+   font-weight: 300;
+}
+
+.popover-content a:hover {
+   text-decoration: underline;
+}
+
+
+
+
 
 
 
@@ -176,77 +246,6 @@ hr {
 
 
 
-.popover-text {
-   display: inline;
-}
 
-.popover {
-   cursor: help;
-   width: min-content;
-   position: relative;
-   margin-left: var(--padding);
-   color: var(--color-grey);
-   
-}
 
-.popover:hover {
-   color: var(--color-orange);
-}
 
-.popover:hover .popover-content {
-   visibility: visible;
-   opacity: 1;
-}
-
-.popover-content {
-   cursor: default;
-   width: 300px;
-   padding: var(--padding);
-   position: absolute;
-   
-   z-index: 15;
-   background-color: var(--color-background-grey);
-   border-radius: 10px;
-   border: solid 1px var(--color-blue);
-   -webkit-box-shadow: 5px 0px 15px 5px rgba(25, 25, 25, 0.05); 
-   box-shadow: 5px 0px 15px 5px rgba(25, 25, 25, 0.05);
-   visibility: hidden;
-   opacity: 0;
-   transition: opacity 200ms;
-}
-
-.popover-top {
-   top: -12px;
-   left: 50%;
-   transform: translateX(-50%) translateY(-100%);
-}
-
-.popover-bottom {
-   top: 100%;
-   left: 50%;
-   transform: translateX(-50%) translateY(12px);
-}
-
-.popover-content::before {
-   content: "";
-   width: 20px;
-   height: 20px;
-   position: absolute;
-   background-color: inherit;
-}
-
-.popover-top::before {
-   top: calc(100% - 10px);
-   left: 50%;
-   transform: translateX(calc(-50% - 2px)) rotateZ(45deg);
-   border-right: solid 1px var(--color-blue);
-   border-bottom: solid 1px var(--color-blue);
-}
-
-.popover-bottom::before {
-   top: -11px;
-   left: 50%;
-   transform: translateX(calc(-50%)) rotateZ(45deg);
-   border-left: solid 1px var(--color-blue);
-   border-top: solid 1px var(--color-blue);
-}
