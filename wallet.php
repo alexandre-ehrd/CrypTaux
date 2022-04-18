@@ -27,7 +27,7 @@
    </head>
    <body>
       <?php
-         require('header.php');
+         require('src/backend/header.php');
          $array = [
             "Mon portefeuille" => "wallet.php",
          ];
@@ -35,7 +35,7 @@
       ?>
       <section class="container">
          <?php
-            require('side_navigation.php');
+            require('src/backend/side_navigation.php');
             sideNavigationCreateElement(2);
          ?>
          <div class="container-page">

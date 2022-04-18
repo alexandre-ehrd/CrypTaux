@@ -14,7 +14,7 @@
       <?php session_start();?>
    </head>
    <body>
-      <?php require('connect_database.php');?>
+      <?php require('src/backend/connect_database.php');?>
       <aside>
          <section class="form-container">
             <form method="post">

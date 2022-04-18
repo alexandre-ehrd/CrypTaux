@@ -27,7 +27,7 @@
    </head>
    <body>
       <?php
-         require('header.php');
+         require('src/backend/header.php');
          $array = [
             "Fav's" => "favs.php",
          ];
@@ -35,7 +35,7 @@
       ?>
       <section class="container">
          <?php
-            require('side_navigation.php');
+            require('src/backend/side_navigation.php');
             sideNavigationCreateElement(1);
          ?>
          <div class="container-page">
@@ -53,12 +53,11 @@
             <div id="exchange-text-result-parent" style="display: none;">
                <h3 id="exchange-text-result" class="popover-text">Exchanges</h3>
                <?php
-                  require('popover.php');
+                  require('src/backend/popover.php');
                   popoverCreateElement("popover-bottom", "Un exchange est une plateforme spécialisée qui permet d’acheter ou de vendre des cryptomonnaies.", "https://en.wikipedia.org/wiki/Cryptocurrency_exchange");
                ?>
             </div>
-            <div id="exchange-search-result" style="display: none;"></div>
-
+            <div id="exchange-search-result" style="display: none;"></div>         
             <h3>Mes fav's</h3>
             <div class="container-thumbnail-currency">
                <?php 

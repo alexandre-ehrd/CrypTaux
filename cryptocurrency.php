@@ -44,7 +44,7 @@
    </head>
    <body>
       <?php
-         require('header.php');
+         require('src/backend/header.php');
          $array = [
             "Fav's" => "javascript:history.go(-1)",
             $nameCryptocurrency => $url,
@@ -53,7 +53,7 @@
       ?>
       <section class="container">
          <?php
-            require('side_navigation.php');
+            require('src/backend/side_navigation.php');
             sideNavigationCreateElement(1);
          ?>
          <div class="container-page">

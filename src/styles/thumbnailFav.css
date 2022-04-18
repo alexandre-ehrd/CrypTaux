@@ -8,12 +8,11 @@
 }
 
 .thumbnail-currency {
-   border-radius: var(--border-radius-large);
    height: 150px;
    display: flex;
    flex-direction: column;
    overflow: hidden;
-   background-color: var(--color-grey);
+   border-radius: var(--border-radius-large);
    cursor: pointer;
    transition: box-shadow 200ms;
    position: relative;

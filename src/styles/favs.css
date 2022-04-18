@@ -40,3 +40,53 @@
    color: var(--color-orange);
    cursor: pointer;
 }
+
+#exchange-search-result {
+   display: grid;
+   gap: var(--padding);
+   grid-template-columns: repeat(auto-fit, minmax(175px, 225px));
+}
+
+.thumbnail-exchange {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 10px;
+   padding: var(--padding);
+   border-radius: var(--border-radius-large);
+   border: solid 1px var(--color-light-grey);
+   background-color: var(--color-background-grey);
+}
+
+.thumbnail-exchange img {
+   width: 100%;
+   max-width: 175px;
+   border-radius: var(--border-radius-large);
+   aspect-ratio: 1 / 1;
+}
+
+.thumbnail-exchange h4 {
+   text-align: center;
+}
+
+.thumbnail-exchange p {
+   font-size: 0.9rem;
+   color: var(--color-grey);
+}
+
+.trust-score-wrapper {
+   height: 7px;
+   width: 30%;
+   /* background: linear-gradient(90deg, var(--color-red) 0%, var(--color-yellow) 50%, var(--color-green) 100%); */
+   background-color: var(--color-light-grey);
+   border-radius: var(--border-radius-small);
+   overflow: hidden;
+}
+
+.trust-score {
+   width: 50%;
+   height: 100%;
+   background-color: var(--color-light-grey);
+   background-color: var(--color-green);
+   transition: width 200ms;
+}

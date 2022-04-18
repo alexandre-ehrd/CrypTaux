@@ -12,6 +12,11 @@
    
    --color-blue: #02555B;
    --color-orange: #E5734A;
+
+   --color-red: #E52229;
+   --color-yellow: #FFBF00;
+   --color-green: #00A859;
+
    --color-light-grey: #CCCCCC;
    --color-grey: #929292;
    --color-dark-grey: #2F3A3A;
@@ -99,7 +104,6 @@ hr {
 
 #logo-orange {
    color: var(--color-orange);
-   
 }
 
 .popover-text {
@@ -182,7 +186,7 @@ hr {
 }
 
 .popover-content a {
-   color: var(--color-blue);
+   color: var(--color-orange);
    font-size: 0.9rem;
    font-weight: 300;
 }
