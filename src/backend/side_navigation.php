@@ -36,7 +36,7 @@ function sideNavigationCreateElement($selected)
          <i class='bi bi-box-arrow-left'></i>
          Se déconnecter
       </a>
-      </aside>
+   </aside>
    ";
 }
 

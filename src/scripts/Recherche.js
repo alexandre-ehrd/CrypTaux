@@ -1,4 +1,4 @@
-import {fetchHistoricData, fetchCryptocurrency} from './FavThumbnail.js';
+import {fetchHistoricData, fetchCryptocurrency, createThumbnail} from './FavThumbnail.js';
 
 const inputParent = document.querySelector(".search-bar-wrapper");
 const input = document.getElementById('search-bar');
@@ -45,16 +45,6 @@ function updateValue(e) {
                var listCrypto = data['coins'];
                var listExchanges = data['exchanges'];
                
-
-               // Réinitialiser le container des thumbnails
-               /* cryptocurencySearchTitle.style.display = "block";
-               cryptocurencySearchResult.style.display = "grid";
-
-               exchangeSearchTitleParent.style.display = "block";
-               exchangeSearchTitle.innerHTML = "";
-               exchangeSearchResult.style.display = "grid";
-               exchangeSearchResult.innerHTML = ""; */
-               
                // Cryptomonnaies
                // Titre pour les thumbnails des cryptomonnaies
                if (listCrypto.length > 0) {
@@ -76,7 +66,6 @@ function updateValue(e) {
 
                // Exchanges
                // Titre pour les thumbnails des exchanges
-               console.log("Exchanges :", listExchanges.length);
                if (listExchanges.length > 0) {
                   if (listExchanges.length == 1) {
                      exchangeSearchTitle.innerHTML = "Exchange";
@@ -194,9 +183,11 @@ async function requestThumbnail(){
    for (var thumbnail of allThumbnails) {
       // La thumbnail n'est pas encore affichée mais elle doit l'être
       if (thumbnail.style.visibility == "hidden") {
-         // Appeler la fonction qui remplie le tableau
-         await fetchHistoricData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
-         await fetchCryptocurrency(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}`, thumbnail)
+         // Requêtes pour les données
+         var cryptocurrencyResponse = await fetchCryptocurrency(thumbnail);
+         var historicDataResponse = await fetchHistoricData(thumbnail);
+         // Remplir la thumbnail avec les données récupérées
+         createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail);
       }
    }
 }

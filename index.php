@@ -91,7 +91,6 @@
                </div>
                
                <div id="exchange-dashboard">
-
                   <div class="title-tableau-bord">
                      <h3>Échanges</h3>
                      <a href="exchange.php">
@@ -101,12 +100,26 @@
                </div>
                
                <div id="famous-dashboard">
-
                   <div class="title-tableau-bord" id="test">
                      <h3>Populaires</h3>
                   </div>
                </div>
             </div>
+
+            <table id="cryptocurrency-trending">
+               <tr>
+                  <th>#</th>
+                  <th>Monnaie</th>
+                  <th>Cours</th>
+                  <th>1 heure</th>
+                  <th>24 heures</th>
+                  <th>7 jours</th>
+               </tr>
+            </table>
+            
+            <i class='bi bi-suit-heart'></i>
+            <i class="bi bi-suit-heart-fill"></i>
+
          </div>
       </section>
 
@@ -126,5 +139,6 @@
       
       <script src="src/scripts/Dashboard.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
+      <script src="test.js"></script>
    </body>
 </html>

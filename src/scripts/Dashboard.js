@@ -1,4 +1,4 @@
-import {fetchHistoricData, fetchCryptocurrency} from './FavThumbnail.js';
+import {fetchHistoricData, fetchCryptocurrency, createThumbnail} from './FavThumbnail.js';
 
 // Récupérer la grille
 const gridElement = document.querySelector(".container-thumbnail-currency");
@@ -33,10 +33,56 @@ async function hideThumbnails() {
          if (thumbnail.style.display != "none" && thumbnail.classList.contains("thumbnail-hide")) {
             thumbnail.classList.remove("thumbnail-hide");
          
-            // Appeler la fonction qui remplie le tableau
-            await fetchHistoricData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
-            await fetchCryptocurrency(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}`, thumbnail)
+            // Requêtes pour les données
+            var cryptocurrencyResponse = await fetchCryptocurrency(thumbnail);
+            var historicDataResponse = await fetchHistoricData(thumbnail);
+            // Remplir la thumbnail avec les données récupérées
+            createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail);
          }
       }
    }
 }
+
+
+const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-trending');
+var trendingURL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h,24h,7d';
+fetch(trendingURL)
+   .then(response => {
+      console.log("Requête");
+      if (response.ok) {
+         response.json().then(response => {
+            response.forEach(element => {
+               createTrendingElement(element);
+            });
+         })
+      }
+      else {
+         console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+         reject();
+         return;
+      }
+   })
+   .catch((error) => {
+      console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
+      reject();
+      return;
+   });
+
+
+function createTrendingElement(cryptocurrency) {
+   cryptocurrencyTrendingTableau.innerHTML += `
+      <td>
+         <i class="bi bi-suit-heart-fill" style='color: red;'></i>
+         ${cryptocurrency['market_cap_rank']}
+      </td>
+      <td>
+         <img src="${cryptocurrency['image']}" alt="${cryptocurrency['name']}" style="width: 20px; aspect-ratio: 1 / 1;">
+         ${cryptocurrency['name']} [${cryptocurrency['symbol'].toUpperCase()}]</td>
+      <td>${cryptocurrency['current_price']}$</td>
+      <td>${cryptocurrency['price_change_percentage_1h_in_currency'].toFixed(1)}%</td>
+      <td>${cryptocurrency['price_change_percentage_24h_in_currency'].toFixed(1)}%</td>
+      <td>${cryptocurrency['price_change_percentage_7d_in_currency'].toFixed(1)}%</td>
+   `;
+}
+
+// https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d

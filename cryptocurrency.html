@@ -40,23 +40,123 @@
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
-      <link rel="stylesheet" href="src/styles/dashboard.css">
+      <link rel="stylesheet" href="src/styles/cryptocurrency.css">
    </head>
    <body>
-      <?php
+      <!-- <?php
          require('src/backend/header.php');
          $array = [
             "Fav's" => "javascript:history.go(-1)",
             $nameCryptocurrency => $url,
          ];
          headerCreateElement($_SESSION['username'], $array);
-      ?>
+      ?> -->
+      <header>
+         <div class='header-left-side'>
+            <a href='index.php'>
+               <h1 id='logo'>Cryp<span id='logo-orange'>taux</span>.</h1>
+            </a>
+         </div>
+         <div class='header-right-side'>
+            <div class='path'>
+               <h2 id='path-username'>TEST</h2>
+               <p>></p>
+               <a href="">test</a>
+            </div>
+         </div>
+      </header>
       <section class="container">
-         <?php
+         <!-- <?php
             require('src/backend/side_navigation.php');
             sideNavigationCreateElement(1);
-         ?>
+         ?> -->
+         <aside class='side-navigation'>
+            <nav>
+               <ul id='navigation-list'>
+                  <li class=".($selected == 0 ? 'navigation-list-item-select' : '').">
+                     <a href='index.php'>
+                        <i class='bi bi-grid'></i>
+                        <p>Tableau de bord</p>
+                     </a>
+                  </li>
+                  <li class=".($selected == 1 ? 'navigation-list-item-select' : '').">
+                     <a href='favs.php'>
+                        <i class='bi bi-suit-heart'></i>
+                        <p>Fav's</p>
+                     </a>
+                  </li>
+                  <li class=".($selected == 2 ? 'navigation-list-item-select' : '').">
+                     <a href='wallet.php'>
+                        <i class='bi bi-wallet'></i>
+                        <p>Mon portefeuille</p>
+                     </a>
+                  </li>
+                  <li class=".($selected == 3 ? 'navigation-list-item-select' : '').">
+                     <a href='exchange.php'>
+                        <i class='bi bi-arrow-left-right'></i>
+                        <p>Échanges</p>
+                     </a>
+                  </li>
+               </ul>
+            </nav>
+            <a href='connexion.php' id='logout-button'>
+               <i class='bi bi-box-arrow-left'></i>
+               Se déconnecter
+            </a>
+         </aside>
          <div class="container-page">
+            <div class="cryptocurrency-infos">
+               <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579" alt="">
+               
+               <div>
+                  <div class="cryptocurrency-infos-name">
+                     <h2>Bitcoin</h2>
+                     <i class="bi bi-suit-heart-fill" style='color: #E5734A;'></i>
+                  </div>
+                  <p>BTC</p>
+               </div>
+            </div>
+
+            <div class="wrapper">
+               <div class="chart-header">
+                  <h3>41 302.24 $ <span>-26,73%</span></h3>
+                  <div>
+                     <a>1H</a>
+                     <a>1J</a>
+                     <a>1S</a>
+                     <a>1A</a>
+                     <a href="">TOUTES</a>
+                  </div>
+                  <ul>
+                     <li>
+                        <a href="">1 H</a>
+                     </li>
+                     <li>
+                        <a href="">1 J</a>
+                     </li>
+                     <li>
+                        <a href="">1 S</a>
+                     </li>
+                     <li>
+                        <a href="">1 A</a>
+                     </li>
+                     <li>
+                        <a href="">TOUTES</a>
+                     </li>
+                  </ul>
+               </div>
+               <img src="chart.png" alt="" width="100%">
+            </div>
+
+            <div class="wrapper">
+               <h4>Statistiques</h4>
+               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, illum?</p>
+            </div>
+
+            <div class="wrapper">
+               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, illum?</p>
+            </div>
+
 
             
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa nostrum harum dolore quasi sunt dignissimos dolorem incidunt sint rerum adipisci quisquam recusandae quidem error repudiandae pariatur id tenetur, officiis eius maiores obcaecati. Tempora, voluptatibus voluptas rem architecto in et. Velit, qui? Sint similique et aperiam nihil alias quas provident repudiandae est laudantium nesciunt, cumque, unde cupiditate illo assumenda perferendis cum enim ad ea neque voluptates. Quaerat rem accusamus aliquam impedit. Facere, neque doloremque distinctio quo iure exercitationem eos, tempore dolores perspiciatis at iste accusantium, excepturi eveniet? Distinctio eaque praesentium ratione, vel accusantium id. Nesciunt aperiam maxime quam officiis vitae nulla!</p>

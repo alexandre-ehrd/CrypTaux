@@ -1,0 +1,69 @@
+@import './style.css';
+
+
+.cryptocurrency-infos {
+   height: 70px;
+   display: flex;
+   flex-direction: row;
+   gap: var(--padding);
+}
+
+.cryptocurrency-infos img {
+   height: 100%;
+   aspect-ratio: 1/1;
+}
+
+.cryptocurrency-infos-name {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.cryptocurrency-infos-name h2 {
+   font-size: 1.75rem;
+   font-weight: 600;
+}
+
+.cryptocurrency-infos-name i {
+   font-size: 1.75rem;
+}
+
+.wrapper {
+   padding: var(--padding);
+   border-radius: var(--border-radius-large);
+   border: solid 1px var(--color-light-grey);
+   background-color: var(--color-background-grey);
+}
+
+.chart-header {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.chart-header h3 {
+   font-size: 2.5rem;
+   font-weight: 600;
+   position: relative;
+}
+
+.chart-header h3 span {
+   position: absolute;
+   top: 0;
+   right: calc(-1 * var(--padding));
+   transform: translateX(100%);
+   font-size: 1.2rem;
+   color: var(--color-red);
+}
+
+.chart-header ul li {
+   list-style: none;
+   display: inline-block;
+   list-style-type: none;
+
+   background-color: aqua;
+}
+
