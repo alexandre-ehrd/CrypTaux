@@ -61,8 +61,12 @@
             <h3>Mes fav's</h3>
             <div class="container-thumbnail-currency">
                <?php 
-                  if (isset($_SESSION['favs']) && $_SESSION['favs'] != '') {
-                     $favs = $_SESSION['favs'];
+                  require('src/backend/connect_database.php');
+                  $mail_user = $_SESSION['mail'];
+                  $reponse=$db->query("SELECT favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                  $favs = $reponse[0]->favs;
+
+                  if (isset($favs) && $favs != '') {
                      // Séparer les monnaies
                      $favs = explode("/", $favs);
                      
@@ -76,7 +80,7 @@
                               <img src='' alt='$name' crossorigin='anonymous'>
                               <div>
                                  <p class='fav-price'></p>
-                                 <p class='fav-symbol'>$symbol</p>
+                                 <p class='fav-symbol'>". strtoupper($symbol). "</p>
                               </div>
                               <p class='fav-taux'></p>   
                            </div>

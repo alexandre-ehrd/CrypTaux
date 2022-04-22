@@ -23,6 +23,9 @@
 
    --color-black: #000000;
 
+   --color-test: rgb(50, 100, 150);
+   --color-test: rgb(85, 170, 255);
+
    --padding: 15px;
    --padding-large: 30px;
 

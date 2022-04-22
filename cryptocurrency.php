@@ -15,7 +15,6 @@
          $url_components = parse_url($url);
          parse_str($url_components['query'], $urlQuery);
          $nameCryptocurrency = $urlQuery['name'];
-         $symbolCryptocurrency = $urlQuery['symbol'];
          $idCryptocurrency = $urlQuery['id'];
 
          // Impossible d'accéder à la cryptomonnaie demandée

@@ -49,8 +49,12 @@
             
             <div class="container-thumbnail-currency">
                <?php 
-                  if (isset($_SESSION['favs']) && $_SESSION['favs'] != '' && $_SESSION['username'] == 'Thalex') {
-                     $favs = $_SESSION['favs'];
+                  require('src/backend/connect_database.php');
+                  $mail_user = $_SESSION['mail'];
+                  $reponse=$db->query("SELECT favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                  $favs = $reponse[0]->favs;
+
+                  if (isset($favs) && $favs != '') {
                      // Séparer les monnaies
                      $favs = explode("/", $favs);
                      foreach ($favs as $fav) {
@@ -63,7 +67,7 @@
                               <img src='' alt='$name' crossorigin='anonymous'>
                               <div>
                                  <p class='fav-price'></p>
-                                 <p class='fav-symbol'>$symbol</p>
+                                 <p class='fav-symbol'>". strtoupper($symbol). "</p>
                               </div>
                               <p class='fav-taux'></p>   
                            </div>
@@ -73,49 +77,26 @@
                      }
                   }
                   else {
-                     echo "Vous devez être administrateur... ✨";
+                     echo "Vous n'avez pas de fav's ✨";
                   }
                ?>
             </div>
-
-
-            <div class="container-page-bottom">
-
-               <div id="wallet-dashboard">
-                  <div class="title-tableau-bord">
-                     <h3>Mon portefeille</h3>
-                     <a href="wallet.php">
-                        <i class="bi bi-chevron-right"></i>
-                     </a>
-                  </div>
-               </div>
-               
-               <div id="exchange-dashboard">
-                  <div class="title-tableau-bord">
-                     <h3>Échanges</h3>
-                     <a href="exchange.php">
-                        <i class="bi bi-chevron-right"></i>
-                     </a>
-                  </div>
-               </div>
-               
-               <div id="famous-dashboard">
-                  <div class="title-tableau-bord" id="test">
-                     <h3>Populaires</h3>
-                  </div>
-               </div>
+            <h3>Populaires</h3>
+            <div class="container-cryptocurrency-trending">
+               <table id="cryptocurrency-trending">
+                  <thead>   
+                     <tr>
+                        <th></th>
+                        <th style="text-align: left;">Nom</th>
+                        <th>Prix</th>
+                        <th>1 heure</th>
+                        <th>24 heures</th>
+                        <th>7 jours</th>
+                     </tr>
+                  </thead>
+                  <tbody id="cryptocurrency-trending-body"></tbody>
+               </table>
             </div>
-
-            <table id="cryptocurrency-trending">
-               <tr>
-                  <th>#</th>
-                  <th>Monnaie</th>
-                  <th>Cours</th>
-                  <th>1 heure</th>
-                  <th>24 heures</th>
-                  <th>7 jours</th>
-               </tr>
-            </table>
          </div>
       </section>
 

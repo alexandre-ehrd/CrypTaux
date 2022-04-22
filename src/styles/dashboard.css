@@ -11,25 +11,91 @@
    color: var(--color-grey);
 }
 
-.container-page-bottom {
+/* tbody:not(:first-child) {
+   border-bottom: solid 1px var(--color-light-grey);
+} */
+
+.container-cryptocurrency-trending {
+   max-width: 100%;
+   border-radius: var(--border-radius-large);
+   border: solid 1px var(--color-light-grey);
+   overflow-x: scroll;
+}
+
+#cryptocurrency-trending {
+   min-width: 100%;
+   border-collapse: collapse;
+   user-select: none;
+   -moz-user-select: none; /* Firefox */
+   -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
+   user-select: none; /* Propriété standard */
+}
+
+th {
+   font-size: 1.2rem;
+   font-weight: 500;
+   text-align: center;
+   padding: var(--padding) calc(var(--padding) * 2);
+   border-bottom: solid 1px var(--color-light-grey);
+}
+
+tbody tr {
+   cursor: pointer;
+}
+tbody tr:hover {
+   background-color: var(--color-background-grey) !important;
+}
+
+/* Padding à gauche et à droite */
+td:first-child{
+   padding: 0px;
+   padding: 0px calc(var(--padding) * 2);
+   width: 1px;
+}
+td:last-child{
+   padding-right: var(--padding);
+}
+
+td {
+   text-align: center;
+   padding: var(--padding) 0px;
+}
+
+.trending-name {
+   padding: var(--padding) calc(var(--padding) * 2);
    display: flex;
-   flex-wrap: wrap;
+   justify-items: center;
+   align-items: center;
    gap: var(--padding);
 }
 
-.container-page-bottom > div {
-   min-width: 300px;
-   flex-grow: 3;
+.trending-name img {
+   width: 40px;
+   height: 40px;
 }
 
-#wallet-dashboard {
-   background-color: #9BCEA4;
+.cryptocurrency-name {
+   font-size: 1rem;
+   font-weight: 600;
+   color: var(--color-black) !important;
 }
 
-#exchange-dashboard {
-   background-color: #8fc1e8;
+.cryptocurrency-symbol {
+   font-size: 1rem;
+   font-weight: 400;
+   color: var(--color-grey);
 }
 
-#famous-dashboard {
-   background-color: #e68b8b;
+
+
+td i {
+   font-size: 1.5rem;
 }
+.bi-suit-heart {
+   color: var(--color-grey) !important;
+}
+.bi-suit-heart:hover {
+   color: var(--color-orange) !important;
+}
+
+

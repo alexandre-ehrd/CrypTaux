@@ -115,11 +115,10 @@ function createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail
    });
    // Nom et symbole
    var cryptocurrencyName = cryptocurrencyResponse['name'];
-   var cryptocurrencySymbol = cryptocurrencyResponse['symbol'];
    thumbnailElement.style.visibility = 'visible';
    thumbnailElement.addEventListener("click", function() {
       // Ouvrir la page de la monnaie en personnalisant l'URL
-      window.open(`cryptocurrency.php?name=${cryptocurrencyName}&symbol=${cryptocurrencySymbol}&id=${thumbnailElement.id}`, "_self");
+      window.open(`cryptocurrency.php?name=${cryptocurrencyName}&id=${thumbnailElement.id}`, "_self");
    });
 }
 

@@ -7,6 +7,9 @@ const gridComputedStyle = window.getComputedStyle(gridElement);
 // Récupérer toutes les thumbnails
 const allThumbnails = document.getElementsByClassName('thumbnail-currency');
 
+// Tableau pour les cryptomonnaies célèbres
+const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-trending-body');
+
 hideThumbnails();
 window.addEventListener('resize', hideThumbnails);
 
@@ -22,13 +25,6 @@ async function hideThumbnails() {
       // La thumbnail se situe sur la première ligne
       else {
          thumbnail.style.display = "block";
-
-         // Contour
-         thumbnail.style.border = "solid 1px transparent";
-         if (i == (gridColonneCount)) {
-            thumbnail.style.border = "solid 1px red";
-         }
-         
          // La thumbnail n'est pas encore affichée mais elle doit l'être
          if (thumbnail.style.display != "none" && thumbnail.classList.contains("thumbnail-hide")) {
             thumbnail.classList.remove("thumbnail-hide");
@@ -44,15 +40,27 @@ async function hideThumbnails() {
 }
 
 
-const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-trending');
-var trendingURL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=1h,24h,7d';
-fetch(trendingURL)
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+   if (this.readyState == 4 && this.status == 200) {
+      var favsList = this.responseText;
+      favsList = favsList.split("/");
+      fetchTrendringCryptocurrency(favsList);
+   }
+};
+xhttp.open("GET", `src/backend/favs_list.php`, true);
+xhttp.send();
+
+
+function fetchTrendringCryptocurrency(favsList) {
+   var trendingURL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=1h,24h,7d';
+   fetch(trendingURL)
    .then(response => {
       console.log("Requête");
       if (response.ok) {
          response.json().then(response => {
             response.forEach(element => {
-               createTrendingElement(element);
+               createTrendingElement(element, favsList);
             });
          })
       }
@@ -67,59 +75,116 @@ fetch(trendingURL)
       reject();
       return;
    });
+}
+   
 
-
-function createTrendingElement(cryptocurrency) {
-   var imageURL = cryptocurrency['image'].replace('large', 'thumb');
+function createTrendingElement(cryptocurrency, favsList) {
+   let cryptocurrencyTrendingLigne = document.createElement('tr');
+   cryptocurrencyTrendingLigne.onclick = function() {
+      // Ouvrir la page de la monnaie en personnalisant l'URL
+      window.open(`cryptocurrency.php?name=${cryptocurrency['name']}&id=${cryptocurrency['id']}`, "_self");
+   }
 
    let trendingScoreColumn = document.createElement('td');
    let cryptocurrencyFavsButton = document.createElement('i');
-   cryptocurrencyFavsButton.classList.add('fav-button', 'bi', 'bi-suit-heart');
+   if (favsList.includes(`${cryptocurrency['id']},${cryptocurrency['symbol']}`)) {
+      cryptocurrencyFavsButton.classList.add('fav-button', 'bi', 'bi-suit-heart-fill');
+   }
+   else {
+      cryptocurrencyFavsButton.classList.add('fav-button', 'bi', 'bi-suit-heart');
+   }
+
+   cryptocurrencyFavsButton.addEventListener('mouseover', function() {
+      // Empêcher le clique d'ouvrir la page d'inforamtions sur la cryptomonnaie
+      cryptocurrencyTrendingLigne.onclick = null;
+   });
+   cryptocurrencyFavsButton.addEventListener('mouseout', function() {
+      cryptocurrencyTrendingLigne.onclick = function() {
+         // Ouvrir la page de la monnaie en personnalisant l'URL
+         window.open(`cryptocurrency.php?name=${cryptocurrency['name']}&id=${cryptocurrency['id']}`, "_self");
+      }
+   });
+   cryptocurrencyFavsButton.onclick = function() {
+      // Ajouter la cryptomonnaie aux fav's dans la base de données
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+         }
+      };
+      xhttp.open("GET", `src/backend/favs_manager.php?id=${cryptocurrency['id']}&symbol=${cryptocurrency['symbol']}`, true);
+      xhttp.send();
+      // Changer l'icone du bouton fav's
+      if (this.classList.contains('bi-suit-heart-fill')) {
+         this.classList.remove('bi-suit-heart-fill');
+         this.classList.add('bi-suit-heart');
+      } else {
+         this.classList.remove('bi-suit-heart');
+         this.classList.add('bi-suit-heart-fill');
+      }
+   }
    trendingScoreColumn.appendChild(cryptocurrencyFavsButton);
    let trendingScore = document.createElement('span');
    trendingScore.innerHTML = cryptocurrency['market_cap_rank'];
-   trendingScoreColumn.appendChild(trendingScore);
-   cryptocurrencyTrendingTableau.appendChild(trendingScoreColumn);
+   //trendingScoreColumn.appendChild(trendingScore);
+   cryptocurrencyTrendingLigne.appendChild(trendingScoreColumn);
 
    let trendingNameColumn = document.createElement('td');
+   trendingNameColumn.classList.add('trending-name');
    let cryptocurrencyImage = document.createElement('img');
-   cryptocurrencyImage.src = imageURL;
+   cryptocurrencyImage.src = cryptocurrency['image'].replace('large', 'small');
    cryptocurrencyImage.alt = cryptocurrency['name'];
    trendingNameColumn.appendChild(cryptocurrencyImage);
-   let cryptocurrencyName = document.createElement('a');
+   let cryptocurrencyName = document.createElement('p');
+   cryptocurrencyName.classList.add('cryptocurrency-name');
    cryptocurrencyName.innerHTML = cryptocurrency['name'];
-   console.log(cryptocurrencyName);
-   cryptocurrencyName.href = `cryptocurrency.php?name=${cryptocurrency['name']}&symbol=${cryptocurrency['symbol']}&id=${cryptocurrency['id']}`;
-   console.log(cryptocurrencyName);
    trendingNameColumn.appendChild(cryptocurrencyName);
-   cryptocurrencyTrendingTableau.appendChild(trendingNameColumn);
-   cryptocurrencyTrendingTableau.innerHTML += `
-      <td>${cryptocurrency['current_price']}$</td>
-      <td>${cryptocurrency['price_change_percentage_1h_in_currency'].toFixed(1)}%</td>
-      <td>${cryptocurrency['price_change_percentage_24h_in_currency'].toFixed(1)}%</td>
-      <td>${cryptocurrency['price_change_percentage_7d_in_currency'].toFixed(1)}%</td>
-   `;
+   
+   let cryptocurrencySymbol = document.createElement('p');
+   cryptocurrencySymbol.classList.add('cryptocurrency-symbol');
+   cryptocurrencySymbol.innerHTML = cryptocurrency['symbol'].toUpperCase();
+   trendingNameColumn.appendChild(cryptocurrencySymbol);
+   
+   
+   cryptocurrencyTrendingLigne.appendChild(trendingNameColumn);
+   
+   let trendingPriceColumn = document.createElement('td');
+   let cryptocurrencyPrice = cryptocurrency['current_price'].toString().replace('.', ',');
+   trendingPriceColumn.innerHTML = `${cryptocurrencyPrice} $`;
+   cryptocurrencyTrendingLigne.appendChild(trendingPriceColumn);
+   
+   let trendingChange1hColumn = document.createElement('td');
+   if (cryptocurrency['price_change_percentage_1h_in_currency'] > 0) {
+      trendingChange1hColumn.innerHTML = "+";
+      trendingChange1hColumn.classList.add('positive-pourcentage');
+   } else {
+      trendingChange1hColumn.classList.add('negative-pourcentage');
+   }
+   let cryptocurrencyChange1h = cryptocurrency['price_change_percentage_1h_in_currency'].toFixed(2).replace('.', ',');
+   trendingChange1hColumn.innerHTML += `${cryptocurrencyChange1h} %`;
+   cryptocurrencyTrendingLigne.appendChild(trendingChange1hColumn);
+
+   let trendingChange24hColumn = document.createElement('td');
+   if (cryptocurrency['price_change_percentage_24h_in_currency'] > 0) {
+      trendingChange24hColumn.innerHTML = "+";
+      trendingChange24hColumn.classList.add('positive-pourcentage');
+   } else {
+      trendingChange24hColumn.classList.add('negative-pourcentage');
+   }
+   let cryptocurrencyChange24h = cryptocurrency['price_change_percentage_24h_in_currency'].toFixed(2).replace('.', ',');
+   trendingChange24hColumn.innerHTML += `${cryptocurrencyChange24h} %`;
+   cryptocurrencyTrendingLigne.appendChild(trendingChange24hColumn);
+
+   let trendingChange7dColumn = document.createElement('td');
+   if (cryptocurrency['price_change_percentage_7d_in_currency'] > 0) {
+      trendingChange7dColumn.innerHTML = "+";
+      trendingChange7dColumn.classList.add('positive-pourcentage');
+   } else {
+      trendingChange7dColumn.classList.add('negative-pourcentage');
+   }
+   let cryptocurrencyChange7d = cryptocurrency['price_change_percentage_7d_in_currency'].toFixed(2).replace('.', ',');
+   trendingChange7dColumn.innerHTML += `${cryptocurrencyChange7d} %`;
+   cryptocurrencyTrendingLigne.appendChild(trendingChange7dColumn);
+
+   cryptocurrencyTrendingTableau.appendChild(cryptocurrencyTrendingLigne);
 }
-
-
-
-
-/* function openCryptocurrency(name, symbol, id) {
-   console.log(name);
-   console.log(symbol);
-   console.log(id);
-}
-   console.log(someFn);
-}
-function openCryptocurrency(cryptocurrencyName, cryptocurrencySymbol, cryptocurrencyId) {
-   console.log("Here");
-   // Ouvrir la page de la monnaie en personnalisant l'URL
-   window.open(`cryptocurrency.php?name=${cryptocurrencyName}&symbol=${cryptocurrencySymbol}&id=${cryptocurrencyId}`, "_self");
-} */
-
-/* thumbnailElement.addEventListener("click", function() {
-   // Ouvrir la page de la monnaie en personnalisant l'URL
-   window.open(`cryptocurrency.php?name=${cryptocurrencyName}&symbol=${cryptocurrencySymbol}&id=${thumbnailElement.id}`, "_self");
-   }); */
-
-// https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d
