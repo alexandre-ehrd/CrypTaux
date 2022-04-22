@@ -116,10 +116,6 @@
                   <th>7 jours</th>
                </tr>
             </table>
-            
-            <i class='bi bi-suit-heart'></i>
-            <i class="bi bi-suit-heart-fill"></i>
-
          </div>
       </section>
 
@@ -139,6 +135,8 @@
       
       <script src="src/scripts/Dashboard.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
-      <script src="test.js"></script>
    </body>
 </html>
+
+
+<a href=""></a>

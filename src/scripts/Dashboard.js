@@ -45,7 +45,7 @@ async function hideThumbnails() {
 
 
 const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-trending');
-var trendingURL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h,24h,7d';
+var trendingURL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=1h,24h,7d';
 fetch(trendingURL)
    .then(response => {
       console.log("Requête");
@@ -57,32 +57,69 @@ fetch(trendingURL)
          })
       }
       else {
-         console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+         console.error(`Impossible d'accéder à l'Api CoinGecko [${trendingURL}]`);
          reject();
          return;
       }
    })
    .catch((error) => {
-      console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
+      console.error(`Impossible d'accéder à l'Api CoinGecko [${trendingURL}] : ${error}`);
       reject();
       return;
    });
 
 
 function createTrendingElement(cryptocurrency) {
+   var imageURL = cryptocurrency['image'].replace('large', 'thumb');
+
+   let trendingScoreColumn = document.createElement('td');
+   let cryptocurrencyFavsButton = document.createElement('i');
+   cryptocurrencyFavsButton.classList.add('fav-button', 'bi', 'bi-suit-heart');
+   trendingScoreColumn.appendChild(cryptocurrencyFavsButton);
+   let trendingScore = document.createElement('span');
+   trendingScore.innerHTML = cryptocurrency['market_cap_rank'];
+   trendingScoreColumn.appendChild(trendingScore);
+   cryptocurrencyTrendingTableau.appendChild(trendingScoreColumn);
+
+   let trendingNameColumn = document.createElement('td');
+   let cryptocurrencyImage = document.createElement('img');
+   cryptocurrencyImage.src = imageURL;
+   cryptocurrencyImage.alt = cryptocurrency['name'];
+   trendingNameColumn.appendChild(cryptocurrencyImage);
+   let cryptocurrencyName = document.createElement('a');
+   cryptocurrencyName.innerHTML = cryptocurrency['name'];
+   console.log(cryptocurrencyName);
+   cryptocurrencyName.href = `cryptocurrency.php?name=${cryptocurrency['name']}&symbol=${cryptocurrency['symbol']}&id=${cryptocurrency['id']}`;
+   console.log(cryptocurrencyName);
+   trendingNameColumn.appendChild(cryptocurrencyName);
+   cryptocurrencyTrendingTableau.appendChild(trendingNameColumn);
    cryptocurrencyTrendingTableau.innerHTML += `
-      <td>
-         <i class="bi bi-suit-heart-fill" style='color: red;'></i>
-         ${cryptocurrency['market_cap_rank']}
-      </td>
-      <td>
-         <img src="${cryptocurrency['image']}" alt="${cryptocurrency['name']}" style="width: 20px; aspect-ratio: 1 / 1;">
-         ${cryptocurrency['name']} [${cryptocurrency['symbol'].toUpperCase()}]</td>
       <td>${cryptocurrency['current_price']}$</td>
       <td>${cryptocurrency['price_change_percentage_1h_in_currency'].toFixed(1)}%</td>
       <td>${cryptocurrency['price_change_percentage_24h_in_currency'].toFixed(1)}%</td>
       <td>${cryptocurrency['price_change_percentage_7d_in_currency'].toFixed(1)}%</td>
    `;
 }
+
+
+
+
+/* function openCryptocurrency(name, symbol, id) {
+   console.log(name);
+   console.log(symbol);
+   console.log(id);
+}
+   console.log(someFn);
+}
+function openCryptocurrency(cryptocurrencyName, cryptocurrencySymbol, cryptocurrencyId) {
+   console.log("Here");
+   // Ouvrir la page de la monnaie en personnalisant l'URL
+   window.open(`cryptocurrency.php?name=${cryptocurrencyName}&symbol=${cryptocurrencySymbol}&id=${cryptocurrencyId}`, "_self");
+} */
+
+/* thumbnailElement.addEventListener("click", function() {
+   // Ouvrir la page de la monnaie en personnalisant l'URL
+   window.open(`cryptocurrency.php?name=${cryptocurrencyName}&symbol=${cryptocurrencySymbol}&id=${thumbnailElement.id}`, "_self");
+   }); */
 
 // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d

@@ -14,7 +14,6 @@
    --color-orange: #E5734A;
 
    --color-red: #CF202F;
-   --color-yellow: #FFBF00;
    --color-green: #00A859;
 
    --color-light-grey: #CCCCCC;
@@ -26,13 +25,14 @@
 
    --padding: 15px;
    --padding-large: 30px;
+
    --border-radius-small: 5px;
    --border-radius-input: 8px;
    --border-radius-large: 15px;
+
    --header-size: 75px;
    /* --navigation-size: 20%; */
-   --navigation-size: 250px;
-
+   --navigation-size: 275px;
 }
 
 
@@ -50,6 +50,7 @@ a {
    font-size: 1.2rem;
    color: var(--color-grey);
    transition: color 200ms;
+   cursor: pointer;
 }
 
 a:hover {
@@ -75,6 +76,14 @@ hr {
    border-top: 1px solid var(--color-grey);
 }
 
+.positive-pourcentage {
+   color: var(--color-green);
+}
+
+.negative-pourcentage {
+   color: var(--color-red);
+}
+
 .container {
    max-width: 100%;
    min-height: 100vh;
@@ -85,10 +94,11 @@ hr {
 
 .container-page {
    width: 100%;
-   height: 100vh;
+   min-height: 100vh;
    background-color: var(--color-backgroud-white);
    padding: var(--padding);
    padding-left: calc(var(--navigation-size) + var(--padding));
+   padding-bottom: calc(3 * var(--padding));
    display: flex;
    flex-direction: column;
    gap: var(--padding);
@@ -104,6 +114,7 @@ hr {
 #logo-orange {
    color: var(--color-orange);
 }
+
 
 .popover-text {
    display: inline;
@@ -194,6 +205,11 @@ hr {
    text-decoration: underline;
 }
 
+
+.fav-button {
+   cursor: pointer;
+   color: var(--color-orange);
+}
 
 
 

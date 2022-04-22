@@ -147,7 +147,7 @@ function createChart(element, data, legende) {
                },
                grid: {
                   color: 'transparent',
-                  borderColor: 'transparent'  // <-- this line is answer to initial question
+                  borderColor: 'transparent'
                }
             },
             y: {
@@ -157,7 +157,7 @@ function createChart(element, data, legende) {
                beginAtZero: false,
                grid: {
                   color: 'transparent',
-                  borderColor: 'transparent'  // <-- this line is answer to initial question
+                  borderColor: 'transparent'
                }
             }
          },

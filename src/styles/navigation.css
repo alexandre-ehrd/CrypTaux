@@ -4,6 +4,7 @@ aside {
    width: var(--navigation-size);
    min-height: calc(100vh - var(--header-size));
    padding: var(--padding);
+   padding-bottom: calc(3 * var(--padding));
    background-color: var(--color-background-grey);
    display: flex;
    flex-direction: column;
