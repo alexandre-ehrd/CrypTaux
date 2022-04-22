@@ -1,6 +1,6 @@
 <?php 
 
-function sideNavigationCreate($selected)
+function sideNavigationCreateElement($selected)
 {
    echo "
    <aside class='side-navigation'>
@@ -18,28 +18,26 @@ function sideNavigationCreate($selected)
                   <p>Fav's</p>
                </a>
             </li>
-            <li class=".($selected == 2 ? 'navigation-list-item-select' : '').">
-               <a href='index.php'>
+            <!-- <li class=".($selected == 2 ? 'navigation-list-item-select' : '').">
+               <a href='wallet.php'>
                   <i class='bi bi-wallet'></i>
                   <p>Mon portefeuille</p>
                </a>
-            </li>
+            </li> -->
             <li class=".($selected == 3 ? 'navigation-list-item-select' : '').">
-               <a href='index.php'>
+               <a href='exchange.php'>
                   <i class='bi bi-arrow-left-right'></i>
                   <p>Échanges</p>
                </a>
-            </li>
+            </li> 
          </ul>
       </nav>
-      <a href='connexion.php' >
+      <a href='connexion.php' id='logout-button'>
          <i class='bi bi-box-arrow-left'></i>
          Se déconnecter
       </a>
-      </aside>
+   </aside>
    ";
 }
 
 ?>
-
-<a href=""></a>

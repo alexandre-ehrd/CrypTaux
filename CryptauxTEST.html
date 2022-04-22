@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Polices d'écritures -->
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+      <!-- Icônes Bootstrap -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+      <title>Cryptaux</title>
+      <link rel="stylesheet" href="src/styles/style.css">
+      <link rel="stylesheet" href="src/styles/header.css">
+      <link rel="stylesheet" href="src/styles/navigation.css">
+      <link rel="stylesheet" href="src/styles/dashboard.css">
+      <link rel="stylesheet" href="src/styles/thumbnailFav.css">
+         </head>
+   <body>
+      
+   <header>
+      <div class='header-left-side'>
+         <a href='index.php'>
+            <h1 id='logo'>Cryp<span id='logo-orange'>taux</span>.</h1>
+         </a>
+      </div>
+      <div class='header-right-side'>
+         <div class='path'>
+            <h2 id='path-username'>Alex</h2>
+            <p>></p><a href='index.php'>Tableau de bord</a>
+         </div>
+      </div>
+   </header>
+         <section class="container">
+         
+   <aside class='side-navigation'>
+      <nav>
+         <ul id='navigation-list'>
+            <li class=navigation-list-item-select>
+               <a href='index.php'>
+                  <i class='bi bi-grid'></i>
+                  <p>Tableau de bord</p>
+               </a>
+            </li>
+            <li class=>
+               <a href='favs.php'>
+                  <i class='bi bi-suit-heart'></i>
+                  <p>Fav's</p>
+               </a>
+            </li>
+            <!-- <li class=>
+               <a href='wallet.php'>
+                  <i class='bi bi-wallet'></i>
+                  <p>Mon portefeuille</p>
+               </a>
+            </li> -->
+            <li class=>
+               <a href='exchange.php'>
+                  <i class='bi bi-arrow-left-right'></i>
+                  <p>Échanges</p>
+               </a>
+            </li> 
+         </ul>
+      </nav>
+      <a href='connexion.php' id='logout-button'>
+         <i class='bi bi-box-arrow-left'></i>
+         Se déconnecter
+      </a>
+   </aside>
+            <div class="container-page">
+
+            <div class="title-tableau-bord">
+               <h3>Fav's</h3>
+               <a href="favs.php">
+                  <i class="bi bi-chevron-right"></i>
+               </a>
+            </div>
+            
+            <div class="container-thumbnail-currency">
+               Vous n'avez pas de fav's ✨
+            </div>
+            <h3>Populaires</h3>
+            <div class="container-cryptocurrency-trending">
+               <table id="cryptocurrency-trending">
+                  <thead>   
+                     <tr>
+                        <th></th>
+                        <th style="text-align: left;">Nom</th>
+                        <th>Prix</th>
+                        <th>1 heure</th>
+                        <th>24 heures</th>
+                        <th>7 jours</th>
+                     </tr>
+                  </thead>
+                  <tbody id="cryptocurrency-trending-body"></tbody>
+               </table>
+            </div>
+         </div>
+      </section>
+
+
+      <!-- <div class="skeleton-container">
+         <div class="skeleton skeleton-title">
+            <p></p>
+         </div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+      </div> -->
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+      
+      <script src="src/scripts/Dashboard.js" type="module"></script>
+      <script src="src/scripts/FavThumbnail.js" type="module"></script>
+   </body>
+</html>

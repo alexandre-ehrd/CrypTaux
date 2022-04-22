@@ -1,69 +1,128 @@
-const allThumbnail = document.getElementsByClassName('container');
-
-console.log(allThumbnail);
+const colorThief = new ColorThief();
 
 
-async function requestThumbnail(){
-   for (thumbnail of allThumbnail) {
-      // Appeler la fonction qui remplie le tableau
-      await fetchData(`https://api.coingecko.com/api/v3/coins/${thumbnail.id}/market_chart?vs_currency=usd&days=7&interval=daily`, thumbnail);
-   }
-}
-
-
-function fetchData(URL, element) {
+async function fetchCryptocurrency(thumbnailElement) {
+   var cryptocurrencyID = thumbnailElement.id;
+   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}`
    return new Promise((resolve, reject) => {
-      fetch(URL).then(response => {
-         if (response.ok){
-            response.json().then(response => {
-               historic_price = response['prices'];
-               legende = Object.keys(historic_price)
-               historic_price = historic_price.map(x => x[1])
-               var canvas_element = element.getElementsByTagName('canvas')[0];
-               createChart(canvas_element, historic_price, legende)
-               
-               value_depart = historic_price[0];
-               value_arrive = historic_price[historic_price.length-1];
-               taux = ( (value_arrive-value_depart) / value_depart) * 100;
-               
-               var taux_element = element.querySelector('.fav-taux');
-               if (taux > 0) {
-                  taux_element.innerHTML = `+${taux.toFixed(2)}%`;
+      var cryptocurrencyResponse = localStorage.getItem(cryptocurrencyID);
+      // La monnaie se trouve dans le localStorage
+      if (cryptocurrencyResponse != null) {
+         cryptocurrencyResponse = JSON.parse(cryptocurrencyResponse);
+         resolve(cryptocurrencyResponse);
+      }
+      else {
+         fetch(URL)
+            .then(response => {
+               console.log("Requête");
+               if (response.ok) {
+                  response.json().then(response => {
+                     cryptocurrencyResponse = response;
+                     resolve(cryptocurrencyResponse);
+                  })
                }
                else {
-                  taux_element.innerHTML = `${taux.toFixed(2)}%`;
+                  console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+                  reject();
+                  return;
                }
-
-               var price_element = element.querySelector('.fav-price');
-               price_element.innerHTML = `${value_arrive.toFixed(7)}$`;
-
-
-
-               // Ajouter le logo dans la thumbnail
-               var logoURL = `https://api.coingecko.com/api/v3/coins/${element.id}`;
-               
-               fetch(logoURL).then(response => {
-                  if (response.ok){
-                     response.json().then(response => {
-                        var img = element.getElementsByTagName('img')[0];
-                        img.src = response['image']['small'];
-                     })
-                  }
-               })
-
-               
-
-
-               resolve();
             })
-         }
-         else{
-            console.error(`Impossible d'accéder à l'Api CoinGecko`);
-            reject();
-         }
-      })
+            .catch((error) => {
+               console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
+               reject();
+               return;
+            });
+      }
    })
 }
+
+
+async function fetchHistoricData(thumbnailElement) {
+   var cryptocurrencyID = thumbnailElement.id;
+   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=7&interval=daily`;
+   return new Promise((resolve, reject) => {
+      var historicDataResponse = null;
+      // Les données historiques se trouvent dans le sessionStorage
+      if (sessionStorage.getItem(cryptocurrencyID) != null) {
+         historicDataResponse = JSON.parse(sessionStorage.getItem(cryptocurrencyID));
+         resolve(historicDataResponse);
+      }
+      else {
+         fetch(URL)
+            .then(response => {
+               console.log("Requête");
+               if (response.ok) {
+                  response.json().then(response => {
+                     historicDataResponse = response;
+                     // Sauvegarder les données dans le sessionStorage
+                     sessionStorage.setItem(cryptocurrencyID, JSON.stringify(response));
+                     resolve(historicDataResponse);
+                  })
+               }
+               else{
+                  console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+                  reject();
+                  return;
+               }
+            })
+            .catch((error) => {
+               console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
+               reject();
+               return;
+            });
+      }
+   });
+}
+
+
+function createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnailElement) {
+   var historicPrice = historicDataResponse['prices'];
+
+   // Créer le tableau des prix
+   historicPrice = historicPrice.map(x => x[1]);
+   // Créer le tableau de légende (nécessaire pour le graphique)
+   var legende = Object.keys(historicPrice);
+   
+   // Calculer le taux d'évolution sur 7 jours
+   var value_depart = historicPrice[0];
+   var value_arrive = historicPrice[historicPrice.length-1];
+   var taux = ((value_arrive-value_depart) / value_depart) * 100;
+   
+   var taux_element = thumbnailElement.querySelector('.fav-taux');
+   if (taux > 0) {
+      taux_element.innerHTML = `+${taux.toFixed(2)}%`;
+   }
+   else {
+      taux_element.innerHTML = `${taux.toFixed(2)}%`;
+   }
+
+   // Prix
+   var price_element = thumbnailElement.querySelector('.fav-price');
+   price_element.innerHTML = `${value_arrive.toFixed(7)}$`;
+   
+   // Graphique
+   var canvas_element = thumbnailElement.getElementsByTagName('canvas')[0];
+   createChart(canvas_element, historicPrice, legende);
+
+   // Image
+   var img = thumbnailElement.getElementsByTagName('img')[0];
+   var googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+   var imageURL = cryptocurrencyResponse['image']['small'];
+   img.src = googleProxyURL + encodeURIComponent(imageURL);
+   img.addEventListener('load', function() {
+      var color = colorThief.getColor(img);
+      thumbnailElement.style.backgroundColor = `rgba(${color}, 0.3)`;
+   });
+   // Nom et symbole
+   var cryptocurrencyName = cryptocurrencyResponse['name'];
+   thumbnailElement.style.visibility = 'visible';
+   thumbnailElement.addEventListener("click", function() {
+      // Ouvrir la page de la monnaie en personnalisant l'URL
+      window.open(`cryptocurrency.php?name=${cryptocurrencyName}&id=${thumbnailElement.id}`, "_self");
+   });
+}
+
+
 
 function createChart(element, data, legende) {
    const myChart = new Chart(element, {
@@ -87,7 +146,7 @@ function createChart(element, data, legende) {
                },
                grid: {
                   color: 'transparent',
-                  borderColor: 'transparent'  // <-- this line is answer to initial question
+                  borderColor: 'transparent'
                }
             },
             y: {
@@ -97,7 +156,7 @@ function createChart(element, data, legende) {
                beginAtZero: false,
                grid: {
                   color: 'transparent',
-                  borderColor: 'transparent'  // <-- this line is answer to initial question
+                  borderColor: 'transparent'
                }
             }
          },
@@ -122,5 +181,4 @@ function createChart(element, data, legende) {
 }
 
 
-
-requestThumbnail();
+export {fetchHistoricData, fetchCryptocurrency, createThumbnail};

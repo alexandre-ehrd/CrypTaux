@@ -12,103 +12,108 @@
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
-      <link rel="stylesheet" href="src/styles/dashboard.css">
-      <?php session_start();?>
+      <link rel="stylesheet" href="src/styles/favs.css">
+      <link rel="stylesheet" href="src/styles/thumbnailFav.css">
+      <?php
+         session_start();
+         
+         // Impossible d'accéder à la session de l'utilisateur
+         if (!isset($_SESSION['username'])) {
+            // Redirigier l'utilisateur vers la page de connexion
+            header("Location: connexion.php");
+            exit();
+         }
+      ?>
    </head>
    <body>
-      <header>
-         <div class="header-left-side">
-            <a href="connexion.html">
-               <h1 id="title">Cryp<span id="title-orange">taux</span>.</h1>
-            </a>
-         </div>
-         <div class="header-right-side">
-            <div class="path">
-               <h2 id='path-username'>
-                  <?php
-                     if (isset($_SESSION['username'])) {
-                        echo $_SESSION['username'];
-                     }
-                     else {
-                        // Impossible d'accéder à la session de l'utilisateur
-                        header("Location: connexion.php");
-                        exit();
-                     }
-                  ?>
-               </h2>
-               <p>></p>
-               <a href="#">Fav's</a>
-            </div>
-         </div>
-      </header>
-      <section class="contenu">
+      <?php
+         require('src/backend/header.php');
+         $array = [
+            "Fav's" => "favs.php",
+         ];
+         headerCreateElement($_SESSION['username'], $array);
+      ?>
+      <section class="container">
          <?php
-            require('side_navigation.php');
-            sideNavigationCreate(1);
+            require('src/backend/side_navigation.php');
+            sideNavigationCreateElement(1);
          ?>
-         <div class="contenu-wrapper">
-            <div class="tableau-bord-wrapper">
-               <input id="search-bar" type="text" name="" id="">
-               <p id="log"></p>
+         <div class="container-page">
+            <div class="container-search-bar">
+               <div class="search-bar-wrapper" title="Rechercher">
+                  <input id="search-bar" type="text" name="" placeholder="Rechercher">
+                  <i class="bi bi-search" id="search-button"></i>
+               </div>
             </div>
+            <!-- Cryptomonnaies -->
+            <h3 id="cryptocurrency-text-result" style="display: none;">Cryptomonnaies</h3>
+            <div id="cryptocurrency-search-result" class="container-thumbnail-currency" style="display: none;"></div>
+
+            <!-- Exchange -->
+            <div id="exchange-text-result-parent" style="display: none;">
+               <h3 id="exchange-text-result" class="popover-text">Exchanges</h3>
+               <?php
+                  require('src/backend/popover.php');
+                  popoverCreateElement("popover-bottom", "Un exchange est une plateforme spécialisée qui permet d’acheter ou de vendre des cryptomonnaies.", "https://en.wikipedia.org/wiki/Cryptocurrency_exchange");
+               ?>
+            </div>
+            <div id="exchange-search-result" style="display: none;"></div>         
+            <h3>Mes fav's</h3>
+            <div class="container-thumbnail-currency">
+               <?php 
+                  require('src/backend/connect_database.php');
+                  $mail_user = $_SESSION['mail'];
+                  $reponse=$db->query("SELECT favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                  $favs = $reponse[0]->favs;
+
+                  if (isset($favs) && $favs != '') {
+                     // Séparer les monnaies
+                     $favs = explode("/", $favs);
+                     
+                     foreach ($favs as $fav){
+                        $fav = explode(",", $fav);
+                        [$name, $symbol] = [$fav[0], $fav[1]];
+                        // Créer une vignette de monnaie favorite
+                        echo "
+                        <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
+                           <div class='info-currency'>
+                              <img src='' alt='$name' crossorigin='anonymous'>
+                              <div>
+                                 <p class='fav-price'></p>
+                                 <p class='fav-symbol'>". strtoupper($symbol). "</p>
+                              </div>
+                              <p class='fav-taux'></p>   
+                           </div>
+                           <canvas class='fav-chart'></canvas>
+                        </div>
+                        ";
+                     }
+                  }
+                  else {
+                     echo "Vous n'avez pas de fav's";
+                  }
+               ?>
+            </div>
+
+      </section>
+      
+      <!-- <div class="skeleton-container">
+         <div class="skeleton skeleton-title">
+            <p></p>
          </div>
-      </section>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+      </div> -->
 
 
-
-
-
-
-
-
-      <section class="header">
-         <div>
-
-               <!-- <div class="popover">
-                  <i class="bi bi-question-circle">
-                     <div class="popover-content-container">
-                        <h4>Lorem.</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quae rem laborum ab atque deleniti?</p>
-                     </div>
-                  </i>
-               </div> -->
-               
-               
-               <!-- <div class="popover">
-                  <i class="bi bi-question-circle first-popover"></i>
-                  <div class="popover-container">
-                     <h4>Lorem.</h4>
-                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quae rem laborum ab atque deleniti?</p>
-                  </div>
-               </div> -->
-            </div>
-         </section>
-
-         <!-- <div class="skeleton-container">
-            <div class="skeleton skeleton-title">
-               <p></p>
-            </div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-         </div> -->
-
-
-
-      </section>
-
-      
-
-
-      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
-      <script src="src/scripts/Recherche.js"></script>
-      <script src="src/scripts/FavThumbnail.js"></script>
-      <script src="src/scripts/App.js"></script>
+      <script src="src/scripts/Favs.js" type="module"></script>
+      <script src="src/scripts/Recherche.js" type="module"></script>
 
-
-      
+      <script src="src/scripts/FavThumbnail.js" type="module"></script>
    </body>
 </html>

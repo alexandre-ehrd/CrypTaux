@@ -10,11 +10,11 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
       <title>Cryptaux - Inscription</title>
       <link rel="stylesheet" href="src/styles/style.css">
-      <link rel="stylesheet" href="src/styles/Connexion.css">
+      <link rel="stylesheet" href="src/styles/connexion.css">
       <?php session_start();?>
    </head>
    <body>
-      <?php require('connect_database.php');?>
+      <?php require('src/backend/connect_database.php');?>
       <aside>
          <section class="form-container">
             <form method="post">
@@ -33,7 +33,7 @@
                   <i id="icon-eye-show" class="bi bi-eye"></i>
                   <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
                </div>
-               <!-- <?php
+               <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
                   
@@ -50,7 +50,11 @@
                      // L'adresse mail ne se trouve pas encore dans la BDD
                      if ($count == 0) {
                         $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '')");
-                        $_SESSION['username'] = $username;
+                        
+                        $_SESSION['username'] = $username_user;
+                        $_SESSION['mail'] = $mail_user;
+                        $_SESSION['favs'] = '';
+
                         // Changer de page
                         header("Location: index.php");
                      } else {
@@ -61,7 +65,7 @@
                      echo "L'adresse e-mail n'est pas valide ❌";
                   }
                }
-               ?> -->
+               ?>
                <div class="form-input">
                   <input type="submit" value="S'inscrire">
                   <p class="have-account-redirection">Vous avez déjà un compte ? <a href="connexion.php">Connectez-vous</a></p>
@@ -73,10 +77,10 @@
       </aside>
       <div id="hero-banner">
          <div class="hero-banner-container">
-            <h2 id="hero-banner-slogan">L’outil ultime<br>pour les<br>crypto-monnaies.</h2>
+            <h2 id="hero-banner-slogan">L’outil idéal<br>pour les<br>crypto-monnaies.</h2>
             <p id="hero-banner-text">Consultez en un coup d’œil le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre portée dans une interface moderne. </p>
          </div>
-         <p id="title" class="text-bottom-creator-logo">Cryp<span id="title-orange">taux</span>.</p>
+         <p id="logo" class="text-bottom-creator-logo">Cryp<span id="logo-orange">taux</span>.</p>
       </div>
       <script src="src/scripts/Connexion.js"></script>
    </body>

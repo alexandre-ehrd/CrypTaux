@@ -8,12 +8,13 @@ header {
    display: inline-flex;
    z-index: 10;
    background-color: #FEFFFF;
-   border-bottom: solid 1px var(--color-grey);
+   border-bottom: solid 1px var(--color-light-grey);
+   margin-bottom: 500px;
 }
 
 .header-left-side {
-   min-width: 20%;
-   max-width: 20%;
+   /* width: 20%; */
+   min-width: var(--navigation-size);
    background-color: var(--color-background-grey);
    display: flex;
    align-items: center;

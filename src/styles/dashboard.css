@@ -11,18 +11,91 @@
    color: var(--color-grey);
 }
 
-.container {
-   background-color: #c7f4cf;
+/* tbody:not(:first-child) {
+   border-bottom: solid 1px var(--color-light-grey);
+} */
+
+.container-cryptocurrency-trending {
+   max-width: 100%;
+   border-radius: var(--border-radius-large);
+   border: solid 1px var(--color-light-grey);
+   overflow-x: scroll;
 }
 
-.fav-symbol {
-   font-size: 0.8rem;
-   font-weight: 300;
+#cryptocurrency-trending {
+   min-width: 100%;
+   border-collapse: collapse;
+   user-select: none;
+   -moz-user-select: none; /* Firefox */
+   -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
+   user-select: none; /* Propriété standard */
+}
+
+th {
+   font-size: 1.2rem;
+   font-weight: 500;
+   text-align: center;
+   padding: var(--padding) calc(var(--padding) * 2);
+   border-bottom: solid 1px var(--color-light-grey);
+}
+
+tbody tr {
+   cursor: pointer;
+}
+tbody tr:hover {
+   background-color: var(--color-background-grey) !important;
+}
+
+/* Padding à gauche et à droite */
+td:first-child{
+   padding: 0px;
+   padding: 0px calc(var(--padding) * 2);
+   width: 1px;
+}
+td:last-child{
+   padding-right: var(--padding);
+}
+
+td {
+   text-align: center;
+   padding: var(--padding) 0px;
+}
+
+.trending-name {
+   padding: var(--padding) calc(var(--padding) * 2);
+   display: flex;
+   justify-items: center;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.trending-name img {
+   width: 40px;
+   height: 40px;
+}
+
+.cryptocurrency-name {
+   font-size: 1rem;
+   font-weight: 600;
+   color: var(--color-black) !important;
+}
+
+.cryptocurrency-symbol {
+   font-size: 1rem;
+   font-weight: 400;
    color: var(--color-grey);
 }
 
 
-.fav-taux {
-   font-size: 0.5em;
-   font-weight: 800;
+
+td i {
+   font-size: 1.5rem;
 }
+.bi-suit-heart {
+   color: var(--color-grey) !important;
+}
+.bi-suit-heart:hover {
+   color: var(--color-orange) !important;
+}
+
+

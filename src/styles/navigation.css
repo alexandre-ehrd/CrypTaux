@@ -1,9 +1,10 @@
 @import './style.css';
 
 aside {
-   width: 20%;
+   width: var(--navigation-size);
    min-height: calc(100vh - var(--header-size));
    padding: var(--padding);
+   padding-bottom: calc(3 * var(--padding));
    background-color: var(--color-background-grey);
    display: flex;
    flex-direction: column;
@@ -25,7 +26,7 @@ nav {
    margin-bottom: 20px;
    cursor: pointer;
    padding: 10px 20px;
-   border-radius: 15px;
+   border-radius: var(--border-radius-large);
 }
 
 #navigation-list li > a {
@@ -57,4 +58,9 @@ nav {
 
 .navigation-list-item-select a > * {
    color: var(--color-white) !important;
+}
+
+#logout-button {
+   font-size: 1rem;
+   font-weight: 300;
 }

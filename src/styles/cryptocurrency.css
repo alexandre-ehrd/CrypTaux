@@ -1,0 +1,106 @@
+@import './style.css';
+
+
+.cryptocurrency-infos {
+   height: 70px;
+   display: flex;
+   flex-direction: row;
+   gap: var(--padding);
+   margin-bottom: var(--padding);
+}
+
+.cryptocurrency-infos img {
+   height: 70%;
+   aspect-ratio: 1/1;
+}
+
+.cryptocurrency-infos-name {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.cryptocurrency-infos-name h2 {
+   font-size: 1.75rem;
+   font-weight: 600;
+}
+
+.cryptocurrency-infos-name i {
+   font-size: 1.75rem;
+}
+
+.wrapper {
+   padding: var(--padding);
+   border-radius: var(--border-radius-large);
+   border: solid 1px var(--color-light-grey);
+   background-color: var(--color-background-grey);
+}
+
+.wrapper ~ * {
+   display: flex;
+   flex-direction: column;
+   gap: var(--padding);
+}
+
+
+
+.chart-header {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.chart-header h3 {
+   font-size: 2rem;
+   font-weight: 600;
+   position: relative;
+}
+
+.chart-header h3 span {
+   position: absolute;
+   top: 5px;
+   right: 0;
+   transform: translateX(100%);
+   font-size: 1.1rem;
+}
+
+#chart-period-selector {
+   display: flex;
+   flex-direction: row;
+   gap: var(--padding);
+}
+
+#chart-period-selector a {
+   cursor: pointer;
+   font-size: 1.1rem;
+   transition: color 200ms;
+}
+
+#chart-period-selector a:hover {
+   color: var(--color-black);
+}
+
+.period-selected {
+   color: var(--color-orange) !important;
+   font-weight: 600;
+}
+
+.wrapper-grid {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--padding);
+}
+
+.wrapper-grid div {
+   flex-grow: 1;
+   min-width: 300px;
+   border: solid 1px var(--color-light-grey);
+}
+
+
+.cryptocurrency-chart {
+   background-color: aqua;
+}

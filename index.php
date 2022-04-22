@@ -13,147 +13,111 @@
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/dashboard.css">
-      <?php session_start();?>
+      <link rel="stylesheet" href="src/styles/thumbnailFav.css">
+      <?php
+         session_start();
+         
+         // Impossible d'accéder à la session de l'utilisateur
+         if (!isset($_SESSION['username'])) {
+            // Redirigier l'utilisateur vers la page de connexion
+            header("Location: connexion.php");
+            exit();
+         }
+      ?>
    </head>
    <body>
-      <header>
-         <div class="header-left-side">
-            <a href="connexion.html">
-               <h1 id="title">Cryp<span id="title-orange">taux</span>.</h1>
-            </a>
-         </div>
-         <div class="header-right-side">
-            <div class="path">
-               <h2 id='path-username'>
-                  <?php
-                     if (isset($_SESSION['username'])) {
-                        echo $_SESSION['username'];
-                     }
-                     else {
-                        // Impossible d'accéder à la session de l'utilisateur
-                        header("Location: connexion.php");
-                        exit();
-                     }
-                  ?>
-               </h2>
-               <p>></p>
-               <a href="#">Tableau de bord</a>
-            </div>
-         </div>
-      </header>
-      <section class="contenu">
+      <?php
+         require('src/backend/header.php');
+         $array = [
+            "Tableau de bord" => "index.php",
+         ];
+         headerCreateElement($_SESSION['username'], $array);
+      ?>
+      <section class="container">
          <?php
-            require('side_navigation.php');
-            sideNavigationCreate(0);
+            require('src/backend/side_navigation.php');
+            sideNavigationCreateElement(0);
          ?>
+         <div class="container-page">
 
-         <div class="contenu-wrapper">
-            <div class="tableau-bord-wrapper">
+            <div class="title-tableau-bord">
+               <h3>Fav's</h3>
+               <a href="favs.php">
+                  <i class="bi bi-chevron-right"></i>
+               </a>
+            </div>
+            
+            <div class="container-thumbnail-currency">
+               <?php 
+                  require('src/backend/connect_database.php');
+                  $mail_user = $_SESSION['mail'];
+                  $reponse=$db->query("SELECT favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
+                  $favs = $reponse[0]->favs;
 
-               <div class="dashboard-favs">
-                  <div class="title-tableau-bord">
-                     <h3>Fav's</h3>
-                     <a href="favs.php">
-                        <i class="bi bi-chevron-right"></i>
-                     </a>
-                  </div>
-                  <div class="dashboard-favs-container">
-
-                     <?php 
-                     if (isset($_SESSION['favs']) && $_SESSION['favs'] != '' && $_SESSION['username'] == 'Thalex') {
-                        
-                        $favs = $_SESSION['favs'];
-                        // Séparer les monnaies
-                        $favs = explode("/", $favs);
-                        
-                        foreach ($favs as $fav){
-                           $fav = explode(",", $fav);
-                           [$name, $symbol] = [$fav[0], $fav[1]];
-                           // Créer une vignette de monnaie favorite
-                           echo "
-                           <div class='container' id='$name'>
-                              <div class='info'>
-                                 <div class='info-logo'>
-                                    <img src='' alt='$name'>
-                                 </div>
-                                 <div class='info-price-name'>
-                                    <p class='fav-price'></p>
-                                    <p class='fav-symbol'>$symbol</p>
-                                 </div>
-                                 <div>
-                                    <p class='fav-taux'></p>
-                                 </div>
+                  if (isset($favs) && $favs != '') {
+                     // Séparer les monnaies
+                     $favs = explode("/", $favs);
+                     foreach ($favs as $fav) {
+                        $fav = explode(",", $fav);
+                        [$name, $symbol] = [$fav[0], $fav[1]];
+                        // Créer une vignette de monnaie favorite
+                        echo "
+                        <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;'>
+                           <div class='info-currency'>
+                              <img src='' alt='$name' crossorigin='anonymous'>
+                              <div>
+                                 <p class='fav-price'></p>
+                                 <p class='fav-symbol'>". strtoupper($symbol). "</p>
                               </div>
-                              <canvas class='fav-chart'></canvas>
+                              <p class='fav-taux'></p>   
                            </div>
-                           ";
-                        }
+                           <canvas class='fav-chart'></canvas>
+                        </div>
+                        ";
                      }
-                     else {
-                        echo "Vous devez être administrateur... ✨";
-                     }
-                     ?>
-                  </div>
-               </div>
+                  }
+                  else {
+                     echo "Vous n'avez pas de fav's ✨";
+                  }
+               ?>
+            </div>
+            <h3>Populaires</h3>
+            <div class="container-cryptocurrency-trending">
+               <table id="cryptocurrency-trending">
+                  <thead>   
+                     <tr>
+                        <th></th>
+                        <th style="text-align: left;">Nom</th>
+                        <th>Prix</th>
+                        <th>1 heure</th>
+                        <th>24 heures</th>
+                        <th>7 jours</th>
+                     </tr>
+                  </thead>
+                  <tbody id="cryptocurrency-trending-body"></tbody>
+               </table>
             </div>
          </div>
       </section>
 
 
-
-
-
-
-
-
-      <section class="header">
-         <div>
-
-               <!-- <div class="popover">
-                  <i class="bi bi-question-circle">
-                     <div class="popover-content-container">
-                        <h4>Lorem.</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quae rem laborum ab atque deleniti?</p>
-                     </div>
-                  </i>
-               </div> -->
-               
-               
-               <!-- <div class="popover">
-                  <i class="bi bi-question-circle first-popover"></i>
-                  <div class="popover-container">
-                     <h4>Lorem.</h4>
-                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quae rem laborum ab atque deleniti?</p>
-                  </div>
-               </div> -->
-            </div>
-         </section>
-
-         <!-- <div class="skeleton-container">
-            <div class="skeleton skeleton-title">
-               <p></p>
-            </div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-         </div> -->
-
-
-
-      </section>
-
-      
-
-
+      <!-- <div class="skeleton-container">
+         <div class="skeleton skeleton-title">
+            <p></p>
+         </div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+         <div class="skeleton skeleton-text"></div>
+      </div> -->
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
-      <script src="src/scripts/Recherche.js"></script>
-      <script src="src/scripts/FavThumbnail.js"></script>
-      <script src="src/scripts/App.js"></script>
-
-
-      
+      <script src="src/scripts/Dashboard.js" type="module"></script>
+      <script src="src/scripts/FavThumbnail.js" type="module"></script>
    </body>
 </html>
+
+
+<a href=""></a>
