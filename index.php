@@ -116,6 +116,8 @@
       
       <script src="src/scripts/Dashboard.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
+      <script src="src/scripts/FavsManagerHeart.js" type="module"></script>
+
    </body>
 </html>
 
