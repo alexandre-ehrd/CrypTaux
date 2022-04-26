@@ -19,7 +19,7 @@
    max-width: 100%;
    border-radius: var(--border-radius-large);
    border: solid 1px var(--color-light-grey);
-   overflow-x: scroll;
+   overflow-x: auto;
 }
 
 #cryptocurrency-trending {
@@ -86,16 +86,6 @@ td {
    color: var(--color-grey);
 }
 
-
-
-td i {
+td .fav-button {
    font-size: 1.5rem;
 }
-.bi-suit-heart {
-   color: var(--color-grey) !important;
-}
-.bi-suit-heart:hover {
-   color: var(--color-orange) !important;
-}
-
-

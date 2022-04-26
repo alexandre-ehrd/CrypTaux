@@ -22,12 +22,8 @@ async function hideThumbnails() {
    var gridColonneCount = gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").length-1;
    for (let i = 0; i < allThumbnails.length; i++) {
       var thumbnail = allThumbnails[i];
-      // La thumbnail ne se situe pas sur la première ligne
-      if (i > (gridColonneCount)) {
-         thumbnail.style.display = "none";
-      } 
       // La thumbnail se situe sur la première ligne
-      else {
+      if (i <= (gridColonneCount)) {
          thumbnail.style.display = "block";
          // La thumbnail n'est pas encore affichée mais elle doit l'être
          if (thumbnail.style.display != "none" && thumbnail.classList.contains("thumbnail-hide")) {
@@ -82,7 +78,7 @@ function createTrendingElement(cryptocurrency) {
    let trendingScoreColumn = document.createElement('td');
    let cryptocurrencyFavsButton = document.createElement('i');
    if (favsList.includes(`${cryptocurrency['id']},${cryptocurrency['symbol']}`)) {
-      cryptocurrencyFavsButton.classList.add('fav-button', 'bi', 'bi-suit-heart-fill');
+      cryptocurrencyFavsButton.classList.add('fav-button', 'fav-button-selected', 'bi', 'bi-suit-heart-fill');
    }
    else {
       cryptocurrencyFavsButton.classList.add('fav-button', 'bi', 'bi-suit-heart');

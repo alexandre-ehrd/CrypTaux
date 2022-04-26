@@ -39,7 +39,7 @@
             sideNavigationCreateElement(3);
          ?>
          <div class="container-page">
-            <p>Contenu</p>
+            <p>Cette page n'est pas encore disponible</p>
          </div>
       </section>
       

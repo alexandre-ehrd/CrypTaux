@@ -128,6 +128,10 @@ function updateValue(e) {
 
                            let thumbnailExchange = document.createElement('div');
                            thumbnailExchange.classList.add('thumbnail-exchange');
+                           thumbnailExchange.addEventListener('click', () => {
+                              window.open(data['url'], '_blank');
+                           });
+                           
                            thumbnailExchange.innerHTML = `
                               <img src='${listExchanges[i]['large']}' alt='${listExchanges[i]['name']}'>
                               <h4>${listExchanges[i]['name']}</h4>

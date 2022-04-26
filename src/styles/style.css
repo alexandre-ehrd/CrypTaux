@@ -208,9 +208,11 @@ hr {
    text-decoration: underline;
 }
 
-
 .fav-button {
-   cursor: pointer;
+   color: var(--color-grey);
+}
+.fav-button:hover,
+.fav-button-selected {
    color: var(--color-orange);
 }
 

@@ -62,7 +62,7 @@
                         [$name, $symbol] = [$fav[0], $fav[1]];
                         // Créer une vignette de monnaie favorite
                         echo "
-                        <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;'>
+                        <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden; display: none;'>
                            <div class='info-currency'>
                               <img src='' alt='$name' crossorigin='anonymous'>
                               <div>
@@ -81,7 +81,13 @@
                   }
                ?>
             </div>
-            <h3>Populaires</h3>
+            <div>
+               <h3 class="popover-text">Populaires</h3>
+               <?php
+               require('src/backend/popover.php');
+               popoverCreateElement("popover-bottom", "", "");
+               ?>
+            </div>
             <div class="container-cryptocurrency-trending">
                <table id="cryptocurrency-trending">
                   <thead>   

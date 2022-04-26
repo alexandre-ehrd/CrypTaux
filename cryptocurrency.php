@@ -103,9 +103,7 @@
                   <div>
                      <p>Fluctuation de prix (en 7 jours)</p>
                      <p>%</p>
-                  </div>
-                  
-                  
+                  </div> 
                </div>
             </div>
 

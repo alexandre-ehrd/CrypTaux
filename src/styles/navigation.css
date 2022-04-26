@@ -34,19 +34,19 @@ nav {
    align-items: center;
 }
 
-#navigation-list li p{
+#navigation-list li i,
+#navigation-list li p {
    color: var(--color-grey);
    transition: color 200ms;
-}
-
-#navigation-list li:hover * {
-   color: var(--color-black);
 }
 
 #navigation-list li i {
    margin-right: 10px;
    font-size: 24px;
-   color: var(--color-grey);
+}
+
+#navigation-list li:hover * {
+   color: var(--color-black);
 }
 
 .navigation-list-item-select {
