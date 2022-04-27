@@ -1,6 +1,6 @@
 <?php 
 
-function popoverCreateElement($popoverDirection, $description, $link="test")
+function popoverCreateElement($popoverDirection, $description, $link)
 {
    $linkElement = "";
    if ($link != "") {

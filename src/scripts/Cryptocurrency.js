@@ -2,15 +2,21 @@ import {fetchList, favsManager} from './FavsManagerHeart.js';
 
 
 const periodSelector = document.getElementById('chart-period-selector');
-const allPeriod = periodSelector.getElementsByTagName('a');
+const allPeriod = periodSelector.querySelectorAll('a');
 
 const cryptocurrencyLogo = document.getElementById('cryptocurrency-logo');
 const cryptocurrencyName = document.getElementById('cryptocurrency-name');
 const cryptocurrencyFavsButton = document.getElementById('cryptocurrency-favs-button');
 const cryptocurrencySymbol = document.getElementById('cryptocurrency-symbol');
+
 const cryptocurrencyPrice = document.getElementById('cryptocurrency-price');
-const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
 const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
+
+const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
+
+const cryptocurrencyDescriptionWrapper = document.getElementById('wrapper-description');
+
+
 
 var favsList = await fetchList();
 
@@ -31,12 +37,16 @@ async function fetchData(cryptocurrencyID) {
                })
             }
             else{
+               // Retour en arrière après une erreur
+               window.history.go(-1);
                console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
                reject();
                return;
             }
          })
          .catch((error) => {
+            // Retour en arrière après une erreur
+            window.history.go(-1);
             console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
             reject();
             return;
@@ -48,7 +58,8 @@ async function fetchData(cryptocurrencyID) {
 
 
 
-
+var historicPrice7d = null;
+var historicPrice1d = null;
 
 
 
@@ -61,9 +72,8 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       cryptocurrencyLogo.alt = cryptocurrency['name'];
       cryptocurrencyName.innerHTML = cryptocurrency['name'];
       if (favsList.includes(`${cryptocurrency['id']},${cryptocurrency['symbol']}`)) {
-         cryptocurrencyFavsButton.classList.add('bi-suit-heart-fill');
-      }
-      else {
+         cryptocurrencyFavsButton.classList.add('fav-button-selected', 'bi-suit-heart-fill');
+      } else {
          cryptocurrencyFavsButton.classList.add('bi-suit-heart');
       }
       cryptocurrencyFavsButton.onclick = function() {
@@ -85,11 +95,29 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       }
       cryptocurrencyPrice.appendChild(fluctuationPourcentage);
 
-      let historicPrice = cryptocurrency['market_data']['sparkline_7d']['price'];
+      historicPrice7d = cryptocurrency['market_data']['sparkline_7d']['price'];
+      // Créer la légende (nécessaire pour le graphique) et le graphique
+      let legende = Object.keys(historicPrice7d);
+      createChart(cryptocurrencyChart, historicPrice7d, legende);
 
-      // Créer le tableau de légende (nécessaire pour le graphique)
-      var legende = Object.keys(historicPrice);
-      createChart(cryptocurrencyChart, historicPrice, legende);
+      cryptocurrencyDescriptionWrapper.innerHTML = `
+         <p>${cryptocurrency['description']['en']}</p>
+         <p>Ce texte est traduit automatiquement en français par : </p>
+         <input type="button" value="Voir l'original">
+      `;
+
+      /* const res = await fetch("https://libretranslate.de/translate", {
+	      method: "POST",
+	      body: JSON.stringify({
+		      q: cryptocurrency['description']['en'],
+		      source: "en",
+		      target: "fr",
+		      format: "text"
+	      }),
+	      headers: { "Content-Type": "application/json" }
+      });
+
+      console.log(await res.json()); */
 
       
       cryptocurrencyStatistiquesWrapper.innerHTML = `
@@ -113,8 +141,10 @@ async function cryptocurrencyManager(cryptocurrencyID) {
    }
 }
 
+var myChart = null;
+
 function createChart(element, data, legende) {
-   const myChart = new Chart(element, {
+   myChart = new Chart(element, {
       type: 'line',
       data: {
          labels: legende,
@@ -122,7 +152,9 @@ function createChart(element, data, legende) {
             label: 'Prix ',
             data: data,
             borderColor: '#E5734A', // Couleur de la ligne
-            tension: 0.1
+            tension: 0.1,
+            pointBackgroundColor: 'transparent', // Couleur des points
+            pointBorderColor: 'transparent',
          }]
       },
       options: {
@@ -150,7 +182,7 @@ function createChart(element, data, legende) {
          },
          elements: {
             point:{
-               radius: 0
+               radius: 12
             }
          },
          plugins: {
@@ -163,13 +195,11 @@ function createChart(element, data, legende) {
 }
 
 
-function selectPeriod(periodClicked) {
-   for (var period of allPeriod) {
-      period.classList.remove('period-selected');
-   }
-   periodClicked.classList.add('period-selected');
-}
-
+var d = new Date(1651090383000);
+console.log(d.toISOString());
+console.log(d.toDateString());
+console.log(d.toLocaleTimeString());
+console.log("a");
 
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -177,3 +207,54 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 });
 let value = params.id; 
 cryptocurrencyManager(value);
+
+
+
+
+
+allPeriod.forEach(element => {
+   element.addEventListener('click', function() {
+      allPeriod.forEach(button => {
+         button.classList.remove('period-selected');
+      });
+      this.classList.add('period-selected');
+      updateChart(element.innerHTML);
+   });
+});
+
+function updateChart(period) {
+   period = period.replace(' ', '').toLowerCase();
+
+   
+   let price = null;
+   let legende = null;
+
+   switch (period) {
+      case '1h':
+      case '1j':
+         price = historicPrice7d.slice(144);
+         // Créer la légende (nécessaire pour le graphique) et le graphique
+         legende = Object.keys(price);
+         console.log(price);
+         break;
+      case '7j':
+         url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=hourly`;
+      case '1a':
+      case 'max':
+         price = historicPrice7d;
+         // Créer la légende (nécessaire pour le graphique) et le graphique
+         legende = Object.keys(price);
+         console.log(price);
+         break;
+      default:
+         break;
+   }
+
+   console.log(price);
+
+   // Modifier les données du graphique
+   myChart.data.labels = legende;
+   myChart.data.datasets[0].data = price;
+   // Mettre à jour le graphique
+   myChart.update();
+}

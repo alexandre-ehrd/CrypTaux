@@ -104,3 +104,9 @@
 .cryptocurrency-chart {
    background-color: aqua;
 }
+
+#wrapper-description p > a {
+   font-size: inherit;
+   color: var(--color-orange);
+   text-decoration: underline;
+}

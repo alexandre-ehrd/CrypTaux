@@ -71,11 +71,11 @@
                <div class="chart-header">
                   <h3 id="cryptocurrency-price"></h3>
                   <div id="chart-period-selector">
-                     <a onclick="selectPeriod(this)">1 h</a>
-                     <a onclick="selectPeriod(this)">1 j</a>
-                     <a class="period-selected" onclick="selectPeriod(this)">7 j</a>
-                     <a onclick="selectPeriod(this)">1 a</a>
-                     <a onclick="selectPeriod(this)">Max</a>
+                     <a>1 h</a>
+                     <a>1 j</a>
+                     <a class="period-selected">7 j</a>
+                     <a>1 a</a>
+                     <a>Max</a>
                   </div>
                </div>
                <canvas id="cryptocurrency-chart"></canvas>
@@ -108,6 +108,18 @@
             </div>
 
             <div class="wrapper">
+               <div>
+                  <h4 class="popover-text">Description</h4>
+                  <?php
+                     require('src/backend/popover.php');
+                     popoverCreateElement("popover-bottom", "Cette description est traduite automatiquement.", "");
+                  ?>
+            </div>
+               <div id="wrapper-description">
+               </div>
+            </div>
+
+            <div class="wrapper">
                <h4>Communauté</h4>
                <div class="wrapper-grid">
                   <div>
@@ -130,9 +142,8 @@
                      <p>Fluctuation de prix (en 7 jours)</p>
                      <p>%</p>
                   </div>
-                  
-                  
                </div>
+
             </div>
          </div>
       </section>
@@ -160,6 +171,7 @@
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       
-      <script src="src/scripts/Cryptocurrency.js" type="module"></script>      
+      <script src="src/scripts/Cryptocurrency.js" type="module"></script>
+
    </body>
 </html>

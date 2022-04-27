@@ -89,3 +89,15 @@ td {
 td .fav-button {
    font-size: 1.5rem;
 }
+
+.trending-change-column {
+   width: fit-content;
+   margin: 0px auto;
+   display: flex;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.trending-change-column i {
+   font-size: 1.3rem;
+}

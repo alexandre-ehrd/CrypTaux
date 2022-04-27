@@ -84,8 +84,8 @@
             <div>
                <h3 class="popover-text">Populaires</h3>
                <?php
-               require('src/backend/popover.php');
-               popoverCreateElement("popover-bottom", "", "");
+                  require('src/backend/popover.php');
+                  popoverCreateElement("popover-bottom", "", "");
                ?>
             </div>
             <div class="container-cryptocurrency-trending">
@@ -94,6 +94,7 @@
                      <tr>
                         <th></th>
                         <th style="text-align: left;">Nom</th>
+                        <th>Courbe</th>
                         <th>Prix</th>
                         <th>1 heure</th>
                         <th>24 heures</th>

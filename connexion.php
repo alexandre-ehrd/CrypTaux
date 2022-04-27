@@ -11,11 +11,13 @@
       <title>Cryptaux - Connexion</title>
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/connexion.css">
+      <link rel="stylesheet" media="screen and (max-width: 1280px)" href="src/styles/mobile/connexion_mobile.css"/>
       <?php session_start();?>
    </head>
    <body>
       <?php require('src/backend/connect_database.php');?>
       <aside>
+      <p id="logo" class="logo-mobile">Cryp<span id="logo-orange">taux</span>.</p>
          <section class="form-container">
             <form method="post">
                <h1 id="form-title">Connexion</h1>
