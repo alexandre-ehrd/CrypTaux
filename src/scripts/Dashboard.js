@@ -42,29 +42,42 @@ async function hideThumbnails() {
 
 fetchTrendringCryptocurrency();
 
+
 function fetchTrendringCryptocurrency() {
-   var trendingURL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h,24h,7d';
-   fetch(trendingURL)
-   .then(response => {
-      console.log("Requête");
-      if (response.ok) {
-         response.json().then(response => {
-            response.forEach(element => {
-               createTrendingElement(element);
-            });
+   var URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h,24h,7d';
+   var trendingResponse = null;
+   // Les données historiques se trouvent dans le sessionStorage
+   if (sessionStorage.getItem('trending') != null) {
+      trendingResponse = JSON.parse(sessionStorage.getItem('trending'));
+      trendingResponse.forEach(element => {
+         createTrendingElement(element);
+      });
+   }
+   else {
+      console.log("Données de trending non récupérées depuis le sessionStorage");
+      fetch(URL)
+         .then(response => {
+            console.log("Requête");
+            if (response.ok) {
+               response.json().then(response => {
+                  trendingResponse = response;
+                  // Sauvegarder les données dans le sessionStorage
+                  sessionStorage.setItem('trending', JSON.stringify(response));
+                  trendingResponse.forEach(element => {
+                     createTrendingElement(element);
+                  });
+               })
+            }
+            else{
+               console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+               return;
+            }
          })
-      }
-      else {
-         console.error(`Impossible d'accéder à l'Api CoinGecko [${trendingURL}]`);
-         reject();
-         return;
-      }
-   })
-   .catch((error) => {
-      console.error(`Impossible d'accéder à l'Api CoinGecko [${trendingURL}] : ${error}`);
-      reject();
-      return;
-   });
+         .catch((error) => {
+            console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
+            return;
+         });
+   }
 }
    
 
@@ -120,22 +133,19 @@ function createTrendingElement(cryptocurrency) {
    trendingNameColumn.appendChild(cryptocurrencySymbol);
    cryptocurrencyTrendingLigne.appendChild(trendingNameColumn);
    
-   let trendingCourbeColumn = document.createElement('td');
+   /* let trendingCourbeColumn = document.createElement('td');
    let trendingCourbeCanvas = document.createElement('canvas');
-   /* let historicPrice = cryptocurrency['sparkline_in_7d']['price'];
+   let historicPrice = cryptocurrency['sparkline_in_7d']['price'];
    let legende = Object.keys(historicPrice);
    createChart(trendingCourbeCanvas, historicPrice, legende);
-   trendingCourbeColumn.appendChild(trendingCourbeCanvas); */
-   trendingCourbeColumn.innerHTML = "Bientôt";
-   cryptocurrencyTrendingLigne.appendChild(trendingCourbeColumn);
-   
+   trendingCourbeColumn.appendChild(trendingCourbeCanvas);
+   cryptocurrencyTrendingLigne.appendChild(trendingCourbeColumn); */
    
    let trendingPriceColumn = document.createElement('td');
    let cryptocurrencyPrice = cryptocurrency['current_price'].toString().replace('.', ',');
    trendingPriceColumn.innerHTML = `${cryptocurrencyPrice} $`;
    cryptocurrencyTrendingLigne.appendChild(trendingPriceColumn);
    
-
    let trendingChange1hColumnWrapper = document.createElement('td');
    let trendingChange1hColumn = document.createElement('div');
    trendingChange1hColumn.classList.add('trending-change-column');
@@ -151,7 +161,6 @@ function createTrendingElement(cryptocurrency) {
    trendingChange1hColumnWrapper.appendChild(trendingChange1hColumn);
    cryptocurrencyTrendingLigne.appendChild(trendingChange1hColumnWrapper);
 
-
    let trendingChange24hColumnWrapper = document.createElement('td');
    let trendingChange24hColumn = document.createElement('div');
    trendingChange24hColumn.classList.add('trending-change-column');
@@ -166,7 +175,6 @@ function createTrendingElement(cryptocurrency) {
    trendingChange24hColumn.innerHTML += `<p>${cryptocurrencyChange24h} %</p>`;
    trendingChange24hColumnWrapper.appendChild(trendingChange24hColumn);
    cryptocurrencyTrendingLigne.appendChild(trendingChange24hColumnWrapper);
-
 
    let trendingChange7dColumnWrapper = document.createElement('td');
    let trendingChange7dColumn = document.createElement('div');

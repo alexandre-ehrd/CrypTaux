@@ -28,6 +28,7 @@
 
 .cryptocurrency-infos-name i {
    font-size: 1.75rem;
+   cursor: pointer;
 }
 
 .wrapper {
@@ -98,11 +99,6 @@
    flex-grow: 1;
    min-width: 300px;
    border: solid 1px var(--color-light-grey);
-}
-
-
-.cryptocurrency-chart {
-   background-color: aqua;
 }
 
 #wrapper-description p > a {

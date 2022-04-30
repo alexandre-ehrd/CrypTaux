@@ -94,7 +94,7 @@
                      <tr>
                         <th></th>
                         <th style="text-align: left;">Nom</th>
-                        <th>Courbe</th>
+                        <!-- <th>Courbe</th> -->
                         <th>Prix</th>
                         <th>1 heure</th>
                         <th>24 heures</th>

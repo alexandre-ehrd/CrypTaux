@@ -7,7 +7,6 @@
 }
 
 .search-bar-wrapper {
-   /* width: min-content; */
    align-content: center;
    align-items: center;
    text-align: center;
@@ -26,6 +25,7 @@
 }
 
 #search-bar {
+   width: 325px;
    border: none;
    outline: none;
    background-color: transparent;

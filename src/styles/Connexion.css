@@ -107,15 +107,29 @@ form {
    display: none;
 }
 
+.error-message {
+   color: var(--color-red);
+}
+
 input[type=submit] {
    padding: var(--padding);
    margin-top: 65px;
    margin-bottom: 10px;
-   background-color: var(--color-orange);
    border: none;
    border-radius: var(--border-radius-small);
    font-size: 15px;
    color: var(--color-white);
+   transition: background-color 200ms;
+}
+
+.submit-disabled {
+   background-color: var(--color-grey);
+   background-color: var(--color-light-grey);
+   cursor: not-allowed !important;
+}
+
+.submit-enabled {
+   background-color: var(--color-orange);
 }
 
 .have-account-redirection {
