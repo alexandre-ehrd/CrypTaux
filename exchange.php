@@ -65,7 +65,10 @@
                            <img id="devise-image-second" src="" alt="">
                         </div>
                      </div>
-                     <select id="select-cryptocurrency-second"></select>
+                     <select id="select-cryptocurrency-second">
+                        <option value="euro">Euro [EUR]</option>
+                        <option value="dollar">Dollar [USD]</option>
+                     </select>
                   </div>
                   
                </div>

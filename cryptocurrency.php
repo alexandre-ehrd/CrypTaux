@@ -81,29 +81,8 @@
             </div>
 
             <div class="wrapper">
-               <h4>Statistiques</h4>
-               <div id="wrapper-statistiques" class="wrapper-grid">
-                  <div>
-                     <p>Capitalisation boursière</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Niveau historique</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 1 heure)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 24 heures)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 7 jours)</p>
-                     <p>%</p>
-                  </div> 
-               </div>
+               <h4>Statistiques du marché</h4>
+               <div id="wrapper-statistiques" class="wrapper-grid"></div>
             </div>
 
             <!-- <div class="wrapper">
@@ -120,12 +99,12 @@
 
             <div class="wrapper">
                <h4>Cours le plus élevé</h4>
-               <p></p>
+               <p id='cryptocurrency-higher-price'></p>
             </div>
 
             <div class="wrapper">
                <h4>Cours le plus bas</h4>
-               <p></p>
+               <p id='cryptocurrency-lower-price'></p>
             </div>
             
 

@@ -14,13 +14,14 @@ const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
 
 const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
 
-//const cryptocurrencyDescriptionWrapper = document.getElementById('wrapper-description');
+const cryptocurrencyHigherPrice = document.getElementById('cryptocurrency-higher-price');
+const cryptocurrencyLowerPrice = document.getElementById('cryptocurrency-lower-price');
 
 
 
 var favsList = await fetchList();
 
-
+var historicPrice7d = null;
 
 
 
@@ -58,8 +59,7 @@ async function fetchData(cryptocurrencyID) {
 
 
 
-var historicPrice7d = null;
-var historicPrice1d = null;
+
 
 
 
@@ -137,6 +137,14 @@ async function cryptocurrencyManager(cryptocurrencyID) {
             <p>Fluctuation de prix (en 7 jours)</p>
             <p>${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2)} %</p>
          </div>
+      `;
+
+      cryptocurrencyHigherPrice.innerHTML = `
+         ${cryptocurrency['name']} a atteint un prix maximal de ${cryptocurrency['market_data']['ath']['usd']} $ le XXXXX (x mois et x années).
+      `;
+
+      cryptocurrencyLowerPrice.innerHTML = `
+         ${cryptocurrency['name']} a atteint un prix minimal de ${cryptocurrency['market_data']['atl']['usd']} $ le XXXXX (x mois et x années).
       `;
    }
 }

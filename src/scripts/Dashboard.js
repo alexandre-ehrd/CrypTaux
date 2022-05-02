@@ -15,9 +15,16 @@ const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-tr
 var favsList = await fetchList();
 
 hideThumbnails();
-window.addEventListener('resize', hideThumbnails);
+
+document.onresize = hideThumbnails;
+/* 
+window.addEventListener('resize', function() {
+   hideThumbnails();
+   console.log("resize");
+}); */
 
 async function hideThumbnails() {
+   console.log("hideThumbnails");
    // Compter le nombre de colonne de thumbnails
    var gridColonneCount = gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").length-1;
    for (let i = 0; i < allThumbnails.length; i++) {
