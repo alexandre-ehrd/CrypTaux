@@ -14,7 +14,7 @@ const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
 
 const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
 
-const cryptocurrencyDescriptionWrapper = document.getElementById('wrapper-description');
+//const cryptocurrencyDescriptionWrapper = document.getElementById('wrapper-description');
 
 
 
@@ -100,11 +100,11 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       let legende = Object.keys(historicPrice7d);
       createChart(cryptocurrencyChart, historicPrice7d, legende);
 
-      cryptocurrencyDescriptionWrapper.innerHTML = `
+      /* cryptocurrencyDescriptionWrapper.innerHTML = `
          <p>${cryptocurrency['description']['en']}</p>
          <p>Ce texte est traduit automatiquement en français par : </p>
          <input type="button" value="Voir l'original">
-      `;
+      `; */
 
       /* const res = await fetch("https://libretranslate.de/translate", {
 	      method: "POST",
@@ -195,18 +195,11 @@ function createChart(element, data, legende) {
 }
 
 
-var d = new Date(1651090383000);
-console.log(d.toISOString());
-console.log(d.toDateString());
-console.log(d.toLocaleTimeString());
-console.log("a");
-
-
 const params = new Proxy(new URLSearchParams(window.location.search), {
    get: (searchParams, prop) => searchParams.get(prop),
 });
-let value = params.id; 
-cryptocurrencyManager(value);
+const cryptocurrencyID = params.id; 
+cryptocurrencyManager(cryptocurrencyID);
 
 
 
@@ -227,34 +220,54 @@ function updateChart(period) {
 
    
    let price = null;
-   let legende = null;
+   let legende = [];
+   let URL = null;
 
    switch (period) {
-      case '1h':
       case '1j':
-         price = historicPrice7d.slice(144);
-         // Créer la légende (nécessaire pour le graphique) et le graphique
-         legende = Object.keys(price);
-         console.log(price);
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=1&interval=minutely`;
          break;
       case '7j':
-         url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=hourly`;
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=7&interval=hourly`;
+         break;
       case '1a':
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=365&interval=daily`;
+         break;
       case 'max':
-         price = historicPrice7d;
-         // Créer la légende (nécessaire pour le graphique) et le graphique
-         legende = Object.keys(price);
-         console.log(price);
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=max&interval=daily`;
          break;
       default:
          break;
    }
 
-   console.log(price);
-
-   // Modifier les données du graphique
-   myChart.data.labels = legende;
-   myChart.data.datasets[0].data = price;
-   // Mettre à jour le graphique
-   myChart.update();
+   fetch(URL)
+      .then(response => {
+         console.log("Requête");
+         if (response.ok) {
+            response.json().then(response => {
+               price = response['prices'];
+               console.log(price.length);
+               for (let i = 0; i < price.length; i++) {
+                  // Date
+                  let date = new Date(price[i][0]);
+                  legende.push(`${date.toLocaleDateString("fr")}, ${date.toLocaleTimeString()}`);
+                  // Prix
+                  price[i] = price[i][1];
+               }
+               // Modifier les données du graphique
+               myChart.data.labels = legende;
+               myChart.data.datasets[0].data = price;
+               // Mettre à jour le graphique
+               myChart.update();
+            })
+         }
+         else{
+            console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+            return;
+         }
+      })
+      .catch((error) => {
+         console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
+         return;
+      });
 }

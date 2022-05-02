@@ -27,7 +27,7 @@ function sideNavigationCreateElement($selected)
             <li class=".($selected == 3 ? 'navigation-list-item-select' : '').">
                <a href='exchange.php'>
                   <i class='bi bi-arrow-left-right'></i>
-                  <p>Échanges</p>
+                  <p>Convertisseur</p>
                </a>
             </li> 
          </ul>

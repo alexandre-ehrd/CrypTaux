@@ -11,10 +11,6 @@
    color: var(--color-grey);
 }
 
-/* tbody:not(:first-child) {
-   border-bottom: solid 1px var(--color-light-grey);
-} */
-
 .container-cryptocurrency-trending {
    max-width: 100%;
    border-radius: var(--border-radius-large);
@@ -24,6 +20,7 @@
 
 #cryptocurrency-trending {
    min-width: 100%;
+   background-color: var(--color-background-grey);
    border-collapse: collapse;
    user-select: none;
    -moz-user-select: none; /* Firefox */
@@ -43,7 +40,7 @@ tbody tr {
    cursor: pointer;
 }
 tbody tr:hover {
-   background-color: var(--color-background-grey) !important;
+   background-color: var(--color-background-dark-grey) !important;
 }
 
 /* Padding à gauche et à droite */

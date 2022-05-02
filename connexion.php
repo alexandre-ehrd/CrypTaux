@@ -82,7 +82,7 @@
             <h2 id="hero-banner-slogan">L’outil idéal<br>pour les<br>crypto-monnaies.</h2>
             <p id="hero-banner-text">Consultez en un coup d’œil le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre portée dans une interface moderne. </p>
          </div>
-         <p id="logo" class="text-bottom-creator-logo">Cryp<span id="logo-orange">taux</span></p>
+         <p id="logo" class="text-bottom-creator-logo">Cryp<span id="logo-orange">Taux</span></p>
       </div>
       <script src="src/scripts/Connexion.js"></script>
    </body>

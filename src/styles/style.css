@@ -9,6 +9,7 @@
 :root{
    --color-backgroud-white: #FEFFFF;
    --color-background-grey: #F8F8F8;
+   --color-background-dark-grey: #EEEEEE;
    
    --color-blue: #02555B;
    --color-orange: #E5734A;
@@ -20,11 +21,7 @@
    --color-grey: #929292;
    --color-dark-grey: #2F3A3A;
    --color-white: #FFFFFF;
-
    --color-black: #000000;
-
-   --color-test: rgb(50, 100, 150);
-   --color-test: rgb(85, 170, 255);
 
    --padding: 15px;
    --padding-large: 30px;
@@ -216,6 +213,13 @@ hr {
    color: var(--color-orange);
 }
 
+
+.wrapper {
+   padding: var(--padding);
+   border-radius: var(--border-radius-large);
+   border: solid 1px var(--color-light-grey);
+   background-color: var(--color-background-grey);
+}
 
 
 

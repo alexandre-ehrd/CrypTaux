@@ -40,21 +40,20 @@ async function hideThumbnails() {
 }
 
 
-fetchTrendringCryptocurrency();
+fetchTrendingCryptocurrency();
 
 
-function fetchTrendringCryptocurrency() {
-   var URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h,24h,7d';
+function fetchTrendingCryptocurrency() {
+   var URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=1h,24h,7d';
    var trendingResponse = null;
    // Les données historiques se trouvent dans le sessionStorage
-   if (sessionStorage.getItem('trending') != null) {
-      trendingResponse = JSON.parse(sessionStorage.getItem('trending'));
+   if (sessionStorage.getItem('trendingCryptocurrency') != null) {
+      trendingResponse = JSON.parse(sessionStorage.getItem('trendingCryptocurrency'));
       trendingResponse.forEach(element => {
          createTrendingElement(element);
       });
    }
    else {
-      console.log("Données de trending non récupérées depuis le sessionStorage");
       fetch(URL)
          .then(response => {
             console.log("Requête");
@@ -62,7 +61,7 @@ function fetchTrendringCryptocurrency() {
                response.json().then(response => {
                   trendingResponse = response;
                   // Sauvegarder les données dans le sessionStorage
-                  sessionStorage.setItem('trending', JSON.stringify(response));
+                  sessionStorage.setItem('trendingCryptocurrency', JSON.stringify(response));
                   trendingResponse.forEach(element => {
                      createTrendingElement(element);
                   });

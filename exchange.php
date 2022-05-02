@@ -8,6 +8,11 @@
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+      <title>Cryptaux</title>
+      <link rel="stylesheet" href="src/styles/style.css">
+      <link rel="stylesheet" href="src/styles/header.css">
+      <link rel="stylesheet" href="src/styles/navigation.css">
+      <link rel="stylesheet" href="src/styles/exchange.css">
       <?php
          // Récupérer les données de l'utilisateur
          session_start();
@@ -19,17 +24,12 @@
             exit();
          }
       ?>
-      <title>Cryptaux</title>
-      <link rel="stylesheet" href="src/styles/style.css">
-      <link rel="stylesheet" href="src/styles/header.css">
-      <link rel="stylesheet" href="src/styles/navigation.css">
-      <link rel="stylesheet" href="src/styles/dashboard.css">
    </head>
    <body>
       <?php
          require('src/backend/header.php');
          $array = [
-            "Échanges" => "exchange.php",
+            "Convertisseur" => "exchange.php",
          ];
          headerCreateElement($_SESSION['username'], $array);
       ?>
@@ -39,14 +39,45 @@
             sideNavigationCreateElement(3);
          ?>
          <div class="container-page">
-            <p>Cette page n'est pas encore disponible</p>
+            <div class="wrapper">
+               <div class="converter-wrapper">
+
+                  <div class="converter-side">
+                     <div class="conversion-input conversion-input-selected">
+                        <span>Montant</span>
+                        <input id="input-cryptocurrency" class="user-input" type="text" placeholder="0" autofocus>
+                        <div class="devise">
+                           <h4 id="devise-symbol-first"></h4>
+                           <img id="devise-image-first" src="" alt="">
+                        </div>
+                     </div>
+                     <select id="select-cryptocurrency-first"></select>
+                  </div>
+                  
+                  <i id="cryptocurrency-swapper" class='bi bi-arrow-left-right'></i>
+                  
+                  <div class="converter-side">
+                     <div class="conversion-input">
+                        <span>Montant</span>
+                        <p id="output-cryptocurrency">0</p>
+                        <div class="devise">
+                           <h4 id="devise-symbol-second"></h4>
+                           <img id="devise-image-second" src="" alt="">
+                        </div>
+                     </div>
+                     <select id="select-cryptocurrency-second"></select>
+                  </div>
+                  
+               </div>
+               <input type="button" value="Convertir" onclick="convertCryptocurrency()">
+            </div>
+               
          </div>
       </section>
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
-      <script src="src/scripts/FavThumbnail.js"></script>
-      <script src="src/scripts/App.js"></script>
+      <script src="src/scripts/Exchange.js"></script>
    </body>
 </html>

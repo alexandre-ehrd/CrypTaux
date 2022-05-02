@@ -1,0 +1,106 @@
+@import './style.css';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-large);
+}
+
+.converter-wrapper {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: var(--padding);
+}
+
+.converter-side {
+   width: 50%;
+}
+
+.converter-side select {
+   width: 100%;
+}
+
+
+.converter-wrapper > i {
+   font-size: 1.5rem;
+   color: var(--color-orange);
+   cursor: pointer;
+}
+
+
+#conversion-response {
+   text-align: center;
+}
+
+
+
+.conversion-input {
+   height: 100%;
+   padding: 10px 15px;
+   position: relative;
+   border: 2px solid var(--color-grey);
+   border-radius: var(--border-radius-input);
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: var(--padding);
+}
+.conversion-input-selected {
+   border: 2px solid var(--color-blue);
+}
+.conversion-input-selected span {
+   color: var(--color-blue) !important;
+}
+
+.user-input {
+   width: 100%;
+   background-color: transparent;
+   border: none;
+   font-size: 1rem;
+}
+.user-input:focus{
+   outline: none;
+}
+
+.conversion-input span {
+   position: absolute;
+   top: 0%;
+   transform: translateY(-50%);
+   font-size: 0.8rem;
+   color: var(--color-grey);
+   padding: 0 3px;
+   margin-left: 12px;
+   pointer-events: none;
+   background-color: var(--color-background-grey);
+}
+
+.devise {
+   display: flex;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.devise h4 {
+   color: var(--color-grey);
+}
+
+.devise img {
+   height: 30px;
+   aspect-ratio: 1/1;
+}
+
+select {
+   margin-top: var(--padding);
+   font-size: 0.9rem;
+}
+
+input[type=button] {
+
+   padding: var(--padding);
+   border: none;
+   border-radius: var(--border-radius-small);
+   font-size: 15px;
+   color: var(--color-white);
+   background-color: var(--color-orange);
+}

@@ -71,7 +71,6 @@
                <div class="chart-header">
                   <h3 id="cryptocurrency-price"></h3>
                   <div id="chart-period-selector">
-                     <a>1 h</a>
                      <a>1 j</a>
                      <a class="period-selected">7 j</a>
                      <a>1 a</a>
@@ -107,17 +106,28 @@
                </div>
             </div>
 
-            <div class="wrapper">
+            <!-- <div class="wrapper">
                <div>
                   <h4 class="popover-text">Description</h4>
                   <?php
                      require('src/backend/popover.php');
                      popoverCreateElement("popover-bottom", "Cette description est traduite automatiquement.", "");
                   ?>
-            </div>
+               </div>
                <div id="wrapper-description">
                </div>
+            </div> -->
+
+            <div class="wrapper">
+               <h4>Cours le plus élevé</h4>
+               <p></p>
             </div>
+
+            <div class="wrapper">
+               <h4>Cours le plus bas</h4>
+               <p></p>
+            </div>
+            
 
             <div class="wrapper">
                <h4>Communauté</h4>
@@ -143,7 +153,6 @@
                      <p>%</p>
                   </div>
                </div>
-
             </div>
          </div>
       </section>
