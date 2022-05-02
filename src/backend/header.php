@@ -12,7 +12,7 @@ function headerCreateElement($username, $path)
    <header>
       <div class='header-left-side'>
          <a href='index.php'>
-            <h1 id='logo'>Cryp<span id='logo-orange'>taux</span>.</h1>
+            <h1 id='logo'>Cryp<span id='logo-orange'>Taux</span></h1>
          </a>
       </div>
       <div class='header-right-side'>

@@ -40,8 +40,8 @@
          ?>
          <div class="container-page">
             <div class="container-search-bar">
-               <div class="search-bar-wrapper" title="Rechercher">
-                  <input id="search-bar" type="text" name="" placeholder="Rechercher">
+               <div class="search-bar-wrapper" title="Rechercher des crypto-monnaies ou des exchanges">
+                  <input id="search-bar" type="text" name="" placeholder="Rechercher des crypto-monnaies ou des exchanges">
                   <i class="bi bi-search" id="search-button"></i>
                </div>
             </div>

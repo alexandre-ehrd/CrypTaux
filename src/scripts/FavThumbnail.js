@@ -172,6 +172,7 @@ function createChart(element, data, legende) {
          },
          layout: {
             padding: {
+               top: 10,
                left: -10,
                bottom: -10
             }

@@ -11,11 +11,13 @@
       <title>Cryptaux - Inscription</title>
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/connexion.css">
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/connexion_mobile.css"/>
       <?php session_start();?>
    </head>
    <body>
       <?php require('src/backend/connect_database.php');?>
       <aside>
+         <p id="logo" class="logo-mobile">Cryp<span id="logo-orange">taux</span>.</p>
          <section class="form-container">
             <form method="post">
                <h1 id="form-title">Inscription</h1>
@@ -25,7 +27,7 @@
                </div>
                <div class="form-input">
                   <input class="user-input" type="mail" name="mail" value="" required="required" autocomplete="email">
-                  <label for="username">Adresse mail</label>
+                  <label for="mail">Adresse mail</label>
                </div>
                <div class="form-input" id="password-input">   
                   <input class="user-input" type="password" name="password" value=""  required="required">
@@ -49,7 +51,8 @@
 
                      // L'adresse mail ne se trouve pas encore dans la BDD
                      if ($count == 0) {
-                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '')");
+                        $favs_cryptocurrency_start = "bitcoin,btc/ethereum,eth/cardano,ada/shiba-inu,shib";
+                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '$favs_cryptocurrency_start')");
                         
                         $_SESSION['username'] = $username_user;
                         $_SESSION['mail'] = $mail_user;
@@ -62,12 +65,12 @@
                         header("Location: connexion.php");
                      }
                   } else{
-                     echo "L'adresse e-mail n'est pas valide ❌";
+                     echo "<p class='error-message'>Le format de l'adresse e-mail n'est pas valide.</p>";
                   }
                }
                ?>
                <div class="form-input">
-                  <input type="submit" value="S'inscrire">
+                  <input class="submit-disabled" type="submit" value="S'inscrire">
                   <p class="have-account-redirection">Vous avez déjà un compte ? <a href="connexion.php">Connectez-vous</a></p>
                </div>
             </form>
@@ -80,7 +83,7 @@
             <h2 id="hero-banner-slogan">L’outil idéal<br>pour les<br>crypto-monnaies.</h2>
             <p id="hero-banner-text">Consultez en un coup d’œil le cours des principales crypto-monnaies. Le volume d'échange et la capitalisation boursière seront à votre portée dans une interface moderne. </p>
          </div>
-         <p id="logo" class="text-bottom-creator-logo">Cryp<span id="logo-orange">taux</span>.</p>
+         <p id="logo" class="text-bottom-creator-logo">Cryp<span id="logo-orange">Taux</span></p>
       </div>
       <script src="src/scripts/Connexion.js"></script>
    </body>

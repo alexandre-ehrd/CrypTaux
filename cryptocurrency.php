@@ -50,66 +50,18 @@
          ];
          headerCreateElement($_SESSION['username'], $array);
       ?>
-      <!-- <header>
-         <div class='header-left-side'>
-            <a href='index.php'>
-               <h1 id='logo'>Cryp<span id='logo-orange'>taux</span>.</h1>
-            </a>
-         </div>
-         <div class='header-right-side'>
-            <div class='path'>
-               <h2 id='path-username'>TEST</h2>
-               <p>></p>
-               <a href="">test</a>
-            </div>
-         </div>
-      </header> -->
       <section class="container">
          <?php
             require('src/backend/side_navigation.php');
             sideNavigationCreateElement(1);
          ?>
-         <!-- <aside class='side-navigation'>
-            <nav>
-               <ul id='navigation-list'>
-                  <li class=".($selected == 0 ? 'navigation-list-item-select' : '').">
-                     <a href='index.php'>
-                        <i class='bi bi-grid'></i>
-                        <p>Tableau de bord</p>
-                     </a>
-                  </li>
-                  <li class=".($selected == 1 ? 'navigation-list-item-select' : '').">
-                     <a href='favs.php'>
-                        <i class='bi bi-suit-heart'></i>
-                        <p>Fav's</p>
-                     </a>
-                  </li>
-                  <li class=".($selected == 2 ? 'navigation-list-item-select' : '').">
-                     <a href='wallet.php'>
-                        <i class='bi bi-wallet'></i>
-                        <p>Mon portefeuille</p>
-                     </a>
-                  </li>
-                  <li class=".($selected == 3 ? 'navigation-list-item-select' : '').">
-                     <a href='exchange.php'>
-                        <i class='bi bi-arrow-left-right'></i>
-                        <p>Échanges</p>
-                     </a>
-                  </li>
-               </ul>
-            </nav>
-            <a href='connexion.php' id='logout-button'>
-               <i class='bi bi-box-arrow-left'></i>
-               Se déconnecter
-            </a>
-         </aside> -->
          <div class="container-page">
             <div class="cryptocurrency-infos">
                <img id="cryptocurrency-logo" src="" alt="">
                <div>
                   <div class="cryptocurrency-infos-name">
                      <h2 id="cryptocurrency-name"></h2>
-                     <i class="fav-button bi bi-suit-heart" onclick="favsManager(this)"></i>
+                     <i id="cryptocurrency-favs-button" class="fav-button bi"></i>
                   </div>
                   <p id="cryptocurrency-symbol"></p>
                </div>
@@ -119,11 +71,10 @@
                <div class="chart-header">
                   <h3 id="cryptocurrency-price"></h3>
                   <div id="chart-period-selector">
-                     <a onclick="selectPeriod(this)">1 h</a>
-                     <a onclick="selectPeriod(this)">1 j</a>
-                     <a class="period-selected" onclick="selectPeriod(this)">7 j</a>
-                     <a onclick="selectPeriod(this)">1 a</a>
-                     <a onclick="selectPeriod(this)">Max</a>
+                     <a>1 j</a>
+                     <a class="period-selected">7 j</a>
+                     <a>1 a</a>
+                     <a>Max</a>
                   </div>
                </div>
                <canvas id="cryptocurrency-chart"></canvas>
@@ -151,11 +102,32 @@
                   <div>
                      <p>Fluctuation de prix (en 7 jours)</p>
                      <p>%</p>
-                  </div>
-                  
-                  
+                  </div> 
                </div>
             </div>
+
+            <!-- <div class="wrapper">
+               <div>
+                  <h4 class="popover-text">Description</h4>
+                  <?php
+                     require('src/backend/popover.php');
+                     popoverCreateElement("popover-bottom", "Cette description est traduite automatiquement.", "");
+                  ?>
+               </div>
+               <div id="wrapper-description">
+               </div>
+            </div> -->
+
+            <div class="wrapper">
+               <h4>Cours le plus élevé</h4>
+               <p></p>
+            </div>
+
+            <div class="wrapper">
+               <h4>Cours le plus bas</h4>
+               <p></p>
+            </div>
+            
 
             <div class="wrapper">
                <h4>Communauté</h4>
@@ -180,8 +152,6 @@
                      <p>Fluctuation de prix (en 7 jours)</p>
                      <p>%</p>
                   </div>
-                  
-                  
                </div>
             </div>
          </div>
@@ -210,12 +180,7 @@
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       
-      <script src="src/scripts/Recherche.js"></script>
-      <script src="src/scripts/FavThumbnail.js"></script>
-      <script src="src/scripts/App.js"></script>
-      <script src="src/scripts/Cryptocurrency.js"></script>
+      <script src="src/scripts/Cryptocurrency.js" type="module"></script>
 
-
-      
    </body>
 </html>

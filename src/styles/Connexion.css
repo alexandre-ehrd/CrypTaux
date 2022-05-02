@@ -17,22 +17,25 @@ aside {
 .form-container {
    width: 100%;
    height: 100vh;
-   margin-top: 10px;
    display: flex;
    flex-direction: column;
    justify-content: center;
    position: relative;
 }
 
+.logo-mobile {
+   display: none;
+}
+
 form {
    width: 100%;
    display: flex;
    flex-direction: column;
-   gap: 30px;
+   gap: var(--padding-large);
 }
 
 #form-title {
-   font-size: 45px;
+   font-size: 2.5rem;
    font-weight: 600;
    color: var(--color-black);
 }
@@ -104,15 +107,29 @@ form {
    display: none;
 }
 
+.error-message {
+   color: var(--color-red);
+}
+
 input[type=submit] {
-   padding: 15px;
+   padding: var(--padding);
    margin-top: 65px;
    margin-bottom: 10px;
-   background-color: var(--color-orange);
    border: none;
    border-radius: var(--border-radius-small);
    font-size: 15px;
    color: var(--color-white);
+   transition: background-color 200ms;
+}
+
+.submit-disabled {
+   background-color: var(--color-grey);
+   background-color: var(--color-light-grey);
+   cursor: not-allowed !important;
+}
+
+.submit-enabled {
+   background-color: var(--color-orange);
 }
 
 .have-account-redirection {

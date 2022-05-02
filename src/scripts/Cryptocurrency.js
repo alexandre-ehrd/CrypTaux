@@ -1,31 +1,27 @@
+import {fetchList, favsManager} from './FavsManagerHeart.js';
+
+
 const periodSelector = document.getElementById('chart-period-selector');
-const allPeriod = periodSelector.getElementsByTagName('a');
+const allPeriod = periodSelector.querySelectorAll('a');
 
 const cryptocurrencyLogo = document.getElementById('cryptocurrency-logo');
 const cryptocurrencyName = document.getElementById('cryptocurrency-name');
+const cryptocurrencyFavsButton = document.getElementById('cryptocurrency-favs-button');
 const cryptocurrencySymbol = document.getElementById('cryptocurrency-symbol');
+
 const cryptocurrencyPrice = document.getElementById('cryptocurrency-price');
-const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
 const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
 
-function selectPeriod(periodClicked) {
-   for (var period of allPeriod) {
-      period.classList.remove('period-selected');
-   }
-   periodClicked.classList.add('period-selected');
-}
+const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
 
-function favsManager(favButton) {
-   if (favButton.classList.contains('bi-suit-heart-fill')) {
-      favButton.classList.remove('bi-suit-heart-fill');
-      favButton.classList.add('bi-suit-heart');
-   } else {
-      favButton.classList.remove('bi-suit-heart');
-      favButton.classList.add('bi-suit-heart-fill');
-   }
-}
+//const cryptocurrencyDescriptionWrapper = document.getElementById('wrapper-description');
 
-/* https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=false */
+
+
+var favsList = await fetchList();
+
+
+
 
 
 
@@ -41,12 +37,16 @@ async function fetchData(cryptocurrencyID) {
                })
             }
             else{
+               // Retour en arrière après une erreur
+               window.history.go(-1);
                console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
                reject();
                return;
             }
          })
          .catch((error) => {
+            // Retour en arrière après une erreur
+            window.history.go(-1);
             console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
             reject();
             return;
@@ -58,25 +58,36 @@ async function fetchData(cryptocurrencyID) {
 
 
 
-
+var historicPrice7d = null;
+var historicPrice1d = null;
 
 
 
 async function cryptocurrencyManager(cryptocurrencyID) {
-   var cryptocurrencyResponse = await fetchData(cryptocurrencyID);
+   var cryptocurrency = await fetchData(cryptocurrencyID);
 
-   if (cryptocurrencyResponse != null) {
-      cryptocurrencyLogo.src = cryptocurrencyResponse['image']['large'];
-      cryptocurrencyLogo.alt = cryptocurrencyResponse['name'];
-      cryptocurrencyName.innerHTML = cryptocurrencyResponse['name'];
-      cryptocurrencySymbol.innerHTML = cryptocurrencyResponse['symbol'].toUpperCase();
+   if (cryptocurrency != null) {
+      cryptocurrencyLogo.src = cryptocurrency['image']['large'];
 
-      let price = cryptocurrencyResponse['market_data']['current_price']['usd'].toString();
+      cryptocurrencyLogo.alt = cryptocurrency['name'];
+      cryptocurrencyName.innerHTML = cryptocurrency['name'];
+      if (favsList.includes(`${cryptocurrency['id']},${cryptocurrency['symbol']}`)) {
+         cryptocurrencyFavsButton.classList.add('fav-button-selected', 'bi-suit-heart-fill');
+      } else {
+         cryptocurrencyFavsButton.classList.add('bi-suit-heart');
+      }
+      cryptocurrencyFavsButton.onclick = function() {
+         favsManager(cryptocurrencyFavsButton, cryptocurrency);
+      }
+
+      cryptocurrencySymbol.innerHTML = cryptocurrency['symbol'].toUpperCase();
+
+      let price = cryptocurrency['market_data']['current_price']['usd'].toString();
       cryptocurrencyPrice.innerHTML = `${price.replace('.', ',')} $`;
 
       let fluctuationPourcentage = document.createElement('span');
-      fluctuationPourcentage.innerHTML = `${cryptocurrencyResponse['market_data']['price_change_percentage_7d'].toFixed(2)} %`;
-      if (cryptocurrencyResponse['market_data']['price_change_percentage_7d'] > 0) {
+      fluctuationPourcentage.innerHTML = `${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2)} %`;
+      if (cryptocurrency['market_data']['price_change_percentage_7d'] > 0) {
          fluctuationPourcentage.prepend("+")
          fluctuationPourcentage.classList.add('positive-pourcentage');
       } else {
@@ -84,36 +95,56 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       }
       cryptocurrencyPrice.appendChild(fluctuationPourcentage);
 
-      let historicPrice = cryptocurrencyResponse['market_data']['sparkline_7d']['price'];
+      historicPrice7d = cryptocurrency['market_data']['sparkline_7d']['price'];
+      // Créer la légende (nécessaire pour le graphique) et le graphique
+      let legende = Object.keys(historicPrice7d);
+      createChart(cryptocurrencyChart, historicPrice7d, legende);
 
-      // Créer le tableau de légende (nécessaire pour le graphique)
-      var legende = Object.keys(historicPrice);
-      createChart(cryptocurrencyChart, historicPrice, legende);
+      /* cryptocurrencyDescriptionWrapper.innerHTML = `
+         <p>${cryptocurrency['description']['en']}</p>
+         <p>Ce texte est traduit automatiquement en français par : </p>
+         <input type="button" value="Voir l'original">
+      `; */
+
+      /* const res = await fetch("https://libretranslate.de/translate", {
+	      method: "POST",
+	      body: JSON.stringify({
+		      q: cryptocurrency['description']['en'],
+		      source: "en",
+		      target: "fr",
+		      format: "text"
+	      }),
+	      headers: { "Content-Type": "application/json" }
+      });
+
+      console.log(await res.json()); */
 
       
       cryptocurrencyStatistiquesWrapper.innerHTML = `
          <div>
             <p>Capitalisation boursière</p>
-            <p>${cryptocurrencyResponse['market_data']['market_cap']['usd']} $</p>
+            <p>${cryptocurrency['market_data']['market_cap']['usd']} $</p>
          </div>
          <div>
             <p>Niveau historique</p>
-            <p>${cryptocurrencyResponse['market_data']['ath']['usd']} $</p>
+            <p>${cryptocurrency['market_data']['ath']['usd']} $</p>
          </div>
          <div>
             <p>Fluctuation de prix (en 24 heures)</p>
-            <p>${cryptocurrencyResponse['market_data']['price_change_percentage_24h'].toFixed(2)} %</p>
+            <p>${cryptocurrency['market_data']['price_change_percentage_24h'].toFixed(2)} %</p>
          </div>
          <div>
             <p>Fluctuation de prix (en 7 jours)</p>
-            <p>${cryptocurrencyResponse['market_data']['price_change_percentage_7d'].toFixed(2)} %</p>
+            <p>${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2)} %</p>
          </div>
       `;
    }
 }
 
+var myChart = null;
+
 function createChart(element, data, legende) {
-   const myChart = new Chart(element, {
+   myChart = new Chart(element, {
       type: 'line',
       data: {
          labels: legende,
@@ -121,7 +152,9 @@ function createChart(element, data, legende) {
             label: 'Prix ',
             data: data,
             borderColor: '#E5734A', // Couleur de la ligne
-            tension: 0.1
+            tension: 0.1,
+            pointBackgroundColor: 'transparent', // Couleur des points
+            pointBorderColor: 'transparent',
          }]
       },
       options: {
@@ -149,7 +182,7 @@ function createChart(element, data, legende) {
          },
          elements: {
             point:{
-               radius: 0
+               radius: 12
             }
          },
          plugins: {
@@ -162,14 +195,79 @@ function createChart(element, data, legende) {
 }
 
 
-
-
 const params = new Proxy(new URLSearchParams(window.location.search), {
    get: (searchParams, prop) => searchParams.get(prop),
 });
+const cryptocurrencyID = params.id; 
+cryptocurrencyManager(cryptocurrencyID);
 
-let value = params.id; 
 
-/* cryptocurrencyManager('bitcoin'); */
-//cryptocurrencyManager('bitcoin');
-cryptocurrencyManager(value);
+
+
+
+allPeriod.forEach(element => {
+   element.addEventListener('click', function() {
+      allPeriod.forEach(button => {
+         button.classList.remove('period-selected');
+      });
+      this.classList.add('period-selected');
+      updateChart(element.innerHTML);
+   });
+});
+
+function updateChart(period) {
+   period = period.replace(' ', '').toLowerCase();
+
+   
+   let price = null;
+   let legende = [];
+   let URL = null;
+
+   switch (period) {
+      case '1j':
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=1&interval=minutely`;
+         break;
+      case '7j':
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=7&interval=hourly`;
+         break;
+      case '1a':
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=365&interval=daily`;
+         break;
+      case 'max':
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=max&interval=daily`;
+         break;
+      default:
+         break;
+   }
+
+   fetch(URL)
+      .then(response => {
+         console.log("Requête");
+         if (response.ok) {
+            response.json().then(response => {
+               price = response['prices'];
+               console.log(price.length);
+               for (let i = 0; i < price.length; i++) {
+                  // Date
+                  let date = new Date(price[i][0]);
+                  legende.push(`${date.toLocaleDateString("fr")}, ${date.toLocaleTimeString()}`);
+                  // Prix
+                  price[i] = price[i][1];
+               }
+               // Modifier les données du graphique
+               myChart.data.labels = legende;
+               myChart.data.datasets[0].data = price;
+               // Mettre à jour le graphique
+               myChart.update();
+            })
+         }
+         else{
+            console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+            return;
+         }
+      })
+      .catch((error) => {
+         console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
+         return;
+      });
+}

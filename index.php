@@ -62,7 +62,7 @@
                         [$name, $symbol] = [$fav[0], $fav[1]];
                         // Créer une vignette de monnaie favorite
                         echo "
-                        <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;'>
+                        <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden; display: none;'>
                            <div class='info-currency'>
                               <img src='' alt='$name' crossorigin='anonymous'>
                               <div>
@@ -81,13 +81,20 @@
                   }
                ?>
             </div>
-            <h3>Populaires</h3>
+            <div>
+               <h3 class="popover-text">Populaires</h3>
+               <?php
+                  require('src/backend/popover.php');
+                  popoverCreateElement("popover-bottom", "Cours des crypto-monnaies par capitalisation boursière.<br><br>Capitalisation boursière = Cours actuel * Offre en circulation", "https://www.bdc.ca/fr/articles-outils/boite-outils-entrepreneur/gabarits-documents-guides-affaires/glossaire/capitalisation-boursiere");
+               ?>
+            </div>
             <div class="container-cryptocurrency-trending">
                <table id="cryptocurrency-trending">
                   <thead>   
                      <tr>
                         <th></th>
                         <th style="text-align: left;">Nom</th>
+                        <!-- <th>Courbe</th> -->
                         <th>Prix</th>
                         <th>1 heure</th>
                         <th>24 heures</th>
@@ -116,6 +123,8 @@
       
       <script src="src/scripts/Dashboard.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
+      <script src="src/scripts/FavsManagerHeart.js" type="module"></script>
+
    </body>
 </html>
 

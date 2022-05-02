@@ -7,7 +7,6 @@
 }
 
 .search-bar-wrapper {
-   /* width: min-content; */
    align-content: center;
    align-items: center;
    text-align: center;
@@ -26,6 +25,7 @@
 }
 
 #search-bar {
+   width: 325px;
    border: none;
    outline: none;
    background-color: transparent;
@@ -56,6 +56,7 @@
    border-radius: var(--border-radius-large);
    border: solid 1px var(--color-light-grey);
    background-color: var(--color-background-grey);
+   cursor: pointer;
 }
 
 .thumbnail-exchange img {
@@ -81,6 +82,7 @@
    background-color: var(--color-light-grey);
    border-radius: var(--border-radius-small);
    overflow: hidden;
+   cursor: default;
 }
 
 .trust-score {

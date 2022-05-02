@@ -22,6 +22,9 @@
       if (strpos($favs, "/$idCryptocurrency,$symbolCryptocurrency") !== false) {
          $favs = str_replace("/$idCryptocurrency,$symbolCryptocurrency", "", $favs);
       }
+      else if (strpos($favs, "$idCryptocurrency,$symbolCryptocurrency/") !== false) {
+         $favs = str_replace("$idCryptocurrency,$symbolCryptocurrency/", "", $favs);
+      }
       // Il n'y a qu'une cryptomonnaie dans la liste des fav's
       else {
          $favs = str_replace("$idCryptocurrency,$symbolCryptocurrency", "", $favs);

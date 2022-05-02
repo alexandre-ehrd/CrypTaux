@@ -11,19 +11,16 @@
    color: var(--color-grey);
 }
 
-/* tbody:not(:first-child) {
-   border-bottom: solid 1px var(--color-light-grey);
-} */
-
 .container-cryptocurrency-trending {
    max-width: 100%;
    border-radius: var(--border-radius-large);
    border: solid 1px var(--color-light-grey);
-   overflow-x: scroll;
+   overflow-x: auto;
 }
 
 #cryptocurrency-trending {
    min-width: 100%;
+   background-color: var(--color-background-grey);
    border-collapse: collapse;
    user-select: none;
    -moz-user-select: none; /* Firefox */
@@ -43,7 +40,7 @@ tbody tr {
    cursor: pointer;
 }
 tbody tr:hover {
-   background-color: var(--color-background-grey) !important;
+   background-color: var(--color-background-dark-grey) !important;
 }
 
 /* Padding à gauche et à droite */
@@ -86,16 +83,18 @@ td {
    color: var(--color-grey);
 }
 
-
-
-td i {
+td .fav-button {
    font-size: 1.5rem;
 }
-.bi-suit-heart {
-   color: var(--color-grey) !important;
-}
-.bi-suit-heart:hover {
-   color: var(--color-orange) !important;
+
+.trending-change-column {
+   width: fit-content;
+   margin: 0px auto;
+   display: flex;
+   align-items: center;
+   gap: var(--padding);
 }
 
-
+.trending-change-column i {
+   font-size: 1.3rem;
+}
