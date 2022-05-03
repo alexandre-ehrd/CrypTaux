@@ -110,28 +110,28 @@
 
             <div class="wrapper">
                <h4>Communauté</h4>
-               <div class="wrapper-grid">
-                  <div>
-                     <p>Capitalisation boursière</p>
-                     <p>%</p>
+               <div id='cryptocurrency-community' class="wrapper-grid"></div>
+            </div>
+
+            <div class="wrapper">
+               <h4>Feedback</h4>
+               <div class="container-sentiment">
+                  <div class="sentiment-legende">
+                     <p>🙂</p>
+                     <p>🙁</p>
                   </div>
-                  <div>
-                     <p>Niveau historique</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 1 heure)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 24 heures)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 7 jours)</p>
-                     <p>%</p>
+                  <div class="sentiment-wrapper">
+                     <div id="sentiment-upvote">
+                        </div>
+                     </div>
+                     <div class="sentiment-legende">
+                        <p>Bon</p>
+                        <p>Mauvais</p>
+                     </div>
                   </div>
                </div>
+            </div>
+               
             </div>
          </div>
       </section>

@@ -31,19 +31,11 @@
    cursor: pointer;
 }
 
-/* .wrapper {
-   padding: var(--padding);
-   border-radius: var(--border-radius-large);
-   border: solid 1px var(--color-light-grey);
-   background-color: var(--color-background-grey);
-} */
-
 .wrapper ~ * {
    display: flex;
    flex-direction: column;
    gap: var(--padding);
 }
-
 
 .chart-header {
    display: flex;
@@ -107,4 +99,54 @@
    font-size: inherit;
    color: var(--color-orange);
    text-decoration: underline;
+}
+
+
+
+#cryptocurrency-community {
+   display: flex;
+   gap: var(--padding);
+}
+
+#cryptocurrency-community a {
+   color: var(--color-black);
+   padding: 5px 10px;
+   border-radius: var(--border-radius-small);
+   border: solid 1px var(--color-light-grey);
+   display: flex;
+   align-items: center;
+   gap: var(--padding);
+   transition: background-color 200ms, color 200ms;
+}
+
+#cryptocurrency-community a:hover {
+   background-color: var(--color-background-dark-grey);
+   color: var(--color-orange);
+}
+
+
+.container-sentiment {
+   display: flex;
+   flex-direction: column;
+   gap: var(--padding);
+}
+
+.sentiment-legende {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.sentiment-wrapper {
+   width: 100%;
+   height: 7px;
+
+   background-color: var(--color-red);
+   border-radius: var(--border-radius-small);
+}
+
+#sentiment-upvote {
+   height: 7px;
+   background-color: var(--color-green);
+   border-radius: var(--border-radius-small);
 }
