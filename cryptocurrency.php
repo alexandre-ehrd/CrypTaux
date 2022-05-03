@@ -33,9 +33,7 @@
             exit();
          }
       ?>
-      <title>
-         Cryptaux - <?php echo $nameCryptocurrency ?>
-      </title>
+      <title>Cryptaux - <?php echo $nameCryptocurrency?></title>
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
@@ -111,7 +109,7 @@
                   <h4 class="popover-text">Feedback</h4>
                   <?php
                      require('src/backend/popover.php');
-                     popoverCreateElement("popover-top", "Ressenti de la communauté pour cette crypto-monnaie.<br><br>Ce pourcentage s'actualise automatiquement.", "");
+                     popoverCreateElement("popover-top", "Ressenti de la communauté pour cette crypto-monnaie.<br><br>Cet indicateur s'actualise automatiquement.", "");
                   ?>
                </div>
                <div class="container-sentiment">
@@ -133,31 +131,9 @@
             </div>
          </div>
       </section>
-
-
-
-
-         <!-- <div class="skeleton-container">
-            <div class="skeleton skeleton-title">
-               <p></p>
-            </div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text"></div>
-         </div> -->
-
-
-
-      </section>
-
-      
-
-
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       
       <script src="src/scripts/Cryptocurrency.js" type="module"></script>
-
    </body>
 </html>

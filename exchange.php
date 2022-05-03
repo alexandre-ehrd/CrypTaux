@@ -74,7 +74,6 @@
                </div>
                <input type="button" value="Convertir" onclick="convertCryptocurrency()">
             </div>
-               
          </div>
       </section>
       

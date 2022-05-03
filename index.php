@@ -47,40 +47,7 @@
                </a>
             </div>
             
-            <div class="container-thumbnail-currency">
-               <?php 
-                  require('src/backend/connect_database.php');
-                  $mail_user = $_SESSION['mail'];
-                  $reponse=$db->query("SELECT favs FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
-                  $favs = $reponse[0]->favs;
-
-                  if (isset($favs) && $favs != '') {
-                     // Séparer les monnaies
-                     $favs = explode("/", $favs);
-                     foreach ($favs as $fav) {
-                        $fav = explode(",", $fav);
-                        [$name, $symbol] = [$fav[0], $fav[1]];
-                        // Créer une vignette de monnaie favorite
-                        /* echo "
-                        <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden; display: none;'>
-                           <div class='info-currency'>
-                              <img src='' alt='$name' crossorigin='anonymous'>
-                              <div>
-                                 <p class='fav-price'></p>
-                                 <p class='fav-symbol'>". strtoupper($symbol). "</p>
-                              </div>
-                              <p class='fav-taux'></p>   
-                           </div>
-                           <canvas class='fav-chart'></canvas>
-                        </div>
-                        "; */
-                     }
-                  }
-                  else {
-                     echo "Vous n'avez pas de fav's ✨";
-                  }
-               ?>
-            </div>
+            <div class="container-thumbnail-currency"></div>
             <div>
                <h3 class="popover-text">Populaires</h3>
                <?php
@@ -94,7 +61,6 @@
                      <tr>
                         <th></th>
                         <th style="text-align: left;">Nom</th>
-                        <!-- <th>Courbe</th> -->
                         <th>Prix</th>
                         <th>1 heure</th>
                         <th>24 heures</th>
@@ -106,17 +72,6 @@
             </div>
          </div>
       </section>
-
-
-      <!-- <div class="skeleton-container">
-         <div class="skeleton skeleton-title">
-            <p></p>
-         </div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-      </div> -->
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
@@ -124,9 +79,5 @@
       <script src="src/scripts/Dashboard.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
       <script src="src/scripts/FavsManagerHeart.js" type="module"></script>
-
    </body>
 </html>
-
-
-<a href=""></a>

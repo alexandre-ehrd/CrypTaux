@@ -97,17 +97,6 @@
 
       </section>
       
-      <!-- <div class="skeleton-container">
-         <div class="skeleton skeleton-title">
-            <p></p>
-         </div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-      </div> -->
-
-
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       

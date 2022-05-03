@@ -216,7 +216,7 @@ function createChart(element, data, legende) {
          datasets: [{
             label: 'Prix ',
             data: data,
-            borderColor: '#E5734A', // Couleur de la ligne
+            borderColor: '#02555B', // Couleur de la ligne
             tension: 0.1,
             pointBackgroundColor: 'transparent', // Couleur des points
             pointBorderColor: 'transparent',
