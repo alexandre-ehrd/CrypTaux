@@ -87,7 +87,8 @@
 
 select {
    margin-top: var(--padding);
-   font-size: 0.9rem;
+   margin-bottom: 2px;
+   font-size: 1.25rem;
 }
 
 input[type=button] {

@@ -40,6 +40,7 @@
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/cryptocurrency.css">
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/cryptocurrency_mobile.css"/>
    </head>
    <body>
       <?php
@@ -67,35 +68,27 @@
                </div>
             </div>
 
-            <div class="wrapper">
-               <div class="chart-header">
-                  <h3 id="cryptocurrency-price"></h3>
-                  <div id="chart-period-selector">
-                     <a>1 j</a>
-                     <a class="period-selected">7 j</a>
-                     <a>1 a</a>
-                     <a>Max</a>
+            <div class="wrapper-top-page">
+
+               <div id="wrapper-chart" class="wrapper">
+                  <div class="chart-header">
+                     <h3 id="cryptocurrency-price"></h3>
+                     <div id="chart-period-selector">
+                        <a>1 j</a>
+                        <a class="period-selected">7 j</a>
+                        <a>1 a</a>
+                        <a>Max</a>
+                     </div>
                   </div>
+                  <canvas id="cryptocurrency-chart"></canvas>
                </div>
-               <canvas id="cryptocurrency-chart"></canvas>
+               
+               <div id="wrapper-statistiques" class="wrapper">
+                  <h4>Statistiques du marché</h4>
+                  <div id="cryptocurrency-statistiques" class="wrapper-grid"></div>
+               </div>
             </div>
-
-            <div class="wrapper">
-               <h4>Statistiques du marché</h4>
-               <div id="wrapper-statistiques" class="wrapper-grid"></div>
-            </div>
-
-            <!-- <div class="wrapper">
-               <div>
-                  <h4 class="popover-text">Description</h4>
-                  <?php
-                     require('src/backend/popover.php');
-                     popoverCreateElement("popover-bottom", "Cette description est traduite automatiquement.", "");
-                  ?>
-               </div>
-               <div id="wrapper-description">
-               </div>
-            </div> -->
+               
 
             <div class="wrapper">
                <h4>Cours le plus élevé</h4>
@@ -114,19 +107,24 @@
             </div>
 
             <div class="wrapper">
-               <h4>Feedback</h4>
+               <div>
+                  <h4 class="popover-text">Feedback</h4>
+                  <?php
+                     require('src/backend/popover.php');
+                     popoverCreateElement("popover-top", "Ressenti de la communauté pour cette crypto-monnaie.<br><br>Ce pourcentage s'actualise automatiquement.", "");
+                  ?>
+               </div>
                <div class="container-sentiment">
                   <div class="sentiment-legende">
-                     <p>🙂</p>
                      <p>🙁</p>
+                     <p>🙂</p>
                   </div>
                   <div class="sentiment-wrapper">
-                     <div id="sentiment-upvote">
-                        </div>
+                     <div id="sentiment-downvote"></div>
                      </div>
                      <div class="sentiment-legende">
-                        <p>Bon</p>
                         <p>Mauvais</p>
+                        <p>Bon</p>
                      </div>
                   </div>
                </div>

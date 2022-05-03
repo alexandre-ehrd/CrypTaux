@@ -7,7 +7,7 @@ const eyeHide = document.getElementById("icon-eye-hide");
 const allUserInput = document.getElementsByClassName('user-input');
 // Récupérer le bouton pour envoyer le formulaire
 const submitButton = document.querySelector("input[type=submit]");
-console.log(submitButton)
+
 
 passwordInput.addEventListener('input', () => {
    if (passwordInput.value.length == 0) {

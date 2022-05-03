@@ -12,14 +12,14 @@ const cryptocurrencySymbol = document.getElementById('cryptocurrency-symbol');
 const cryptocurrencyPrice = document.getElementById('cryptocurrency-price');
 const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
 
-const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
+const cryptocurrencyStatistiquesWrapper = document.getElementById('cryptocurrency-statistiques');
 
 const cryptocurrencyCommunityWrapper = document.getElementById('cryptocurrency-community');
 
 const cryptocurrencyHigherPrice = document.getElementById('cryptocurrency-higher-price');
 const cryptocurrencyLowerPrice = document.getElementById('cryptocurrency-lower-price');
 
-const cryptocurrencySentimentUp = document.getElementById('sentiment-upvote');
+const cryptocurrencySentimentDown = document.getElementById('sentiment-downvote');
 
 
 var favsList = await fetchFavsList();
@@ -157,7 +157,6 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       var twitterName = cryptocurrency['links']['twitter_screen_name'];
       if (twitterName != null) {
          var twitterURL = `https://twitter.com/${twitterName}`;
-         console.log(twitterURL);
          cryptocurrencyCommunityWrapper.innerHTML += `
             <a href="${twitterURL}" target="_blank">
                <i class="bi bi-twitter"></i>
@@ -203,7 +202,7 @@ async function cryptocurrencyManager(cryptocurrencyID) {
 
 
       // Sentiment de la communauté sur cette crypto-monnaie
-      cryptocurrencySentimentUp.style.width = `${cryptocurrency['sentiment_votes_up_percentage']}%`;
+      cryptocurrencySentimentDown.style.width = `${cryptocurrency['sentiment_votes_down_percentage']}%`;
    }
 }
 
