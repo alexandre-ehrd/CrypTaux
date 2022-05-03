@@ -31,31 +31,53 @@
    cursor: pointer;
 }
 
-/* .wrapper {
-   padding: var(--padding);
-   border-radius: var(--border-radius-large);
-   border: solid 1px var(--color-light-grey);
-   background-color: var(--color-background-grey);
-} */
-
 .wrapper ~ * {
    display: flex;
    flex-direction: column;
    gap: var(--padding);
 }
 
+.wrapper-grid {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--padding);
+}
+
+.wrapper-grid > div {
+   flex-grow: 1;
+   border: solid 1px var(--color-grey);
+}
+
+.wrapper-top-page {
+   display: flex;
+   gap: var(--padding);
+}
+
+#wrapper-chart {
+   width: 60%;
+}
+
+#wrapper-statistiques {
+   width: 40%;
+}
+
+#wrapper-statistiques div,
+#wrapper-community div {
+   min-width: 300px;
+   border: solid 1px var(--color-light-grey);
+}
 
 .chart-header {
    display: flex;
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
-   gap: var(--padding);
+   gap: var(--padding)
 }
 
 .chart-header h3 {
    font-size: 2rem;
-   font-weight: 600;
+   font-weight: 500;
    position: relative;
 }
 
@@ -91,20 +113,49 @@
    font-weight: 600;
 }
 
-.wrapper-grid {
+#cryptocurrency-community {
    display: flex;
-   flex-wrap: wrap;
    gap: var(--padding);
 }
 
-.wrapper-grid div {
-   flex-grow: 1;
-   min-width: 300px;
+#cryptocurrency-community a {
+   color: var(--color-black);
+   padding: 5px 10px;
+   border-radius: var(--border-radius-small);
    border: solid 1px var(--color-light-grey);
+   display: flex;
+   align-items: center;
+   gap: var(--padding);
+   transition: background-color 200ms, color 200ms;
 }
 
-#wrapper-description p > a {
-   font-size: inherit;
+#cryptocurrency-community a:hover {
+   background-color: var(--color-background-dark-grey);
    color: var(--color-orange);
-   text-decoration: underline;
+}
+
+
+.container-sentiment {
+   display: flex;
+   flex-direction: column;
+   gap: var(--padding);
+}
+
+.sentiment-legende {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.sentiment-wrapper {
+   width: 100%;
+   height: 7px;
+   background-color: var(--color-green);
+   border-radius: var(--border-radius-small);
+}
+
+#sentiment-downvote {
+   height: 100%;
+   background-color: var(--color-red);
+   border-radius: var(--border-radius-small);
 }

@@ -13,11 +13,13 @@ const inputCryptocurrency = document.getElementById('input-cryptocurrency');
 const outputCryptocurrency = document.getElementById('output-cryptocurrency');
 
 
-const swapperCryptocurrency = document.getElementById('cryptocurrency-swapper');
 
 var cryptocurrencyDico = {};
 
-selectorCryptocurrency_1.addEventListener('change', function () {
+selectorCryptocurrency_1.addEventListener('change', selectValueChange_1);
+selectorCryptocurrency_2.addEventListener('change', selectValueChange_2);
+
+function selectValueChange_1() {
    // Accéder à l'objet cryptocurrency correspondant à l'option sélectionnée
    let cryptocurrency = cryptocurrencyDico[selectorCryptocurrency_1.value];
    symbolCryptocurrency_1.innerHTML = cryptocurrency.symbol.toUpperCase();
@@ -26,41 +28,40 @@ selectorCryptocurrency_1.addEventListener('change', function () {
    imageCryptocurrency_1.alt = cryptocurrency['name'];
    // Réinitialiser le champ de réponse
    outputCryptocurrency.innerHTML = '0';
-});
-selectorCryptocurrency_2.addEventListener('change', function () {
-   // Accéder à l'objet cryptocurrency correspondant à l'option sélectionnée
-   let cryptocurrency = cryptocurrencyDico[selectorCryptocurrency_2.value];
-   symbolCryptocurrency_2.innerHTML = cryptocurrency.symbol.toUpperCase();
-   let URLcryptocurrency = cryptocurrency['image'].replace('large', 'small');
-   imageCryptocurrency_2.src = URLcryptocurrency;
-   imageCryptocurrency_2.alt = cryptocurrency['name'];
+};
+
+function selectValueChange_2() {
+   // Afficher le symbole de la devise sélectionnée
+   imageCryptocurrency_2.style.visibility = 'visible';
+   // L'utilisateur ne clique pas sur l'euro ou le dollar
+   if (selectorCryptocurrency_2.value != 'euro' && selectorCryptocurrency_2.value != 'dollar') {
+      // Accéder à l'objet cryptocurrency correspondant à l'option sélectionnée
+      let cryptocurrency = cryptocurrencyDico[selectorCryptocurrency_2.value];
+      symbolCryptocurrency_2.innerHTML = cryptocurrency.symbol.toUpperCase();
+      let URLcryptocurrency = cryptocurrency['image'].replace('large', 'small');
+      imageCryptocurrency_2.src = URLcryptocurrency;
+      imageCryptocurrency_2.alt = cryptocurrency['name'];
+   }
+   else {
+      if (selectorCryptocurrency_2.value == 'euro') {
+         symbolCryptocurrency_2.innerHTML = '€';
+      }
+      else {
+         symbolCryptocurrency_2.innerHTML = '$';
+      }
+      imageCryptocurrency_2.style.visibility = 'hidden';
+      imageCryptocurrency_2.alt = '';
+   }
    // Réinitialiser le champ de réponse
    outputCryptocurrency.innerHTML = '0';
-});
+};
 
-
-swapperCryptocurrency.addEventListener('click', function () {
-   let temp = selectorCryptocurrency_1.value;
-   selectorCryptocurrency_1.value = selectorCryptocurrency_2.value;
-   selectorCryptocurrency_2.value = temp;
-
-   symbolCryptocurrency_1.innerHTML = cryptocurrencyDico[selectorCryptocurrency_1.value]['symbol'].toUpperCase();
-   symbolCryptocurrency_2.innerHTML = cryptocurrencyDico[selectorCryptocurrency_2.value]['symbol'].toUpperCase();
-
-   let URLcryptocurrency_1 = cryptocurrencyDico[selectorCryptocurrency_1.value]['image'].replace('large', 'small');
-   let URLcryptocurrency_2 = cryptocurrencyDico[selectorCryptocurrency_2.value]['image'].replace('large', 'small');
-   imageCryptocurrency_1.src = URLcryptocurrency_1;
-   imageCryptocurrency_2.src = URLcryptocurrency_2;
-
-   inputCryptocurrency.value = '';
-   outputCryptocurrency.innerHTML = '0';
-});
 
 inputCryptocurrency.addEventListener('input', function (event) {
+   // L'utilisateur appuie sur la touche supprimer
    if (event.inputType == 'deleteContentBackward') {
       return;
    }
-
    let keyCode = event.data.charCodeAt(event);
    // L'utilisateur a entré un chiffre (ou un point ou une virgule)
    if (keyCode >= 48 && keyCode <= 57 || keyCode == 46 || keyCode == 44) {
@@ -74,9 +75,28 @@ inputCryptocurrency.addEventListener('input', function (event) {
    }
 });
 
+
+
 function convertCryptocurrency() {
    let cryptocurrency_1 = cryptocurrencyDico[selectorCryptocurrency_1.value];
-   let cryptocurrency_2 = cryptocurrencyDico[selectorCryptocurrency_2.value];
+   let cryptocurrency_2 = null;
+   
+   // L'utilisateur ne souhaite avoir des euros ou des dollars en sortie
+   if (selectorCryptocurrency_2.value != 'euro' && selectorCryptocurrency_2.value != 'dollar') {
+      cryptocurrency_2 = cryptocurrencyDico[selectorCryptocurrency_2.value];
+   }
+   else {
+      if (selectorCryptocurrency_2.value == 'euro') {
+         cryptocurrency_2 = {
+            'symbol': 'eur',
+         };
+      }
+      else {
+         cryptocurrency_2 = {
+            'symbol': 'usd',
+         };
+      }
+   }
 
    let URL = `https://api.coingecko.com/api/v3/simple/price?ids=${cryptocurrency_1.id}&vs_currencies=${cryptocurrency_2.symbol}`;
    
@@ -91,10 +111,10 @@ function convertCryptocurrency() {
                // Prix converti
                let inputValue = inputCryptocurrency.value.replace(',', '.');
                let cryptocurrencyConverted = inputValue * taux;
+               
                // L'output n'est pas un nombre (NaN)
                if (Number.isNaN(cryptocurrencyConverted)) {
                   cryptocurrencyConverted = 'Erreur';
-                  console.log('j');
                }
 
                outputCryptocurrency.innerHTML = cryptocurrencyConverted.toString().replace('.', ',');
@@ -113,82 +133,17 @@ function convertCryptocurrency() {
 
 
 
-createSelector();
-
-async function createSelector() {
-   var cryptocurrencyList = await fetchTrendingCryptocurrency();
-
-   createOption(selectorCryptocurrency_1, cryptocurrencyList);
-   createOption(selectorCryptocurrency_2, cryptocurrencyList);
-
-   // Sélectionner automatiquement la première et deuxième option
-   selectorCryptocurrency_1.selectedIndex = 0;
-   selectorCryptocurrency_2.selectedIndex = 1;
-   
-   // Symobole des monnaies sélectionnées automatiquement
-   symbolCryptocurrency_1.innerHTML = cryptocurrencyDico[selectorCryptocurrency_1.value]['symbol'].toUpperCase();
-   symbolCryptocurrency_2.innerHTML = cryptocurrencyDico[selectorCryptocurrency_2.value]['symbol'].toUpperCase();
-
-   // Images des monnaies sélectionnées automatiquement
-   let URLCryptocurrency_1 = cryptocurrencyDico[selectorCryptocurrency_1.value]['image'].replace('large', 'small');
-   let URLCryptocurrency_2 = cryptocurrencyDico[selectorCryptocurrency_2.value]['image'].replace('large', 'small');
-   imageCryptocurrency_1.src = URLCryptocurrency_1;
-   imageCryptocurrency_2.src = URLCryptocurrency_2;
-}
-
-function createOption(element, cryptocurrencyList) {
-   for (var i = 0; i < cryptocurrencyList.length; i++) {
-      let cryptocurrency = cryptocurrencyList[i];
-
-      // Ajouter la monnaie au dictionnaire
-      cryptocurrencyDico[cryptocurrency.id] = cryptocurrency;
-      
-      // Créer l'option
-      let option = document.createElement("option");
-      // Ajouter la valeur de l'option
-      option.value = cryptocurrency.id;
-
-      let cryptocurrencyName = cryptocurrency.name;
-      let cryptocurrencySymbol = cryptocurrency.symbol.toUpperCase();
-      option.text = `${cryptocurrencyName} [${cryptocurrencySymbol}]`;
-
-      element.appendChild(option);
-   }
-}
-
-async function fetchCryptocurrency1() {
-   var URL = `https://api.coingecko.com/api/v3/coins/list`;
-   var URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250`;
-   return new Promise((resolve, reject) => {
-      fetch(URL)
-         .then(response => {
-            console.log("Requête");
-            if (response.ok) {
-               response.json().then(response => {
-                  resolve(response);
-               })
-            }
-            else{
-               console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
-               reject();
-               return;
-            }
-         })
-         .catch((error) => {
-            console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
-            reject();
-            return;
-         });
-   });
-}
 
 
+
+
+
+/* Fonction qui retourne les 250 premières crypto-monnaies en fonction de leurs capitalisation boursière */
 function fetchTrendingCryptocurrency() {
    var URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=1h,24h,7d';
    var trendingResponse = null;
 
    return new Promise((resolve, reject) => {
-   
       // Les données historiques se trouvent dans le sessionStorage
       if (sessionStorage.getItem('trendingCryptocurrency') != null) {
          trendingResponse = JSON.parse(sessionStorage.getItem('trendingCryptocurrency'));
@@ -219,3 +174,109 @@ function fetchTrendingCryptocurrency() {
    });
 }
 
+/* Fonction qui gère la création des élements SELECT */
+async function createSelector() {
+   var cryptocurrencyList = await fetchTrendingCryptocurrency();
+
+   createOptionsInSelect(selectorCryptocurrency_1, cryptocurrencyList, false);
+   createOptionsInSelect(selectorCryptocurrency_2, cryptocurrencyList, true);
+
+   // Sélectionner automatiquement la première et deuxième option
+   selectorCryptocurrency_1.selectedIndex = 0;
+   selectorCryptocurrency_2.selectedIndex = 0;
+
+   // Changer les symboles et images affichés
+   selectValueChange_1();
+   selectValueChange_2();
+}
+
+/* Fonction qui créer les options dans les deux SELECT */
+function createOptionsInSelect(element, cryptocurrencyList, isOutput) {
+   for (var i = 0; i < cryptocurrencyList.length; i++) {
+      let cryptocurrency = cryptocurrencyList[i];
+      
+      // On trie les monnaies qu'on peut convertir dans la partie output
+      if (isOutput == false || isOutput == true && t.indexOf(cryptocurrency['symbol']) != -1) {
+         // Ajouter la monnaie au dictionnaire
+         cryptocurrencyDico[cryptocurrency.id] = cryptocurrency;
+         
+         // Créer l'option
+         let option = document.createElement("option");
+         // Ajouter la valeur de l'option
+         option.value = cryptocurrency.id;
+         
+         let cryptocurrencyName = cryptocurrency.name;
+         let cryptocurrencySymbol = cryptocurrency.symbol.toUpperCase();
+         option.text = `${cryptocurrencyName} [${cryptocurrencySymbol}]`;
+         
+         element.appendChild(option);
+      }
+   }
+}
+
+var t =
+[
+   "btc",
+   "eth",
+   "ltc",
+   "bch",
+   "bnb",
+   "eos",
+   "xrp",
+   "xlm",
+   "link",
+   "dot",
+   "yfi",
+   "usd",
+   "aed",
+   "ars",
+   "aud",
+   "bdt",
+   "bhd",
+   "bmd",
+   "brl",
+   "cad",
+   "chf",
+   "clp",
+   "cny",
+   "czk",
+   "dkk",
+   "eur",
+   "gbp",
+   "hkd",
+   "huf",
+   "idr",
+   "ils",
+   "inr",
+   "jpy",
+   "krw",
+   "kwd",
+   "lkr",
+   "mmk",
+   "mxn",
+   "myr",
+   "ngn",
+   "nok",
+   "nzd",
+   "php",
+   "pkr",
+   "pln",
+   "rub",
+   "sar",
+   "sek",
+   "sgd",
+   "thb",
+   "try",
+   "twd",
+   "uah",
+   "vef",
+   "vnd",
+   "zar",
+   "xdr",
+   "xag",
+   "xau",
+   "bits",
+   "sats"
+]
+
+createSelector();

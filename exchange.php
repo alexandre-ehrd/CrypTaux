@@ -54,7 +54,7 @@
                      <select id="select-cryptocurrency-first"></select>
                   </div>
                   
-                  <i id="cryptocurrency-swapper" class='bi bi-arrow-left-right'></i>
+                  <i class='bi bi-arrow-left-right'></i>
                   
                   <div class="converter-side">
                      <div class="conversion-input">
@@ -65,7 +65,10 @@
                            <img id="devise-image-second" src="" alt="">
                         </div>
                      </div>
-                     <select id="select-cryptocurrency-second"></select>
+                     <select id="select-cryptocurrency-second">
+                        <option value="euro">Euro [EUR]</option>
+                        <option value="dollar">Dollar [USD]</option>
+                     </select>
                   </div>
                   
                </div>

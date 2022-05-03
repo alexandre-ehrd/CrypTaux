@@ -21,19 +21,14 @@
    width: 100%;
 }
 
-
 .converter-wrapper > i {
    font-size: 1.5rem;
    color: var(--color-orange);
-   cursor: pointer;
 }
-
 
 #conversion-response {
    text-align: center;
 }
-
-
 
 .conversion-input {
    height: 100%;
@@ -92,7 +87,8 @@
 
 select {
    margin-top: var(--padding);
-   font-size: 0.9rem;
+   margin-bottom: 2px;
+   font-size: 1.25rem;
 }
 
 input[type=button] {

@@ -1,4 +1,4 @@
-import {fetchList, favsManager} from './FavsManagerHeart.js';
+import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
 
 
 const periodSelector = document.getElementById('chart-period-selector');
@@ -12,21 +12,25 @@ const cryptocurrencySymbol = document.getElementById('cryptocurrency-symbol');
 const cryptocurrencyPrice = document.getElementById('cryptocurrency-price');
 const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
 
-const cryptocurrencyStatistiquesWrapper = document.getElementById('wrapper-statistiques');
+const cryptocurrencyStatistiquesWrapper = document.getElementById('cryptocurrency-statistiques');
 
-//const cryptocurrencyDescriptionWrapper = document.getElementById('wrapper-description');
+const cryptocurrencyCommunityWrapper = document.getElementById('cryptocurrency-community');
+
+const cryptocurrencyHigherPrice = document.getElementById('cryptocurrency-higher-price');
+const cryptocurrencyLowerPrice = document.getElementById('cryptocurrency-lower-price');
+
+const cryptocurrencySentimentDown = document.getElementById('sentiment-downvote');
 
 
+var favsList = await fetchFavsList();
 
-var favsList = await fetchList();
-
-
+var historicPrice7d = null;
 
 
 
 
 async function fetchData(cryptocurrencyID) {
-   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true`;
+   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
    return new Promise((resolve, reject) => {
       fetch(URL)
          .then(response => {
@@ -58,8 +62,7 @@ async function fetchData(cryptocurrencyID) {
 
 
 
-var historicPrice7d = null;
-var historicPrice1d = null;
+
 
 
 
@@ -99,27 +102,8 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       // Créer la légende (nécessaire pour le graphique) et le graphique
       let legende = Object.keys(historicPrice7d);
       createChart(cryptocurrencyChart, historicPrice7d, legende);
-
-      /* cryptocurrencyDescriptionWrapper.innerHTML = `
-         <p>${cryptocurrency['description']['en']}</p>
-         <p>Ce texte est traduit automatiquement en français par : </p>
-         <input type="button" value="Voir l'original">
-      `; */
-
-      /* const res = await fetch("https://libretranslate.de/translate", {
-	      method: "POST",
-	      body: JSON.stringify({
-		      q: cryptocurrency['description']['en'],
-		      source: "en",
-		      target: "fr",
-		      format: "text"
-	      }),
-	      headers: { "Content-Type": "application/json" }
-      });
-
-      console.log(await res.json()); */
-
       
+      // Statistiques du marché
       cryptocurrencyStatistiquesWrapper.innerHTML = `
          <div>
             <p>Capitalisation boursière</p>
@@ -138,6 +122,87 @@ async function cryptocurrencyManager(cryptocurrencyID) {
             <p>${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2)} %</p>
          </div>
       `;
+
+      // Cours le plus élevé
+      let higherPriceDate = new Date(cryptocurrency['market_data']['ath_date']['usd']);
+      cryptocurrencyHigherPrice.innerHTML = `
+         ${cryptocurrency['name']} a atteint un prix maximal de ${cryptocurrency['market_data']['ath']['usd']} $ le ${higherPriceDate.toLocaleDateString("fr")}.
+      `;
+      
+      // Cours le plus bas
+      let lowerPriceDate = new Date(cryptocurrency['market_data']['atl_date']['usd']);
+      cryptocurrencyLowerPrice.innerHTML = `
+         ${cryptocurrency['name']} a atteint un prix minimal de ${cryptocurrency['market_data']['atl']['usd']} $ le ${lowerPriceDate.toLocaleDateString("fr")}.
+      `;
+
+      let t = new Date('2022-05-03T15:34:50.013Z')
+      console.log(t.toLocaleDateString("fr") + " " + t.toLocaleTimeString("fr"));
+      
+      // Communauté
+      // Site web de la crypto-monnaie
+      var cryptocurencyURL = cryptocurrency['links']['homepage'];
+      if (cryptocurencyURL != null) {
+         cryptocurencyURL = cryptocurencyURL[0];
+         var cryptocurrencyTitleURL = new URL(cryptocurencyURL);
+         cryptocurrencyTitleURL = cryptocurrencyTitleURL.hostname.replace('www.', '');
+         cryptocurrencyCommunityWrapper.innerHTML += `
+            <a href="${cryptocurencyURL}" target="_blank">
+               <i class="bi bi-link-45deg"></i>
+               <p>${cryptocurrencyTitleURL}</p>
+            </a>
+         `;
+      }
+
+      // Twitter
+      var twitterName = cryptocurrency['links']['twitter_screen_name'];
+      if (twitterName != null) {
+         var twitterURL = `https://twitter.com/${twitterName}`;
+         cryptocurrencyCommunityWrapper.innerHTML += `
+            <a href="${twitterURL}" target="_blank">
+               <i class="bi bi-twitter"></i>
+               <p>Twitter</p>
+            </a>
+         `;
+      }
+
+      // Facebook
+      var facebookName = cryptocurrency['links']['facebook_username'];
+      if (facebookName != null) {
+         var facebookURL = `https://facebook.com/${facebookName}`;
+         cryptocurrencyCommunityWrapper.innerHTML += `
+            <a href="${facebookURL}" target="_blank">
+               <i class="bi bi-facebook"></i>
+               <p>Facebook</p>
+            </a>
+         `;
+      }
+
+      // Reddit
+      var redditURL = cryptocurrency['links']['subreddit_url'];
+      if (redditURL != null) {
+         cryptocurrencyCommunityWrapper.innerHTML += `
+            <a href="${redditURL}" target="_blank">
+            <i class="bi bi-reddit"></i>
+               <p>Reddit</p>
+            </a>
+         `;
+      }
+
+      // Github
+      var githubUrl = cryptocurrency['links']['repos_url']['github'];
+      if (githubUrl != null) {
+         cryptocurrencyCommunityWrapper.innerHTML += `
+            <a href="${githubUrl[0]}" target="_blank">
+               <i class="bi bi-github"></i>
+               <p>Github</p>
+            </a>
+         `;
+      }
+
+
+
+      // Sentiment de la communauté sur cette crypto-monnaie
+      cryptocurrencySentimentDown.style.width = `${cryptocurrency['sentiment_votes_down_percentage']}%`;
    }
 }
 
@@ -165,18 +230,17 @@ function createChart(element, data, legende) {
                },
                grid: {
                   color: 'transparent',
-                  borderColor: 'transparent'  
+                  borderColor: '#CCCCCC'
                }
             },
             y: {
                ticks: {
-                  display: false, // Graduation axe
+                  display: true, // Graduation axe
                },
                beginAtZero: false,
                grid: {
-                  color: '#CCCCCC',
                   color: 'transparent',
-                  borderColor: 'transparent'  
+                  borderColor: '#CCCCCC'  
                }
             }
          },

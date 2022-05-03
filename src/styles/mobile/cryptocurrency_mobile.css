@@ -1,0 +1,11 @@
+@import './style.css';
+
+
+.wrapper-top-page {
+   flex-direction: column;
+}
+
+#wrapper-chart,
+#wrapper-statistiques {
+   width: 100%;
+}

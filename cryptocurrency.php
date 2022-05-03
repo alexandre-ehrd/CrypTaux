@@ -40,6 +40,7 @@
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/cryptocurrency.css">
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/cryptocurrency_mobile.css"/>
    </head>
    <body>
       <?php
@@ -67,92 +68,68 @@
                </div>
             </div>
 
-            <div class="wrapper">
-               <div class="chart-header">
-                  <h3 id="cryptocurrency-price"></h3>
-                  <div id="chart-period-selector">
-                     <a>1 j</a>
-                     <a class="period-selected">7 j</a>
-                     <a>1 a</a>
-                     <a>Max</a>
-                  </div>
-               </div>
-               <canvas id="cryptocurrency-chart"></canvas>
-            </div>
+            <div class="wrapper-top-page">
 
-            <div class="wrapper">
-               <h4>Statistiques</h4>
-               <div id="wrapper-statistiques" class="wrapper-grid">
-                  <div>
-                     <p>Capitalisation boursière</p>
-                     <p>%</p>
+               <div id="wrapper-chart" class="wrapper">
+                  <div class="chart-header">
+                     <h3 id="cryptocurrency-price"></h3>
+                     <div id="chart-period-selector">
+                        <a>1 j</a>
+                        <a class="period-selected">7 j</a>
+                        <a>1 a</a>
+                        <a>Max</a>
+                     </div>
                   </div>
-                  <div>
-                     <p>Niveau historique</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 1 heure)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 24 heures)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 7 jours)</p>
-                     <p>%</p>
-                  </div> 
+                  <canvas id="cryptocurrency-chart"></canvas>
+               </div>
+               
+               <div id="wrapper-statistiques" class="wrapper">
+                  <h4>Statistiques du marché</h4>
+                  <div id="cryptocurrency-statistiques" class="wrapper-grid"></div>
                </div>
             </div>
-
-            <!-- <div class="wrapper">
-               <div>
-                  <h4 class="popover-text">Description</h4>
-                  <?php
-                     require('src/backend/popover.php');
-                     popoverCreateElement("popover-bottom", "Cette description est traduite automatiquement.", "");
-                  ?>
-               </div>
-               <div id="wrapper-description">
-               </div>
-            </div> -->
+               
 
             <div class="wrapper">
                <h4>Cours le plus élevé</h4>
-               <p></p>
+               <p id='cryptocurrency-higher-price'></p>
             </div>
 
             <div class="wrapper">
                <h4>Cours le plus bas</h4>
-               <p></p>
+               <p id='cryptocurrency-lower-price'></p>
             </div>
             
 
             <div class="wrapper">
                <h4>Communauté</h4>
-               <div class="wrapper-grid">
-                  <div>
-                     <p>Capitalisation boursière</p>
-                     <p>%</p>
+               <div id='cryptocurrency-community' class="wrapper-grid"></div>
+            </div>
+
+            <div class="wrapper">
+               <div>
+                  <h4 class="popover-text">Feedback</h4>
+                  <?php
+                     require('src/backend/popover.php');
+                     popoverCreateElement("popover-top", "Ressenti de la communauté pour cette crypto-monnaie.<br><br>Ce pourcentage s'actualise automatiquement.", "");
+                  ?>
+               </div>
+               <div class="container-sentiment">
+                  <div class="sentiment-legende">
+                     <p>🙁</p>
+                     <p>🙂</p>
                   </div>
-                  <div>
-                     <p>Niveau historique</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 1 heure)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 24 heures)</p>
-                     <p>%</p>
-                  </div>
-                  <div>
-                     <p>Fluctuation de prix (en 7 jours)</p>
-                     <p>%</p>
+                  <div class="sentiment-wrapper">
+                     <div id="sentiment-downvote"></div>
+                     </div>
+                     <div class="sentiment-legende">
+                        <p>Mauvais</p>
+                        <p>Bon</p>
+                     </div>
                   </div>
                </div>
+            </div>
+               
             </div>
          </div>
       </section>

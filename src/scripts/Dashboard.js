@@ -1,10 +1,13 @@
 import {fetchHistoricData, fetchCryptocurrency, createThumbnail} from './FavThumbnail.js';
-import {fetchList, favsManager} from './FavsManagerHeart.js';
+import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
 
 
 // Récupérer la grille
 const gridElement = document.querySelector(".container-thumbnail-currency");
 const gridComputedStyle = window.getComputedStyle(gridElement);
+
+
+
 
 // Récupérer toutes les thumbnails
 const allThumbnails = document.getElementsByClassName('thumbnail-currency');
@@ -12,18 +15,62 @@ const allThumbnails = document.getElementsByClassName('thumbnail-currency');
 // Tableau pour les cryptomonnaies célèbres
 const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-trending-body');
 
-var favsList = await fetchList();
+var favsList = await fetchFavsList();
 
-hideThumbnails();
-window.addEventListener('resize', hideThumbnails);
+
+/* Fonction qui créer les éléments HTML pour les thumbnails */
+function createFavsElement(favsList) {
+   gridElement.innerHTML = '';
+   if (favsList != '') {
+      favsList.forEach(fav => {
+         fav = fav.split(",");
+         let id = fav[0];
+         let symbol = fav[1];
+         
+         gridElement.innerHTML += `
+            <div class='thumbnail-currency thumbnail-hide' id='${id}' style='visibility: hidden; display: none;'>
+               <div class='info-currency'>
+                  <img src='' alt='${id}' crossorigin='anonymous'>
+                  <div>
+                     <p class='fav-price'></p>
+                     <p class='fav-symbol'>${symbol}</p>
+                  </div>
+                  <p class='fav-taux'></p>   
+               </div>
+               <canvas class='fav-chart'></canvas>
+            </div>
+         `;
+      });
+      /* Fonction qui affiche et cache les thumbnails */
+      hideThumbnails();
+   }
+   else {
+      gridElement.innerHTML = `
+         <p>Vous n'avez pas de fav's ✨</p>
+      `;
+   }
+}
+
+
+/* Fonction qui créer les éléments de thumbnails */
+createFavsElement(favsList);
+
+
+window.addEventListener('resize', function() {
+   hideThumbnails();
+});
+
+
+
 
 async function hideThumbnails() {
    // Compter le nombre de colonne de thumbnails
    var gridColonneCount = gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").length-1;
+
    for (let i = 0; i < allThumbnails.length; i++) {
       var thumbnail = allThumbnails[i];
       // La thumbnail se situe sur la première ligne
-      if (i <= (gridColonneCount)) {
+      if (i <= gridColonneCount) {
          thumbnail.style.display = "block";
          // La thumbnail n'est pas encore affichée mais elle doit l'être
          if (thumbnail.style.display != "none" && thumbnail.classList.contains("thumbnail-hide")) {
@@ -36,6 +83,9 @@ async function hideThumbnails() {
             createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail);
          }
       }
+      else {
+         thumbnail.style.display = "none";
+      }
    }
 }
 
@@ -43,6 +93,7 @@ async function hideThumbnails() {
 fetchTrendingCryptocurrency();
 
 
+/* Fonction qui récupère les crypto-monnaies célèbres */
 function fetchTrendingCryptocurrency() {
    var URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=1h,24h,7d';
    var trendingResponse = null;
@@ -80,7 +131,7 @@ function fetchTrendingCryptocurrency() {
 }
    
 
-function createTrendingElement(cryptocurrency) {
+async function createTrendingElement(cryptocurrency) {
    let cryptocurrencyTrendingLigne = document.createElement('tr');
    cryptocurrencyTrendingLigne.onclick = function() {
       // Ouvrir la page de la monnaie en personnalisant l'URL
@@ -106,8 +157,10 @@ function createTrendingElement(cryptocurrency) {
          window.open(`cryptocurrency.php?name=${cryptocurrency['name']}&id=${cryptocurrency['id']}`, "_self");
       }
    });
-   cryptocurrencyFavsButton.onclick = function() {
-      favsManager(cryptocurrencyFavsButton, cryptocurrency);
+   cryptocurrencyFavsButton.onclick = async function() {
+      // Actualiser la liste des fav's (et changer l'icone)
+      let favsList = await favsManager(cryptocurrencyFavsButton, cryptocurrency);
+      createFavsElement(favsList);
    }
    trendingScoreColumn.appendChild(cryptocurrencyFavsButton);
    let trendingScore = document.createElement('span');
