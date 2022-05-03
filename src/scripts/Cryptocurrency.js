@@ -1,4 +1,4 @@
-import {fetchList, favsManager} from './FavsManagerHeart.js';
+import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
 
 
 const periodSelector = document.getElementById('chart-period-selector');
@@ -19,7 +19,7 @@ const cryptocurrencyLowerPrice = document.getElementById('cryptocurrency-lower-p
 
 
 
-var favsList = await fetchList();
+var favsList = await fetchFavsList();
 
 var historicPrice7d = null;
 
@@ -139,12 +139,14 @@ async function cryptocurrencyManager(cryptocurrencyID) {
          </div>
       `;
 
+      let higherPriceDate = new Date(cryptocurrency['market_data']['ath_date']['usd']);
       cryptocurrencyHigherPrice.innerHTML = `
-         ${cryptocurrency['name']} a atteint un prix maximal de ${cryptocurrency['market_data']['ath']['usd']} $ le XXXXX (x mois et x années).
+         ${cryptocurrency['name']} a atteint un prix maximal de ${cryptocurrency['market_data']['ath']['usd']} $ le ${higherPriceDate.toLocaleDateString("fr")}.
       `;
-
+      
+      let lowerPriceDate = new Date(cryptocurrency['market_data']['atl_date']['usd']);
       cryptocurrencyLowerPrice.innerHTML = `
-         ${cryptocurrency['name']} a atteint un prix minimal de ${cryptocurrency['market_data']['atl']['usd']} $ le XXXXX (x mois et x années).
+         ${cryptocurrency['name']} a atteint un prix minimal de ${cryptocurrency['market_data']['atl']['usd']} $ le ${lowerPriceDate.toLocaleDateString("fr")}.
       `;
    }
 }

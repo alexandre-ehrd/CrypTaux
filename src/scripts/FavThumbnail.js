@@ -1,9 +1,10 @@
 const colorThief = new ColorThief();
 
-
+/* Fonction qui retourne les informations de la crypto-monnaies */
 async function fetchCryptocurrency(thumbnailElement) {
    var cryptocurrencyID = thumbnailElement.id;
-   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}`
+   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}`;
+
    return new Promise((resolve, reject) => {
       var cryptocurrencyResponse = localStorage.getItem(cryptocurrencyID);
       // La monnaie se trouve dans le localStorage
@@ -18,6 +19,8 @@ async function fetchCryptocurrency(thumbnailElement) {
                if (response.ok) {
                   response.json().then(response => {
                      cryptocurrencyResponse = response;
+                     // Sauvegarder les données dans le sessionStorage
+                     localStorage.setItem(cryptocurrencyID, JSON.stringify(cryptocurrencyResponse));
                      resolve(cryptocurrencyResponse);
                   })
                }
@@ -36,15 +39,15 @@ async function fetchCryptocurrency(thumbnailElement) {
    })
 }
 
-
+/* Fonction qui retourne un dictionnaire avec les prix sur 7 jours */
 async function fetchHistoricData(thumbnailElement) {
    var cryptocurrencyID = thumbnailElement.id;
    var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=7&interval=daily`;
    return new Promise((resolve, reject) => {
       var historicDataResponse = null;
       // Les données historiques se trouvent dans le sessionStorage
-      if (sessionStorage.getItem(cryptocurrencyID) != null) {
-         historicDataResponse = JSON.parse(sessionStorage.getItem(cryptocurrencyID));
+      if (sessionStorage.getItem(`${cryptocurrencyID}-Historic-Date`) != null) {
+         historicDataResponse = JSON.parse(sessionStorage.getItem(`${cryptocurrencyID}-Historic-Date`));
          resolve(historicDataResponse);
       }
       else {
@@ -55,7 +58,7 @@ async function fetchHistoricData(thumbnailElement) {
                   response.json().then(response => {
                      historicDataResponse = response;
                      // Sauvegarder les données dans le sessionStorage
-                     sessionStorage.setItem(cryptocurrencyID, JSON.stringify(response));
+                     sessionStorage.setItem(`${cryptocurrencyID}-Historic-Date`, JSON.stringify(response));
                      resolve(historicDataResponse);
                   })
                }

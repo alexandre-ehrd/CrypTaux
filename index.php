@@ -61,7 +61,7 @@
                         $fav = explode(",", $fav);
                         [$name, $symbol] = [$fav[0], $fav[1]];
                         // Créer une vignette de monnaie favorite
-                        echo "
+                        /* echo "
                         <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden; display: none;'>
                            <div class='info-currency'>
                               <img src='' alt='$name' crossorigin='anonymous'>
@@ -73,7 +73,7 @@
                            </div>
                            <canvas class='fav-chart'></canvas>
                         </div>
-                        ";
+                        "; */
                      }
                   }
                   else {

@@ -13,7 +13,6 @@ const inputCryptocurrency = document.getElementById('input-cryptocurrency');
 const outputCryptocurrency = document.getElementById('output-cryptocurrency');
 
 
-const swapperCryptocurrency = document.getElementById('cryptocurrency-swapper');
 
 var cryptocurrencyDico = {};
 
@@ -56,25 +55,6 @@ function selectValueChange_2() {
    // Réinitialiser le champ de réponse
    outputCryptocurrency.innerHTML = '0';
 };
-
-
-
-swapperCryptocurrency.addEventListener('click', function () {
-   let temp = selectorCryptocurrency_1.value;
-   selectorCryptocurrency_1.value = selectorCryptocurrency_2.value;
-   selectorCryptocurrency_2.value = temp;
-
-   symbolCryptocurrency_1.innerHTML = cryptocurrencyDico[selectorCryptocurrency_1.value]['symbol'].toUpperCase();
-   symbolCryptocurrency_2.innerHTML = cryptocurrencyDico[selectorCryptocurrency_2.value]['symbol'].toUpperCase();
-
-   let URLcryptocurrency_1 = cryptocurrencyDico[selectorCryptocurrency_1.value]['image'].replace('large', 'small');
-   let URLcryptocurrency_2 = cryptocurrencyDico[selectorCryptocurrency_2.value]['image'].replace('large', 'small');
-   imageCryptocurrency_1.src = URLcryptocurrency_1;
-   imageCryptocurrency_2.src = URLcryptocurrency_2;
-
-   inputCryptocurrency.value = '';
-   outputCryptocurrency.innerHTML = '0';
-});
 
 
 inputCryptocurrency.addEventListener('input', function (event) {
@@ -131,6 +111,7 @@ function convertCryptocurrency() {
                // Prix converti
                let inputValue = inputCryptocurrency.value.replace(',', '.');
                let cryptocurrencyConverted = inputValue * taux;
+               
                // L'output n'est pas un nombre (NaN)
                if (Number.isNaN(cryptocurrencyConverted)) {
                   cryptocurrencyConverted = 'Erreur';
@@ -149,10 +130,6 @@ function convertCryptocurrency() {
          return;
       });
 }
-
-
-
-
 
 
 
@@ -201,8 +178,8 @@ function fetchTrendingCryptocurrency() {
 async function createSelector() {
    var cryptocurrencyList = await fetchTrendingCryptocurrency();
 
-   createOptionsInSelect(selectorCryptocurrency_1, cryptocurrencyList);
-   createOptionsInSelect(selectorCryptocurrency_2, cryptocurrencyList);
+   createOptionsInSelect(selectorCryptocurrency_1, cryptocurrencyList, false);
+   createOptionsInSelect(selectorCryptocurrency_2, cryptocurrencyList, true);
 
    // Sélectionner automatiquement la première et deuxième option
    selectorCryptocurrency_1.selectedIndex = 0;
@@ -214,24 +191,92 @@ async function createSelector() {
 }
 
 /* Fonction qui créer les options dans les deux SELECT */
-function createOptionsInSelect(element, cryptocurrencyList) {
+function createOptionsInSelect(element, cryptocurrencyList, isOutput) {
    for (var i = 0; i < cryptocurrencyList.length; i++) {
       let cryptocurrency = cryptocurrencyList[i];
-
-      // Ajouter la monnaie au dictionnaire
-      cryptocurrencyDico[cryptocurrency.id] = cryptocurrency;
       
-      // Créer l'option
-      let option = document.createElement("option");
-      // Ajouter la valeur de l'option
-      option.value = cryptocurrency.id;
-
-      let cryptocurrencyName = cryptocurrency.name;
-      let cryptocurrencySymbol = cryptocurrency.symbol.toUpperCase();
-      option.text = `${cryptocurrencyName} [${cryptocurrencySymbol}]`;
-
-      element.appendChild(option);
+      // On trie les monnaies qu'on peut convertir dans la partie output
+      if (isOutput == false || isOutput == true && t.indexOf(cryptocurrency['symbol']) != -1) {
+         // Ajouter la monnaie au dictionnaire
+         cryptocurrencyDico[cryptocurrency.id] = cryptocurrency;
+         
+         // Créer l'option
+         let option = document.createElement("option");
+         // Ajouter la valeur de l'option
+         option.value = cryptocurrency.id;
+         
+         let cryptocurrencyName = cryptocurrency.name;
+         let cryptocurrencySymbol = cryptocurrency.symbol.toUpperCase();
+         option.text = `${cryptocurrencyName} [${cryptocurrencySymbol}]`;
+         
+         element.appendChild(option);
+      }
    }
 }
+
+var t =
+[
+   "btc",
+   "eth",
+   "ltc",
+   "bch",
+   "bnb",
+   "eos",
+   "xrp",
+   "xlm",
+   "link",
+   "dot",
+   "yfi",
+   "usd",
+   "aed",
+   "ars",
+   "aud",
+   "bdt",
+   "bhd",
+   "bmd",
+   "brl",
+   "cad",
+   "chf",
+   "clp",
+   "cny",
+   "czk",
+   "dkk",
+   "eur",
+   "gbp",
+   "hkd",
+   "huf",
+   "idr",
+   "ils",
+   "inr",
+   "jpy",
+   "krw",
+   "kwd",
+   "lkr",
+   "mmk",
+   "mxn",
+   "myr",
+   "ngn",
+   "nok",
+   "nzd",
+   "php",
+   "pkr",
+   "pln",
+   "rub",
+   "sar",
+   "sek",
+   "sgd",
+   "thb",
+   "try",
+   "twd",
+   "uah",
+   "vef",
+   "vnd",
+   "zar",
+   "xdr",
+   "xag",
+   "xau",
+   "bits",
+   "sats"
+]
 
 createSelector();

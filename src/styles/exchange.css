@@ -21,19 +21,14 @@
    width: 100%;
 }
 
-
 .converter-wrapper > i {
    font-size: 1.5rem;
    color: var(--color-orange);
-   cursor: pointer;
 }
-
 
 #conversion-response {
    text-align: center;
 }
-
-
 
 .conversion-input {
    height: 100%;
