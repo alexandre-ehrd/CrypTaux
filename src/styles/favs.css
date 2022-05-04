@@ -77,8 +77,7 @@
 
 .trust-score-wrapper {
    height: 7px;
-   width: 30%;
-   /* background: linear-gradient(90deg, var(--color-red) 0%, var(--color-yellow) 50%, var(--color-green) 100%); */
+   width: 30%;   
    background-color: var(--color-light-grey);
    border-radius: var(--border-radius-small);
    overflow: hidden;

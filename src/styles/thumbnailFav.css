@@ -44,17 +44,21 @@
    aspect-ratio: 1 / 1;
 }
 
+.fav-price {
+   font-size: 1.2rem;
+   font-weight: 500;
+}
+
 .fav-symbol {
-   font-size: 0.8rem;
+   font-size: 1rem;
    font-weight: 300;
-   color: var(--color-grey);
-   /* color: white;
-   mix-blend-mode: difference; */
+   color: var(--color-dark);
+
 }
 
 .fav-taux {
-   font-size: 0.5em;
-   font-weight: 800;
+   font-size: 0.8em;
+   font-weight: 600;
 }
 
 .fav-chart {

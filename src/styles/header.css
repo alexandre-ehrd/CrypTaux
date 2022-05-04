@@ -13,7 +13,6 @@ header {
 }
 
 .header-left-side {
-   /* width: 20%; */
    min-width: var(--navigation-size);
    background-color: var(--color-background-grey);
    display: flex;

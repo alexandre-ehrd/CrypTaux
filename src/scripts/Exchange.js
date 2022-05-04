@@ -12,8 +12,6 @@ const imageCryptocurrency_2 = document.getElementById('devise-image-second');
 const inputCryptocurrency = document.getElementById('input-cryptocurrency');
 const outputCryptocurrency = document.getElementById('output-cryptocurrency');
 
-
-
 var cryptocurrencyDico = {};
 
 selectorCryptocurrency_1.addEventListener('change', selectValueChange_1);
@@ -196,7 +194,7 @@ function createOptionsInSelect(element, cryptocurrencyList, isOutput) {
       let cryptocurrency = cryptocurrencyList[i];
       
       // On trie les monnaies qu'on peut convertir dans la partie output
-      if (isOutput == false || isOutput == true && t.indexOf(cryptocurrency['symbol']) != -1) {
+      if (isOutput == false || isOutput == true && MonnaieListOutput.indexOf(cryptocurrency['symbol']) != -1) {
          // Ajouter la monnaie au dictionnaire
          cryptocurrencyDico[cryptocurrency.id] = cryptocurrency;
          
@@ -214,7 +212,8 @@ function createOptionsInSelect(element, cryptocurrencyList, isOutput) {
    }
 }
 
-var t =
+// Listes des monnaies supportées en sortie par CoinGecko
+var MonnaieListOutput =
 [
    "btc",
    "eth",

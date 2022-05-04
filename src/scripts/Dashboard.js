@@ -6,9 +6,6 @@ import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
 const gridElement = document.querySelector(".container-thumbnail-currency");
 const gridComputedStyle = window.getComputedStyle(gridElement);
 
-
-
-
 // Récupérer toutes les thumbnails
 const allThumbnails = document.getElementsByClassName('thumbnail-currency');
 
@@ -16,6 +13,16 @@ const allThumbnails = document.getElementsByClassName('thumbnail-currency');
 const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-trending-body');
 
 var favsList = await fetchFavsList();
+
+window.addEventListener('resize', function() {
+   hideThumbnails();
+});
+
+// Créer les éléments de thumbnails
+createFavsElement(favsList);
+
+// Requête pour la liste des monnaies célèbres
+fetchTrendingCryptocurrency();
 
 
 /* Fonction qui créer les éléments HTML pour les thumbnails */
@@ -33,7 +40,7 @@ function createFavsElement(favsList) {
                   <img src='' alt='${id}' crossorigin='anonymous'>
                   <div>
                      <p class='fav-price'></p>
-                     <p class='fav-symbol'>${symbol}</p>
+                     <p class='fav-symbol'>${symbol.toUpperCase()}</p>
                   </div>
                   <p class='fav-taux'></p>   
                </div>
@@ -52,17 +59,7 @@ function createFavsElement(favsList) {
 }
 
 
-/* Fonction qui créer les éléments de thumbnails */
-createFavsElement(favsList);
-
-
-window.addEventListener('resize', function() {
-   hideThumbnails();
-});
-
-
-
-
+/* Foncton qui gère l'affichage des thumbnails et fait les requêtes */
 async function hideThumbnails() {
    // Compter le nombre de colonne de thumbnails
    var gridColonneCount = gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").length-1;
@@ -88,9 +85,6 @@ async function hideThumbnails() {
       }
    }
 }
-
-
-fetchTrendingCryptocurrency();
 
 
 /* Fonction qui récupère les crypto-monnaies célèbres */
@@ -130,7 +124,7 @@ function fetchTrendingCryptocurrency() {
    }
 }
    
-
+/* Fonction qui créer le tableau */
 async function createTrendingElement(cryptocurrency) {
    let cryptocurrencyTrendingLigne = document.createElement('tr');
    cryptocurrencyTrendingLigne.onclick = function() {
@@ -184,14 +178,6 @@ async function createTrendingElement(cryptocurrency) {
    cryptocurrencySymbol.innerHTML = cryptocurrency['symbol'].toUpperCase();
    trendingNameColumn.appendChild(cryptocurrencySymbol);
    cryptocurrencyTrendingLigne.appendChild(trendingNameColumn);
-   
-   /* let trendingCourbeColumn = document.createElement('td');
-   let trendingCourbeCanvas = document.createElement('canvas');
-   let historicPrice = cryptocurrency['sparkline_in_7d']['price'];
-   let legende = Object.keys(historicPrice);
-   createChart(trendingCourbeCanvas, historicPrice, legende);
-   trendingCourbeColumn.appendChild(trendingCourbeCanvas);
-   cryptocurrencyTrendingLigne.appendChild(trendingCourbeColumn); */
    
    let trendingPriceColumn = document.createElement('td');
    let cryptocurrencyPrice = cryptocurrency['current_price'].toString().replace('.', ',');

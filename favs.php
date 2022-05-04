@@ -40,8 +40,8 @@
          ?>
          <div class="container-page">
             <div class="container-search-bar">
-               <div class="search-bar-wrapper" title="Rechercher des crypto-monnaies ou des exchanges">
-                  <input id="search-bar" type="text" name="" placeholder="Rechercher des crypto-monnaies ou des exchanges">
+               <div class="search-bar-wrapper" title="Rechercher des crypto-monnaies ou des plateformes d'échanges">
+                  <input id="search-bar" type="text" name="" placeholder="Rechercher des crypto-monnaies ou des plateformes d'échanges">
                   <i class="bi bi-search" id="search-button"></i>
                </div>
             </div>
@@ -97,23 +97,11 @@
 
       </section>
       
-      <!-- <div class="skeleton-container">
-         <div class="skeleton skeleton-title">
-            <p></p>
-         </div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-         <div class="skeleton skeleton-text"></div>
-      </div> -->
-
-
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
       <script src="src/scripts/Favs.js" type="module"></script>
       <script src="src/scripts/Recherche.js" type="module"></script>
-
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
    </body>
 </html>

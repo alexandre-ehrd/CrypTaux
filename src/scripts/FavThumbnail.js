@@ -10,6 +10,8 @@ async function fetchCryptocurrency(thumbnailElement) {
       // La monnaie se trouve dans le localStorage
       if (cryptocurrencyResponse != null) {
          cryptocurrencyResponse = JSON.parse(cryptocurrencyResponse);
+         var nameElement = thumbnailElement.querySelector('.fav-symbol');
+         nameElement.innerHTML = `${cryptocurrencyResponse['name']} [${cryptocurrencyResponse['symbol'].toUpperCase()}]`;
          resolve(cryptocurrencyResponse);
       }
       else {
