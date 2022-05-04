@@ -45,7 +45,6 @@
 
 .wrapper-grid > div {
    flex-grow: 1;
-   border: solid 1px var(--color-grey);
 }
 
 .wrapper-top-page {
@@ -64,7 +63,6 @@
 #wrapper-statistiques div,
 #wrapper-community div {
    min-width: 300px;
-   border: solid 1px var(--color-light-grey);
 }
 
 .chart-header {
@@ -113,6 +111,20 @@
    font-weight: 600;
 }
 
+#cryptocurrency-statistiques > div {
+   display: flex;
+   justify-content: space-between;
+}
+
+.cryptocurrency-statistiques-categorie {
+   color: var(--color-dark-grey);
+   font-weight: 300;
+}
+
+.cryptocurrency-statistiques-value {
+   word-break: break-all;
+}
+
 #cryptocurrency-community {
    display: flex;
    gap: var(--padding);
@@ -134,17 +146,10 @@
    color: var(--color-orange);
 }
 
-
 .container-sentiment {
    display: flex;
    flex-direction: column;
-   gap: var(--padding);
-}
-
-.sentiment-legende {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
+   gap: var(--padding-small);
 }
 
 .sentiment-wrapper {
@@ -158,4 +163,15 @@
    height: 100%;
    background-color: var(--color-red);
    border-radius: var(--border-radius-small);
+}
+
+.sentiment-legende {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.sentiment-legende > i {
+   font-size: 1.5rem;
+   color: var(--color-grey);
 }

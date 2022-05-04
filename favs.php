@@ -40,8 +40,8 @@
          ?>
          <div class="container-page">
             <div class="container-search-bar">
-               <div class="search-bar-wrapper" title="Rechercher des crypto-monnaies ou des exchanges">
-                  <input id="search-bar" type="text" name="" placeholder="Rechercher des crypto-monnaies ou des exchanges">
+               <div class="search-bar-wrapper" title="Rechercher des crypto-monnaies ou des plateformes d'échanges">
+                  <input id="search-bar" type="text" name="" placeholder="Rechercher des crypto-monnaies ou des plateformes d'échanges">
                   <i class="bi bi-search" id="search-button"></i>
                </div>
             </div>
@@ -102,7 +102,6 @@
       
       <script src="src/scripts/Favs.js" type="module"></script>
       <script src="src/scripts/Recherche.js" type="module"></script>
-
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
    </body>
 </html>

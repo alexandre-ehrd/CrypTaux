@@ -6,3 +6,8 @@
 #wrapper-statistiques {
    width: 100%;
 }
+
+#cryptocurrency-statistiques > div {
+   width: 100%;
+   flex-direction: column;
+}

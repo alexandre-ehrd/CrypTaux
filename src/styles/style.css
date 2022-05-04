@@ -23,6 +23,7 @@
    --color-white: #FFFFFF;
    --color-black: #000000;
 
+   --padding-small: 5px;
    --padding: 15px;
    --padding-large: 30px;
 
@@ -133,8 +134,8 @@ hr {
 
 .popover i:hover + .popover-content,
 .popover-content:hover {
-   visibility: visible;
    opacity: 1;
+   visibility: visible;
 }
 
 .popover-content {
@@ -154,6 +155,7 @@ hr {
    visibility: hidden;
    opacity: 0;
    transition: opacity 200ms;
+   transition-delay: 500ms;
 }
 
 .popover-top {

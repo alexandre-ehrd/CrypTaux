@@ -16,5 +16,4 @@ async function requestThumbnail(){
    }
 }
 
-
 requestThumbnail();

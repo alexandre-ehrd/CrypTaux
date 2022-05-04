@@ -67,10 +67,11 @@
             </div>
 
             <div class="wrapper-top-page">
-
                <div id="wrapper-chart" class="wrapper">
                   <div class="chart-header">
-                     <h3 id="cryptocurrency-price"></h3>
+                     <h3 id="cryptocurrency-price">
+                        <span id="cryptocurrency-fluctuation-price"></span>
+                     </h3>
                      <div id="chart-period-selector">
                         <a>1 j</a>
                         <a class="period-selected">7 j</a>
@@ -83,11 +84,21 @@
                
                <div id="wrapper-statistiques" class="wrapper">
                   <h4>Statistiques du marché</h4>
-                  <div id="cryptocurrency-statistiques" class="wrapper-grid"></div>
+                  <div id="cryptocurrency-statistiques" class="wrapper-grid">
+                     <div>
+                        <div>
+                           <p class="cryptocurrency-statistiques-categorie popover-text">Capitalisation boursière</p>
+                           <?php
+                              require('src/backend/popover.php');
+                              popoverCreateElement("popover-bottom", "Capitalisation boursière = Cours actuel x Offre en circulation<br><br>Désigne la valeur marchande totale de l’offre en circulation d’une crypto-monnaie. Semblable à la mesure du marché boursier qui multiplie le cours par action par les actions facilement disponibles sur le marché (non détenues ni bloquées).", "https://www.bdc.ca/fr/articles-outils/boite-outils-entrepreneur/gabarits-documents-guides-affaires/glossaire/capitalisation-boursiere");
+                           ?>
+                        </div>
+                        <p id="cryptocurrency-capitalisation" class="cryptocurrency-statistiques-value"></p>
+                     </div>
+                  </div>
                </div>
             </div>
                
-
             <div class="wrapper">
                <h4>Cours le plus élevé</h4>
                <p id='cryptocurrency-higher-price'></p>
@@ -98,7 +109,6 @@
                <p id='cryptocurrency-lower-price'></p>
             </div>
             
-
             <div class="wrapper">
                <h4>Communauté</h4>
                <div id='cryptocurrency-community' class="wrapper-grid"></div>
@@ -108,27 +118,19 @@
                <div>
                   <h4 class="popover-text">Feedback</h4>
                   <?php
-                     require('src/backend/popover.php');
                      popoverCreateElement("popover-top", "Ressenti de la communauté pour cette crypto-monnaie.<br><br>Cet indicateur s'actualise automatiquement.", "");
                   ?>
                </div>
                <div class="container-sentiment">
-                  <div class="sentiment-legende">
-                     <p>🙁</p>
-                     <p>🙂</p>
-                  </div>
                   <div class="sentiment-wrapper">
                      <div id="sentiment-downvote"></div>
-                     </div>
-                     <div class="sentiment-legende">
-                        <p>Mauvais</p>
-                        <p>Bon</p>
-                     </div>
+                  </div>
+                  <div class="sentiment-legende">
+                     <i class="bi bi-emoji-frown"></i>
+                     <i class="bi bi-emoji-smile"></i>
                   </div>
                </div>
-            </div>
-               
-            </div>
+            </div>    
          </div>
       </section>
       

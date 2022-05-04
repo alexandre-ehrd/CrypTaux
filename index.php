@@ -52,7 +52,7 @@
                <h3 class="popover-text">Populaires</h3>
                <?php
                   require('src/backend/popover.php');
-                  popoverCreateElement("popover-bottom", "Cours des crypto-monnaies par capitalisation boursière.<br><br>Capitalisation boursière = Cours actuel * Offre en circulation", "https://www.bdc.ca/fr/articles-outils/boite-outils-entrepreneur/gabarits-documents-guides-affaires/glossaire/capitalisation-boursiere");
+                  popoverCreateElement("popover-bottom", "Cours des crypto-monnaies par capitalisation boursière.<br><br>Capitalisation boursière = Cours actuel x Offre en circulation", "https://www.bdc.ca/fr/articles-outils/boite-outils-entrepreneur/gabarits-documents-guides-affaires/glossaire/capitalisation-boursiere");
                ?>
             </div>
             <div class="container-cryptocurrency-trending">
