@@ -1,0 +1,11 @@
+:root{
+   --padding-navigation-size: 0px;
+}
+
+aside {
+   transform: translateX(-100%);
+}
+
+.aside-mobile-open {
+   transform: translateX(0%);
+}

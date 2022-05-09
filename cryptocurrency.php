@@ -34,11 +34,15 @@
          }
       ?>
       <title>Cryptaux - <?php echo $nameCryptocurrency?></title>
+      <!-- Styles -->
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/cryptocurrency.css">
+      <!-- Styles Mobile -->
       <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/cryptocurrency_mobile.css"/>
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/header_mobile.css"/>
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/navigation_mobile.css"/>
    </head>
    <body>
       <?php
@@ -137,5 +141,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
       
       <script src="src/scripts/Cryptocurrency.js" type="module"></script>
+      <script src="src/scripts/Navigation.js"></script>
    </body>
 </html>

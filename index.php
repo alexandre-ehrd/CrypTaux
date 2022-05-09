@@ -9,11 +9,15 @@
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
       <title>Cryptaux</title>
+      <!-- Styles -->
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/dashboard.css">
       <link rel="stylesheet" href="src/styles/thumbnailFav.css">
+      <!-- Styles Mobile -->
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/header_mobile.css"/>
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/navigation_mobile.css"/>
       <?php
          session_start();
          
@@ -79,5 +83,6 @@
       <script src="src/scripts/Dashboard.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
       <script src="src/scripts/FavsManagerHeart.js" type="module"></script>
+      <script src="src/scripts/Navigation.js"></script>
    </body>
 </html>

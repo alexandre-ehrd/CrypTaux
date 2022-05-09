@@ -26,6 +26,7 @@
    --padding-small: 5px;
    --padding: 15px;
    --padding-large: 30px;
+   --padding-navigation-size: 275px;
 
    --border-radius-small: 5px;
    --border-radius-input: 8px;
@@ -97,7 +98,7 @@ hr {
    min-height: 100vh;
    background-color: var(--color-backgroud-white);
    padding: var(--padding);
-   padding-left: calc(var(--navigation-size) + var(--padding));
+   padding-left: calc(var(--padding-navigation-size) + var(--padding));
    padding-bottom: calc(3 * var(--padding));
    display: flex;
    flex-direction: column;
@@ -128,11 +129,13 @@ hr {
    color: var(--color-grey);
 }
 
-.popover i:hover {
+.popover i:hover, 
+.popover i:active {
    color: var(--color-orange);
 }
 
 .popover i:hover + .popover-content,
+.popover i:active + .popover-content,
 .popover-content:hover {
    opacity: 1;
    visibility: visible;

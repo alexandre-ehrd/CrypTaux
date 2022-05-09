@@ -1,0 +1,15 @@
+header {
+   justify-content: center;
+}
+
+.header-left-side {
+   width: 100%;
+}
+
+.header-right-side {
+   display: none;
+}
+
+#header-burger-mobile-bouton {
+   display: block;
+}
