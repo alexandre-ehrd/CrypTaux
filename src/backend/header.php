@@ -20,6 +20,7 @@
                $pathElement
             </div>
          </div>
+         <i id='header-burger-mobile-bouton' class='bi bi-list' onclick='openNavigation()'></i>
       </header>
       ";
    }

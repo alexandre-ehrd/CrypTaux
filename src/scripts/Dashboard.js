@@ -165,7 +165,7 @@ async function createTrendingElement(cryptocurrency) {
    let trendingNameColumn = document.createElement('td');
    trendingNameColumn.classList.add('trending-name');
    let cryptocurrencyImage = document.createElement('img');
-   cryptocurrencyImage.src = cryptocurrency['image'].replace('large', 'small');
+   cryptocurrencyImage.src = cryptocurrency['image'];
    cryptocurrencyImage.alt = cryptocurrency['name'];
    trendingNameColumn.appendChild(cryptocurrencyImage);
    let cryptocurrencyName = document.createElement('p');

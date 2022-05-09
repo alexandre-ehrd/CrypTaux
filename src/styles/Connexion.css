@@ -141,7 +141,8 @@ input[type=submit] {
 .have-account-redirection a {
    font-size: 1.1rem;
    color: var(--color-orange);
-   font-weight: 400;
+   font-weight: 500;
+   word-break: keep-all;
 }
 
 .text-bottom-creator-logo {

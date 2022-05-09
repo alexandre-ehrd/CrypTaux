@@ -1,16 +1,18 @@
 @import './style.css';
 
 aside {
+   position: fixed;
    width: var(--navigation-size);
    min-height: calc(100vh - var(--header-size));
    padding: var(--padding);
    padding-bottom: calc(3 * var(--padding));
-   background-color: var(--color-background-grey);
    display: flex;
    flex-direction: column;
    justify-content: space-between;
    align-items: center;
-   position: fixed;
+   z-index: 10;
+   background-color: var(--color-background-grey);
+   transition: transform 200ms;
 }
 
 nav {

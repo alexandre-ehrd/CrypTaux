@@ -9,10 +9,14 @@
       <!-- Icônes Bootstrap -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
       <title>Cryptaux</title>
+      <!-- Styles -->
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/header.css">
       <link rel="stylesheet" href="src/styles/navigation.css">
       <link rel="stylesheet" href="src/styles/exchange.css">
+      <!-- Styles Mobile -->
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/header_mobile.css"/>
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/navigation_mobile.css"/>
       <?php
          // Récupérer les données de l'utilisateur
          session_start();
@@ -81,5 +85,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
       <script src="src/scripts/Exchange.js"></script>
+      <script src="src/scripts/Navigation.js"></script>
    </body>
 </html>

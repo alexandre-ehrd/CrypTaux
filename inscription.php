@@ -17,7 +17,7 @@
    <body>
       <?php require('src/backend/connect_database.php');?>
       <aside>
-         <p id="logo" class="logo-mobile">Cryp<span id="logo-orange">taux</span></p>
+         <p id="logo" class="logo-mobile">Cryp<span id="logo-orange">Taux</span></p>
          <section class="form-container">
             <form method="post">
                <h1 id="form-title">Inscription</h1>

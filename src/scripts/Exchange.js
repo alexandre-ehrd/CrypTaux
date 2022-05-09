@@ -21,7 +21,7 @@ function selectValueChange_1() {
    // Accéder à l'objet cryptocurrency correspondant à l'option sélectionnée
    let cryptocurrency = cryptocurrencyDico[selectorCryptocurrency_1.value];
    symbolCryptocurrency_1.innerHTML = cryptocurrency.symbol.toUpperCase();
-   let URLcryptocurrency = cryptocurrency['image'].replace('large', 'small');
+   let URLcryptocurrency = cryptocurrency['image'];
    imageCryptocurrency_1.src = URLcryptocurrency;
    imageCryptocurrency_1.alt = cryptocurrency['name'];
    // Réinitialiser le champ de réponse
@@ -36,7 +36,7 @@ function selectValueChange_2() {
       // Accéder à l'objet cryptocurrency correspondant à l'option sélectionnée
       let cryptocurrency = cryptocurrencyDico[selectorCryptocurrency_2.value];
       symbolCryptocurrency_2.innerHTML = cryptocurrency.symbol.toUpperCase();
-      let URLcryptocurrency = cryptocurrency['image'].replace('large', 'small');
+      let URLcryptocurrency = cryptocurrency['image'];
       imageCryptocurrency_2.src = URLcryptocurrency;
       imageCryptocurrency_2.alt = cryptocurrency['name'];
    }
@@ -128,12 +128,6 @@ function convertCryptocurrency() {
          return;
       });
 }
-
-
-
-
-
-
 
 
 /* Fonction qui retourne les 250 premières crypto-monnaies en fonction de leurs capitalisation boursière */

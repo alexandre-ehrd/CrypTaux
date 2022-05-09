@@ -5,11 +5,11 @@ header {
    height: var(--header-size);
    position: fixed;
    top: 0;
-   display: inline-flex;
    z-index: 10;
    background-color: #FEFFFF;
    border-bottom: solid 1px var(--color-light-grey);
    margin-bottom: 500px;
+   display: flex;
 }
 
 .header-left-side {
@@ -25,6 +25,7 @@ header {
    padding: var(--padding);
    display: flex;
    align-items: center;
+   justify-content: space-between;
 }
 
 .path {
@@ -56,4 +57,16 @@ header {
 .path > a:hover {
    color: var(--color-orange);
    text-decoration: underline;
+}
+
+#header-burger-mobile-bouton {
+   display: none;
+   position: absolute;
+   top: 50%;
+   left: 0;
+   margin-left: var(--padding);
+   transform: translateY(-50%);
+   font-size: 2.5rem;
+   color: var(--color-orange);
+   cursor: pointer;
 }
