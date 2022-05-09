@@ -54,32 +54,44 @@ cryptocurrencyManager(cryptocurrencyID);
 
 /* Fonction qui retourne les données de la crypto-monnaie */
 async function fetchData(cryptocurrencyID) {
-   console.log("On peut fetch du local storage");
    var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
    return new Promise((resolve, reject) => {
-      fetch(URL)
-         .then(response => {
-            console.log("Requête");
-            if (response.ok) {
-               response.json().then(response => {
-                  resolve(response);
-               })
-            }
-            else{
+      var cryptocurrencyResponse = null;
+      // Les données historiques se trouvent dans le sessionStorage
+      if (localStorage.getItem(cryptocurrencyID) != null) {
+         cryptocurrencyResponse = JSON.parse(localStorage.getItem(cryptocurrencyID));
+         resolve(cryptocurrencyResponse);
+      }
+      else {
+         fetch(URL)
+            .then(response => {
+               console.log("Requête");
+               if (response.ok) {
+                  response.json().then(response => {
+                     cryptocurrencyResponse = response;
+                     // Trier les données à sauvegarder dans le localStorage
+                     delete cryptocurrencyResponse['description'];
+                     // Sauvegarder les données dans le sessionStorage
+                     localStorage.setItem(cryptocurrencyID, JSON.stringify(cryptocurrencyResponse));
+                     resolve(cryptocurrencyResponse);
+                  })
+               }
+               else{
+                  // Retour en arrière après une erreur
+                  window.history.go(-1);
+                  console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+                  reject();
+                  return;
+               }
+            })
+            .catch((error) => {
                // Retour en arrière après une erreur
                window.history.go(-1);
-               console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}]`);
+               console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
                reject();
                return;
-            }
-         })
-         .catch((error) => {
-            // Retour en arrière après une erreur
-            window.history.go(-1);
-            console.error(`Impossible d'accéder à l'Api CoinGecko [${URL}] : ${error}`);
-            reject();
-            return;
-         });
+            });
+      }
    });
 }
 
