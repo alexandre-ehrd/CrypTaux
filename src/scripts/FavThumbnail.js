@@ -3,7 +3,7 @@ const colorThief = new ColorThief();
 /* Fonction qui retourne les informations de la crypto-monnaies */
 async function fetchCryptocurrency(thumbnailElement) {
    var cryptocurrencyID = thumbnailElement.id;
-   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}`;
+   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`;
 
    return new Promise((resolve, reject) => {
       var cryptocurrencyResponse = localStorage.getItem(cryptocurrencyID);
@@ -21,6 +21,8 @@ async function fetchCryptocurrency(thumbnailElement) {
                if (response.ok) {
                   response.json().then(response => {
                      cryptocurrencyResponse = response;
+                     // Trier les données à sauvegarder dans le localStorage
+                     delete cryptocurrencyResponse['description'];
                      // Sauvegarder les données dans le sessionStorage
                      localStorage.setItem(cryptocurrencyID, JSON.stringify(cryptocurrencyResponse));
                      resolve(cryptocurrencyResponse);
@@ -112,7 +114,7 @@ function createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail
    // Image
    var img = thumbnailElement.getElementsByTagName('img')[0];
    var googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
-   var imageURL = cryptocurrencyResponse['image']['small'];
+   var imageURL = cryptocurrencyResponse['image']['large'];
    img.src = googleProxyURL + encodeURIComponent(imageURL);
    img.addEventListener('load', function() {
       var color = colorThief.getColor(img);

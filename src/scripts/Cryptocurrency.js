@@ -54,7 +54,8 @@ cryptocurrencyManager(cryptocurrencyID);
 
 /* Fonction qui retourne les données de la crypto-monnaie */
 async function fetchData(cryptocurrencyID) {
-   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
+   console.log("On peut fetch du local storage");
+   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
    return new Promise((resolve, reject) => {
       fetch(URL)
          .then(response => {
@@ -86,6 +87,7 @@ async function fetchData(cryptocurrencyID) {
 /* Fonction qui s'occupe de remplir la fenêtre avec les données */
 async function cryptocurrencyManager(cryptocurrencyID) {
    var cryptocurrency = await fetchData(cryptocurrencyID);
+
    if (cryptocurrency != null) {
       cryptocurrencyLogo.src = cryptocurrency['image']['large'];
 
@@ -101,7 +103,6 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       }
 
       cryptocurrencySymbol.innerHTML = cryptocurrency['symbol'].toUpperCase();
-
       let price = cryptocurrency['market_data']['current_price']['usd'].toString();
       cryptocurrencyPrice.prepend(`${price.replace('.', ',')} $`);
 

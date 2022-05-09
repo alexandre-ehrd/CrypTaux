@@ -6,7 +6,6 @@
    display: flex;
    flex-direction: row;
    gap: var(--padding);
-   margin-bottom: var(--padding);
 }
 
 .cryptocurrency-infos img {
@@ -31,7 +30,7 @@
    cursor: pointer;
 }
 
-.wrapper ~ * {
+.wrapper {
    display: flex;
    flex-direction: column;
    gap: var(--padding);
