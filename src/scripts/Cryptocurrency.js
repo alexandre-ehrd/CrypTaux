@@ -1,3 +1,5 @@
+const colorThief = new ColorThief();
+
 import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
 
 
@@ -7,7 +9,8 @@ const allPeriod = periodSelector.querySelectorAll('a');
 const cryptocurrencyLogo = document.getElementById('cryptocurrency-logo');
 const cryptocurrencyName = document.getElementById('cryptocurrency-name');
 const cryptocurrencyFavsButton = document.getElementById('cryptocurrency-favs-button');
-const cryptocurrencySymbol = document.getElementById('cryptocurrency-symbol');
+
+const dataLastUpdate = document.getElementById('data-last-update');
 
 const cryptocurrencyPrice = document.getElementById('cryptocurrency-price');
 const cryptocurrencyFluctuation = document.getElementById('cryptocurrency-fluctuation-price');
@@ -31,6 +34,8 @@ var myChart = null;
 
 var fluctuation1d = null;
 var fluctuation7d = null;
+
+var cryptocurrencyLogoColor = null;
 
 
 allPeriod.forEach(element => {
@@ -57,7 +62,7 @@ async function fetchData(cryptocurrencyID) {
    var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
    return new Promise((resolve, reject) => {
       var cryptocurrencyResponse = null;
-      // Les données historiques se trouvent dans le sessionStorage
+      // Les données historiques se trouvent dans le localStorage
       if (localStorage.getItem(cryptocurrencyID) != null) {
          cryptocurrencyResponse = JSON.parse(localStorage.getItem(cryptocurrencyID));
          resolve(cryptocurrencyResponse);
@@ -71,7 +76,7 @@ async function fetchData(cryptocurrencyID) {
                      cryptocurrencyResponse = response;
                      // Trier les données à sauvegarder dans le localStorage
                      delete cryptocurrencyResponse['description'];
-                     // Sauvegarder les données dans le sessionStorage
+                     // Sauvegarder les données dans le localStorage
                      localStorage.setItem(cryptocurrencyID, JSON.stringify(cryptocurrencyResponse));
                      resolve(cryptocurrencyResponse);
                   })
@@ -101,10 +106,20 @@ async function cryptocurrencyManager(cryptocurrencyID) {
    var cryptocurrency = await fetchData(cryptocurrencyID);
 
    if (cryptocurrency != null) {
-      cryptocurrencyLogo.src = cryptocurrency['image']['large'];
+      console.log(cryptocurrency['last_updated']);
 
+      // Logo de la monnaie
+      var googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+      cryptocurrencyLogo.src = googleProxyURL + encodeURIComponent(cryptocurrency['image']['large']);
       cryptocurrencyLogo.alt = cryptocurrency['name'];
-      cryptocurrencyName.innerHTML = cryptocurrency['name'];
+      cryptocurrencyLogo.addEventListener('load', function() {
+         cryptocurrencyLogoColor = colorThief.getColor(cryptocurrencyLogo);
+      });
+
+      // Nom et symbole de la monnaie
+      cryptocurrencyName.innerHTML = `${cryptocurrency['name']} <span id="cryptocurrency-symbol" style="font-size: 1.3rem; color: grey; font-weight: 300;">${cryptocurrency['symbol'].toUpperCase()}</span>`;
+
+      // Icone fav's
       if (favsList.includes(`${cryptocurrency['id']},${cryptocurrency['symbol']}`)) {
          cryptocurrencyFavsButton.classList.add('fav-button-selected', 'bi-suit-heart-fill');
       } else {
@@ -114,10 +129,22 @@ async function cryptocurrencyManager(cryptocurrencyID) {
          favsManager(cryptocurrencyFavsButton, cryptocurrency);
       }
 
-      cryptocurrencySymbol.innerHTML = cryptocurrency['symbol'].toUpperCase();
+      // Dernière mise à jour des données
+      var date = new Date(cryptocurrency['last_updated']);
+      const monthNames = ["janvier", "février", "mars", "avril", "mai", "juin",
+         "juillet", "août", "septembre", "octobre", "novembre", "décembre"
+      ];
+      let day = date.getDate();
+      let monthIndex = date.getMonth();
+      let hours = date.getHours().toString().padStart(2, "0");
+      let minutes = date.getMinutes().toString().padStart(2, "0");
+      dataLastUpdate.innerHTML = `Dernière mise à jour : ${day} ${monthNames[monthIndex]} à ${hours}:${minutes}`;
+
+      // Prix de la monnaie
       let price = cryptocurrency['market_data']['current_price']['usd'].toString();
       cryptocurrencyPrice.prepend(`${price.replace('.', ',')} $`);
 
+      // Fluctuation du prix
       cryptocurrencyFluctuation.innerHTML = `${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2).replace('.', ',')} %`;
       if (cryptocurrency['market_data']['price_change_percentage_7d'] > 0) {
          cryptocurrencyFluctuation.prepend("+")
@@ -314,6 +341,7 @@ async function updateChart(period, isNew) {
 
 /* Fonction qui créer le graphique */
 function createChart(element, data, legende) {
+   console.log(cryptocurrencyLogoColor)
    myChart = new Chart(element, {
       type: 'line',
       data: {
@@ -321,7 +349,7 @@ function createChart(element, data, legende) {
          datasets: [{
             label: 'Prix ',
             data: data,
-            borderColor: '#02555B', // Couleur de la ligne
+            borderColor: `rgb(${cryptocurrencyLogoColor})`, // Couleur de la ligne
             tension: 0.1,
             pointBackgroundColor: 'transparent', // Couleur des points
             pointBorderColor: 'transparent',

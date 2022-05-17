@@ -163,7 +163,7 @@ hr {
 
 .popover-content {
    cursor: default;
-   width: 250px;
+   width: 275px;
    padding: var(--padding);
    position: relative;
    display: flex;

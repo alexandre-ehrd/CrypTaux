@@ -58,6 +58,10 @@
                         $_SESSION['mail'] = $mail_user;
                         $_SESSION['favs'] = '';
 
+                        // Enregistrer la date de connexion
+                        $date_login = date('d/m/Y à H:i:s');
+                        $db->query("INSERT INTO login_date VALUES(DEFAULT, '$mail_user', '$date_login')");
+
                         // Changer de page
                         header("Location: index.php");
                      } else {

@@ -79,17 +79,17 @@
                         [$name, $symbol] = [$fav[0], $fav[1]];
                         // Créer une vignette de monnaie favorite
                         echo "
-                        <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
-                           <div class='info-currency'>
-                              <img src='' alt='$name' crossorigin='anonymous'>
-                              <div>
-                                 <p class='fav-price'></p>
-                                 <p class='fav-symbol'>". strtoupper($symbol). "</p>
+                           <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
+                              <div class='info-currency'>
+                                 <img src='' alt='$name' crossorigin='anonymous'>
+                                 <div>
+                                    <p class='fav-price'></p>
+                                    <p class='fav-symbol'>". strtoupper($symbol). "</p>
+                                 </div>
+                                 <p class='fav-taux'></p>   
                               </div>
-                              <p class='fav-taux'></p>   
+                              <canvas class='fav-chart'></canvas>
                            </div>
-                           <canvas class='fav-chart'></canvas>
-                        </div>
                         ";
                      }
                   }
@@ -107,6 +107,8 @@
       <script src="src/scripts/Favs.js" type="module"></script>
       <script src="src/scripts/Recherche.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
+      <script src="src/scripts/FavsManagerHeart.js" type="module"></script>
+      <script src="src/scripts/LivePrice.js" type="module"></script>
       <script src="src/scripts/Navigation.js"></script>
    </body>
 </html>

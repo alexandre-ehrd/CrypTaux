@@ -82,7 +82,7 @@ async function fetchHistoricData(thumbnailElement) {
 }
 
 
-function createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnailElement) {
+function fillThumbnailElement(cryptocurrencyResponse, historicDataResponse, livePrice, thumbnailElement) {
    var historicPrice = historicDataResponse['prices'];
 
    // Créer le tableau des prix
@@ -105,7 +105,7 @@ function createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail
 
    // Prix
    var price_element = thumbnailElement.querySelector('.fav-price');
-   price_element.innerHTML = `${value_arrive.toFixed(7)}$`;
+   price_element.innerHTML = `${livePrice[thumbnailElement.id]['usd']}$`;
    
    // Graphique
    var canvas_element = thumbnailElement.getElementsByTagName('canvas')[0];
@@ -189,4 +189,4 @@ function createChart(element, data, legende) {
 }
 
 
-export {fetchHistoricData, fetchCryptocurrency, createThumbnail};
+export {fetchHistoricData, fetchCryptocurrency, fillThumbnailElement};

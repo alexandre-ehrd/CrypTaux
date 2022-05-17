@@ -2,14 +2,13 @@
 
 
 .cryptocurrency-infos {
-   height: 70px;
    display: flex;
    flex-direction: row;
    gap: var(--padding);
 }
 
 .cryptocurrency-infos img {
-   height: 70%;
+   height: 50px;
    aspect-ratio: 1/1;
 }
 

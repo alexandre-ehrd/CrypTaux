@@ -1,7 +1,11 @@
-import {fetchHistoricData, fetchCryptocurrency, createThumbnail} from './FavThumbnail.js';
+import {fetchHistoricData, fetchCryptocurrency, fillThumbnailElement} from './FavThumbnail.js';
+import {fetchFavsList} from './FavsManagerHeart.js';
+import {fetchCryptoCurrenciesPrices} from './LivePrice.js';
 
 const allThumbnails = document.getElementsByClassName('thumbnail-currency');
 
+var favsList = await fetchFavsList();
+var livePrice = await fetchCryptoCurrenciesPrices();
 
 async function requestThumbnail(){
    for (var thumbnail of allThumbnails) {
@@ -11,7 +15,8 @@ async function requestThumbnail(){
          var cryptocurrencyResponse = await fetchCryptocurrency(thumbnail);
          var historicDataResponse = await fetchHistoricData(thumbnail);
          // Remplir la thumbnail avec les données récupérées
-         createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail);
+         fillThumbnailElement(cryptocurrencyResponse, historicDataResponse, livePrice, thumbnail);
+         thumbnail.style.visibility = "visible";
       }
    }
 }

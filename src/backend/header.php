@@ -10,7 +10,7 @@
       echo "
       <header>
          <div class='header-left-side'>
-            <a href='index.php'>
+            <a href='index.php' title='Accueil CrypTaux'>
                <h1 id='logo'>Cryp<span id='logo-orange'>Taux</span></h1>
             </a>
          </div>

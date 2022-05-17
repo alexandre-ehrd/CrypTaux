@@ -60,13 +60,14 @@
          ?>
          <div class="container-page">
             <div class="cryptocurrency-infos">
-               <img id="cryptocurrency-logo" src="" alt="">
+               <img id="cryptocurrency-logo" src="" alt="" crossorigin="anonymous">
                <div>
                   <div class="cryptocurrency-infos-name">
                      <h2 id="cryptocurrency-name"></h2>
                      <i id="cryptocurrency-favs-button" class="fav-button bi"></i>
                   </div>
-                  <p id="cryptocurrency-symbol"></p>
+                  <p id="data-last-update"></p>
+                  <i class="bi bi-arrow-clockwise"></i>
                </div>
             </div>
 
@@ -139,6 +140,7 @@
       </section>
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
       <script src="src/scripts/Cryptocurrency.js" type="module"></script>
       <script src="src/scripts/Navigation.js"></script>

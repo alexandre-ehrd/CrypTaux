@@ -1,4 +1,4 @@
-import {fetchHistoricData, fetchCryptocurrency, createThumbnail} from './FavThumbnail.js';
+import {fetchHistoricData, fetchCryptocurrency, fillThumbnailElement} from './FavThumbnail.js';
 
 const inputParent = document.querySelector(".search-bar-wrapper");
 const input = document.getElementById('search-bar');
@@ -191,7 +191,7 @@ async function requestThumbnail(){
          var cryptocurrencyResponse = await fetchCryptocurrency(thumbnail);
          var historicDataResponse = await fetchHistoricData(thumbnail);
          // Remplir la thumbnail avec les données récupérées
-         createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail);
+         fillThumbnailElement(cryptocurrencyResponse, historicDataResponse, thumbnail);
       }
    }
 }

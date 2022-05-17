@@ -1,5 +1,6 @@
-import {fetchHistoricData, fetchCryptocurrency, createThumbnail} from './FavThumbnail.js';
+import {fetchHistoricData, fetchCryptocurrency, fillThumbnailElement} from './FavThumbnail.js';
 import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
+import {fetchCryptoCurrenciesPrices} from './LivePrice.js';
 
 
 // Récupérer la grille
@@ -13,6 +14,7 @@ const allThumbnails = document.getElementsByClassName('thumbnail-currency');
 const cryptocurrencyTrendingTableau = document.getElementById('cryptocurrency-trending-body');
 
 var favsList = await fetchFavsList();
+var livePrice = '';
 
 window.addEventListener('resize', function() {
    hideThumbnails();
@@ -26,14 +28,15 @@ fetchTrendingCryptocurrency();
 
 
 /* Fonction qui créer les éléments HTML pour les thumbnails */
-function createFavsElement(favsList) {
+async function createFavsElement(favsList) {
    gridElement.innerHTML = '';
    if (favsList != '') {
       favsList.forEach(fav => {
          fav = fav.split(",");
          let id = fav[0];
          let symbol = fav[1];
-         
+
+         // Créer l'élément HTML
          gridElement.innerHTML += `
             <div class='thumbnail-currency thumbnail-hide' id='${id}' style='visibility: hidden; display: none;'>
                <div class='info-currency'>
@@ -48,7 +51,9 @@ function createFavsElement(favsList) {
             </div>
          `;
       });
-      /* Fonction qui affiche et cache les thumbnails */
+
+      
+      // Fonction qui affiche et cache les thumbnails 
       hideThumbnails();
    }
    else {
@@ -63,9 +68,13 @@ function createFavsElement(favsList) {
 async function hideThumbnails() {
    // Compter le nombre de colonne de thumbnails
    var gridColonneCount = gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").length-1;
+   
+   
+   livePrice = await fetchCryptoCurrenciesPrices();
 
    for (let i = 0; i < allThumbnails.length; i++) {
       var thumbnail = allThumbnails[i];
+
       // La thumbnail se situe sur la première ligne
       if (i <= gridColonneCount) {
          thumbnail.style.display = "block";
@@ -77,7 +86,7 @@ async function hideThumbnails() {
             var cryptocurrencyResponse = await fetchCryptocurrency(thumbnail);
             var historicDataResponse = await fetchHistoricData(thumbnail);
             // Remplir la thumbnail avec les données récupérées
-            createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail);
+            fillThumbnailElement(cryptocurrencyResponse, historicDataResponse, livePrice, thumbnail);
          }
       }
       else {

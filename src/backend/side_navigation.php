@@ -36,6 +36,7 @@
             Se déconnecter
          </a>
       </aside>
+      <div id='aside-mobile-background'></div>
       ";
    }
 ?>

@@ -83,6 +83,7 @@
       <script src="src/scripts/Dashboard.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
       <script src="src/scripts/FavsManagerHeart.js" type="module"></script>
+      <script src="src/scripts/LivePrice.js" type="module"></script>
       <script src="src/scripts/Navigation.js"></script>
    </body>
 </html>
