@@ -29,6 +29,17 @@
    cursor: pointer;
 }
 
+#data-last-update-wrapper {
+   display: flex;
+   align-items: center;
+   gap: var(--padding);
+}
+
+#data-last-update-wrapper i:hover {
+   color: var(--color-orange);
+   cursor: pointer;
+}
+
 .wrapper {
    display: flex;
    flex-direction: column;
@@ -71,17 +82,19 @@
    gap: var(--padding)
 }
 
-.chart-header h3 {
+.cryptocurrency-price-wrapper {
+   display: flex;
+   align-items: center;
+   gap: var(--padding);
+}
+
+.cryptocurrency-price-wrapper h3 {
    font-size: 2rem;
    font-weight: 500;
    position: relative;
 }
 
-.chart-header h3 span {
-   position: absolute;
-   top: 5px;
-   right: 0;
-   transform: translateX(100%);
+.cryptocurrency-price-wrapper span {
    font-size: 1.1rem;
 }
 

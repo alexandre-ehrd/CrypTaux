@@ -11,6 +11,7 @@ const cryptocurrencyName = document.getElementById('cryptocurrency-name');
 const cryptocurrencyFavsButton = document.getElementById('cryptocurrency-favs-button');
 
 const dataLastUpdate = document.getElementById('data-last-update');
+const refreshButton = document.getElementById('refresh-button');
 
 const cryptocurrencyPrice = document.getElementById('cryptocurrency-price');
 const cryptocurrencyFluctuation = document.getElementById('cryptocurrency-fluctuation-price');
@@ -19,6 +20,9 @@ const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
 
 const cryptocurrencyStatistiquesWrapper = document.getElementById('cryptocurrency-statistiques');
 const cryptocurrencyCapitalisationBoursiere = document.getElementById('cryptocurrency-capitalisation');
+const cryptocurrencyHighPrice = document.getElementById('cryptocurrency-high-price');
+const cryptocurrencyFluctuation24h = document.getElementById('cryptocurrency-fluctuation-24h');
+const cryptocurrencyFluctuation7d = document.getElementById('cryptocurrency-fluctuation-7d');
 
 const cryptocurrencyCommunityWrapper = document.getElementById('cryptocurrency-community');
 
@@ -26,6 +30,7 @@ const cryptocurrencyHigherPrice = document.getElementById('cryptocurrency-higher
 const cryptocurrencyLowerPrice = document.getElementById('cryptocurrency-lower-price');
 
 const cryptocurrencySentimentDown = document.getElementById('sentiment-downvote');
+
 
 
 var favsList = await fetchFavsList();
@@ -63,7 +68,7 @@ async function fetchData(cryptocurrencyID) {
    return new Promise((resolve, reject) => {
       var cryptocurrencyResponse = null;
       // Les données historiques se trouvent dans le localStorage
-      if (localStorage.getItem(cryptocurrencyID) != null) {
+      if (sessionStorage.getItem(cryptocurrencyID) != null && 1==2) {
          cryptocurrencyResponse = JSON.parse(localStorage.getItem(cryptocurrencyID));
          resolve(cryptocurrencyResponse);
       }
@@ -71,13 +76,15 @@ async function fetchData(cryptocurrencyID) {
          fetch(URL)
             .then(response => {
                console.log("Requête");
+               console.log("Requête volontaire pour tester");
+
                if (response.ok) {
                   response.json().then(response => {
                      cryptocurrencyResponse = response;
                      // Trier les données à sauvegarder dans le localStorage
                      delete cryptocurrencyResponse['description'];
                      // Sauvegarder les données dans le localStorage
-                     localStorage.setItem(cryptocurrencyID, JSON.stringify(cryptocurrencyResponse));
+                     sessionStorage.setItem(cryptocurrencyID, JSON.stringify(cryptocurrencyResponse));
                      resolve(cryptocurrencyResponse);
                   })
                }
@@ -106,8 +113,6 @@ async function cryptocurrencyManager(cryptocurrencyID) {
    var cryptocurrency = await fetchData(cryptocurrencyID);
 
    if (cryptocurrency != null) {
-      console.log(cryptocurrency['last_updated']);
-
       // Logo de la monnaie
       var googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
       cryptocurrencyLogo.src = googleProxyURL + encodeURIComponent(cryptocurrency['image']['large']);
@@ -140,44 +145,50 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       let minutes = date.getMinutes().toString().padStart(2, "0");
       dataLastUpdate.innerHTML = `Dernière mise à jour : ${day} ${monthNames[monthIndex]} à ${hours}:${minutes}`;
 
-      // Prix de la monnaie
+      // Bouton de raffraichissement
+      refreshButton.onclick = function() {
+         // Rappeler la fonction qui fetch la data et remplie la fenêtre
+         cryptocurrencyManager(cryptocurrencyID);
+         // Mettre à jour le graphique
+         updateChart('7 j', false);
+      }
+
+      // Prix de la monnaie 
       let price = cryptocurrency['market_data']['current_price']['usd'].toString();
-      cryptocurrencyPrice.prepend(`${price.replace('.', ',')} $`);
+      cryptocurrencyPrice.innerHTML = `${price.replace('.', ',')} $`;
 
       // Fluctuation du prix
-      cryptocurrencyFluctuation.innerHTML = `${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2).replace('.', ',')} %`;
-      if (cryptocurrency['market_data']['price_change_percentage_7d'] > 0) {
-         cryptocurrencyFluctuation.prepend("+")
+      let fluctuation = cryptocurrency['market_data']['price_change_percentage_7d'];   
+      if (fluctuation > 0) {
          cryptocurrencyFluctuation.classList.add('positive-pourcentage');
+         cryptocurrencyFluctuation.innerHTML = `
+            <i class="bi bi-caret-up-fill"></i>
+            ${fluctuation.toFixed(2).replace('.', ',')} %
+         `;
       } else {
          cryptocurrencyFluctuation.classList.add('negative-pourcentage');
+         fluctuation = fluctuation.toFixed(2).replace('.', ',');
+         fluctuation = fluctuation.toString().substring(1);
+         cryptocurrencyFluctuation.innerHTML = `
+            <i class="bi bi-caret-down-fill"></i>
+            ${fluctuation} %
+         `;
       }
 
       // Sauvegarder la fluctuation sur 1 jour et 7 jours
       fluctuation1d = cryptocurrency['market_data']['price_change_percentage_24h'];
       fluctuation7d = cryptocurrency['market_data']['price_change_percentage_7d'];
 
-      // Création du graphique
-      updateChart('7 j', true);
-      
-      // Capitalisation boursière
-      cryptocurrencyCapitalisationBoursiere.innerHTML = `${cryptocurrency['market_data']['market_cap']['usd']} $`;
+      if (myChart == null) {
+         // Création du graphique
+         updateChart('7 j', true);
+      }
       
       // Statistiques du marché
-      cryptocurrencyStatistiquesWrapper.innerHTML += `
-         <div>
-            <p class="cryptocurrency-statistiques-categorie">Niveau historique</p>
-            <p class="cryptocurrency-statistiques-value">${cryptocurrency['market_data']['ath']['usd']} $</p>
-         </div>
-         <div>
-            <p class="cryptocurrency-statistiques-categorie">Fluctuation de prix (en 24 heures)</p>
-            <p class="cryptocurrency-statistiques-value">${cryptocurrency['market_data']['price_change_percentage_24h'].toFixed(2)} %</p>
-         </div>
-         <div>
-            <p class="cryptocurrency-statistiques-categorie">Fluctuation de prix (en 7 jours)</p>
-            <p class="cryptocurrency-statistiques-value">${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2)} %</p>
-         </div>
-      `;
+      cryptocurrencyCapitalisationBoursiere.innerHTML = `${cryptocurrency['market_data']['market_cap']['usd']} $`;
+      cryptocurrencyHighPrice.innerHTML = `${cryptocurrency['market_data']['ath']['usd']} $`;
+      cryptocurrencyFluctuation24h.innerHTML = `${cryptocurrency['market_data']['price_change_percentage_24h'].toFixed(2)} %`;
+      cryptocurrencyFluctuation7d.innerHTML = `${cryptocurrency['market_data']['price_change_percentage_7d'].toFixed(2)} %`;
 
       // Cours le plus élevé
       let higherPriceDate = new Date(cryptocurrency['market_data']['ath_date']['usd']);
@@ -190,6 +201,9 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       cryptocurrencyLowerPrice.innerHTML = `
          ${cryptocurrency['name']} a atteint un prix minimal de ${cryptocurrency['market_data']['atl']['usd']} $ le ${lowerPriceDate.toLocaleDateString("fr")}.
       `;
+
+      // On réinitialise les données communautaires
+      cryptocurrencyCommunityWrapper.innerHTML = '';
 
       // Site web de la crypto-monnaie
       var cryptocurencyURL = cryptocurrency['links']['homepage'];
@@ -298,20 +312,29 @@ async function updateChart(period, isNew) {
                   // Prix
                   price[i] = price[i][1];
                }
+
                // Fluctuation
                if (fluctuationPourcentage == null) {
                   fluctuationPourcentage = ((price[price.length - 1] - price[0]) / price[0]) * 100;
                }
-               cryptocurrencyFluctuation.innerHTML = `${fluctuationPourcentage.toFixed(2).replace('.', ',')} %`;
-               // Classe pour la fluctuation
+
+               // Fluctuation du prix
                if (fluctuationPourcentage > 0) {
-                  cryptocurrencyFluctuation.prepend("+")
-                  cryptocurrencyFluctuation.classList.add('positive-pourcentage');
                   cryptocurrencyFluctuation.classList.remove('negative-pourcentage');
-               } 
-               else {
+                  cryptocurrencyFluctuation.classList.add('positive-pourcentage');
+                  cryptocurrencyFluctuation.innerHTML = `
+                     <i class="bi bi-caret-up-fill"></i>
+                     ${fluctuationPourcentage.toFixed(2).replace('.', ',')} %
+                  `;
+               } else {
                   cryptocurrencyFluctuation.classList.remove('positive-pourcentage');
                   cryptocurrencyFluctuation.classList.add('negative-pourcentage');
+                  fluctuationPourcentage = fluctuationPourcentage.toFixed(2).replace('.', ',');
+                  fluctuationPourcentage = fluctuationPourcentage.toString().substring(1);
+                  cryptocurrencyFluctuation.innerHTML = `
+                     <i class="bi bi-caret-down-fill"></i>
+                     ${fluctuationPourcentage} %
+                  `;
                }
 
                if (isNew) {
@@ -341,7 +364,6 @@ async function updateChart(period, isNew) {
 
 /* Fonction qui créer le graphique */
 function createChart(element, data, legende) {
-   console.log(cryptocurrencyLogoColor)
    myChart = new Chart(element, {
       type: 'line',
       data: {

@@ -11,16 +11,32 @@ async function fetchCryptoCurrenciesPrices() {
       cryptocurrencyIDs += id + ',';
    });
    
-   var URL = `https://api.coingecko.com/api/v3/simple/price?ids=${cryptocurrencyIDs}&vs_currencies=usd`;
+   var URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${cryptocurrencyIDs}&page=1&sparkline=true&price_change_percentage=1h,24h,7d`;
 
    return new Promise((resolve, reject) => {
-      var cryptocurrencyResponse = sessionStorage.getItem('cryptocurrencies-Prices');
+      // Récupérer les données des crypto-monnaies depuis le sessionStorage
+      var cryptocurrencyResponse = sessionStorage.getItem('Cryptocurrencies-Data');
+
       // La monnaie se trouve dans le localStorage
       if (cryptocurrencyResponse != null) {
          cryptocurrencyResponse = JSON.parse(cryptocurrencyResponse);
-         var nameElement = thumbnailElement.querySelector('.fav-symbol');
-         nameElement.innerHTML = `${cryptocurrencyResponse['name']} [${cryptocurrencyResponse['symbol'].toUpperCase()}]`;
-         resolve(cryptocurrencyResponse);
+         
+         // Calculer le temps depuis la dernière mise à jour
+         var timeNow = new Date();
+         var timeStampLastRequest = cryptocurrencyResponse['timestamp'];
+         var timeDiff = timeNow - timeStampLastRequest;
+         var timeDiffMinutes = Math.round(timeDiff / 60000);
+
+         // Si la requête a été effectuée il y a moins de 1 minute, on retourne les données
+         if (timeDiffMinutes < 1) {
+            resolve(cryptocurrencyResponse);
+         }
+         else {
+            // On supprime les données de la requête précédente
+            sessionStorage.removeItem('Cryptocurrencies-Data')
+            // On effectue une nouvelle requête
+            resolve(fetchCryptoCurrenciesPrices());
+         }
       }
       else {
          fetch(URL)
@@ -28,10 +44,16 @@ async function fetchCryptoCurrenciesPrices() {
                console.log("Requête");
                if (response.ok) {
                   response.json().then(response => {
-                     cryptocurrencyResponse = response;
-                     // Trier les données à sauvegarder dans le localStorage
+                     // Transformer le tableau en dictionnaire
+                     cryptocurrencyResponse = {};
+                     for (var i = 0; i < response.length; i++) {
+                        cryptocurrencyResponse[response[i]['id']] = response[i];
+                     }
+                     // Ajouter un timestamp pour savoir quand les données ont été récupérées
+                     cryptocurrencyResponse['timestamp'] = new Date().getTime();
                      // Sauvegarder les données dans le sessionStorage
-                     //localStorage.setItem(cryptocurrencyID, JSON.stringify(cryptocurrencyResponse));
+                     sessionStorage.setItem('Cryptocurrencies-Data', JSON.stringify(cryptocurrencyResponse));
+                     
                      resolve(cryptocurrencyResponse);
                   })
                }

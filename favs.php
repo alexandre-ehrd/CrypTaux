@@ -79,14 +79,16 @@
                         [$name, $symbol] = [$fav[0], $fav[1]];
                         // Créer une vignette de monnaie favorite
                         echo "
-                           <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
+                           <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;'>
                               <div class='info-currency'>
-                                 <img src='' alt='$name' crossorigin='anonymous'>
+                                 <img class='info-currency-image' src='' alt='$name' crossorigin='anonymous'>
                                  <div>
-                                    <p class='fav-price'></p>
-                                    <p class='fav-symbol'>". strtoupper($symbol). "</p>
+                                    <div class='info-currency-price-wrapper'>
+                                       <p class='fav-price'></p>
+                                       <div class='fav-taux-wrapper'></div>
+                                    </div>
+                                    <div class='fav-name-wrapper'></div>
                                  </div>
-                                 <p class='fav-taux'></p>   
                               </div>
                               <canvas class='fav-chart'></canvas>
                            </div>
