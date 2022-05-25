@@ -1,4 +1,5 @@
-import {fetchHistoricData, fetchCryptocurrency, fillThumbnailElement} from './FavThumbnail.js';
+import {fillThumbnailElement} from './FavThumbnail.js';
+import {fetchCryptoCurrenciesPrices} from './LivePrice.js';
 
 const inputParent = document.querySelector(".search-bar-wrapper");
 const input = document.getElementById('search-bar');
@@ -25,22 +26,22 @@ input.addEventListener("focusout", () => {
 input.addEventListener('keyup', function(event) {
    if (event.key == 'Enter') {
       event.preventDefault();
-      updateValue();
+      searchManager();
    }
 });
 
-searchButton.addEventListener('click', updateValue);
+searchButton.addEventListener('click', searchManager);
 
 
-
-function updateValue(e) {
+async function searchManager() {
    // La longueur du texte dans le champs de recherche n'est pas nulle
    if (input.value.length > 0) {
       var URLQuery = `https://api.coingecko.com/api/v3/search?query=${input.value}`;
+
       // Récupérer les infos de la requête
       fetch(URLQuery).then(response => {
          console.log("Requête");
-         if (response.ok) { 
+         if (response.ok) {
             response.json().then(data => {
                var listCrypto = data['coins'];
                var listExchanges = data['exchanges'];
@@ -84,31 +85,39 @@ function updateValue(e) {
                // Effacer toutes les thumbnails des exchanges
                exchangeSearchResult.innerHTML = "";
 
-               // Thumbnails
+               var cryptocurrencyIDs = '';
+
+               // Créer les thumbnails des cryptomonnaies
                for (let i = 0; i < listCrypto.length; i++) {
-                  // Garder uniquement les 6 premiers résultats
-                  if (i >= 6) {
+                  // Garder uniquement les 10 premiers résultats
+                  if (i >= 10) {
                      break;
                   }
+                  // Créer une thumbnail
                   var thumbnailCryptocurrency = `
-                  <div class='thumbnail-currency' id='${listCrypto[i]['id']}' style='visibility: hidden;'>
-                     <div class='info-currency'>
-                        <img src='' alt='${listCrypto[i]['name']}' crossorigin='anonymous'>
-                        <div>
-                           <p class='fav-price'></p>
-                           <p class='fav-symbol'>${listCrypto[i]['symbol']}</p>
+                     <div class='thumbnail-currency' id='${listCrypto[i]['id']}' style='visibility: hidden; display: none;'>
+                        <div class='info-currency'>
+                           <img class='info-currency-image' src='' alt='${listCrypto[i]['name']}' crossorigin='anonymous'>
+                           <div>
+                              <div class='info-currency-price-wrapper'>
+                                 <p class='fav-price'></p>
+                                 <div class='fav-taux-wrapper'></div>
+                              </div>
+                              <div class='fav-name-wrapper'></div>
+                           </div>
                         </div>
-                        <p class='fav-taux'></p>   
+                        <canvas class='fav-chart'></canvas>
                      </div>
-                     <canvas class='fav-chart'></canvas>
-                  </div>
-               `;
+                  `;
                   cryptocurencySearchResult.innerHTML += thumbnailCryptocurrency;
+
+                  cryptocurrencyIDs += listCrypto[i]['id'] + ',';
                }
-               // Fetch les données puis afficher les thumbnails
-               requestThumbnail();
-               
-               
+
+               // Créer les thumbnails pour le résultat de la recherche
+               thumbnailsManager(cryptocurrencyIDs);
+
+               // Créer les vignettes des exchanges
                for (let i = 0; i < listExchanges.length; i++) {
                   if (i >= 6) {
                      break;
@@ -182,16 +191,19 @@ function updateValue(e) {
 }
 
 
-async function requestThumbnail(){
+async function thumbnailsManager(cryptocurrencyIDs){
+   // Récupérer toutes les informations pour tous les fav's
+   var cryptocurenciesData = await fetchCryptoCurrenciesPrices(cryptocurrencyIDs);
+   
    var allThumbnails = document.getElementsByClassName('thumbnail-currency');
+   
    for (var thumbnail of allThumbnails) {
       // La thumbnail n'est pas encore affichée mais elle doit l'être
       if (thumbnail.style.visibility == "hidden") {
-         // Requêtes pour les données
-         var cryptocurrencyResponse = await fetchCryptocurrency(thumbnail);
-         var historicDataResponse = await fetchHistoricData(thumbnail);
+         thumbnail.style.display = "block";
+         console.log(cryptocurenciesData[thumbnail.id])
          // Remplir la thumbnail avec les données récupérées
-         fillThumbnailElement(cryptocurrencyResponse, historicDataResponse, thumbnail);
+         fillThumbnailElement(cryptocurenciesData[thumbnail.id], thumbnail);
       }
    }
 }

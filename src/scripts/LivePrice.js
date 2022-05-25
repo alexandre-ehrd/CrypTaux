@@ -1,24 +1,44 @@
 import {fetchFavsList} from './FavsManagerHeart.js';
 
 /* Fonction qui retourne les prix des crypto-monnaies en direct */
-async function fetchCryptoCurrenciesPrices() {
-   var favsList = await fetchFavsList();
-   var cryptocurrencyIDs = '';
+async function fetchCryptoCurrenciesPrices(IDS = null) {
+   // Récupérer les données des crypto-monnaies depuis le sessionStorage
+   var cryptocurrencyResponse = sessionStorage.getItem('Cryptocurrencies-Data');
    
-   favsList.forEach(fav => {
-      fav = fav.split(",");
-      let id = fav[0];
-      cryptocurrencyIDs += id + ',';
-   });
+   var cryptocurrencyIDs = '';
+   var newRequest = false;
+   
+   if (IDS == null) {
+      // Récupérer toutes les crypto-monnaies en fav's
+      var favsList = await fetchFavsList();
+
+      favsList.forEach(fav => {
+         fav = fav.split(",");
+         let id = fav[0];
+         cryptocurrencyIDs += id + ',';
+      });
+   }
+   else {
+      cryptocurrencyIDs = IDS;
+   }
+
+   // Rajouter les nouvelles crypto-monnaies dans la requête
+   if (cryptocurrencyResponse != null) {
+      cryptocurrencyResponse = JSON.parse(cryptocurrencyResponse);
+      var keys = Object.keys(cryptocurrencyResponse);
+      keys.forEach(key => {
+         if (cryptocurrencyIDs.indexOf(key) == -1) {
+            cryptocurrencyIDs += key + ',';
+            newRequest = true;
+         }
+      })
+   }
    
    var URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${cryptocurrencyIDs}&page=1&sparkline=true&price_change_percentage=1h,24h,7d`;
 
    return new Promise((resolve, reject) => {
-      // Récupérer les données des crypto-monnaies depuis le sessionStorage
-      var cryptocurrencyResponse = sessionStorage.getItem('Cryptocurrencies-Data');
-
       // La monnaie se trouve dans le localStorage
-      if (cryptocurrencyResponse != null) {
+      if (cryptocurrencyResponse != null && newRequest == false) {
          cryptocurrencyResponse = JSON.parse(cryptocurrencyResponse);
          
          // Calculer le temps depuis la dernière mise à jour

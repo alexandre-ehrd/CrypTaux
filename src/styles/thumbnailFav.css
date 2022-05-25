@@ -28,7 +28,6 @@
    padding: var(--padding);
    display: flex;
    gap: var(--padding);
-   overflow: hidden;
 }
 
 .info-currency-image{
@@ -75,8 +74,8 @@
 
 .fav-name-wrapper {
    display: flex;
+   align-items: flex-start;
    gap: 10px;
-   align-items: center;
    font-size: 1rem;
 }
 

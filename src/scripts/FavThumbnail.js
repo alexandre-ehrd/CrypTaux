@@ -115,7 +115,12 @@ function fillThumbnailElement(cryptocurrencyData, thumbnailElement) {
    // Taux d'évolution sur 7 jours
    var taux = cryptocurrencyData['price_change_percentage_7d_in_currency'];
    var taux_element = thumbnailElement.querySelector('.fav-taux-wrapper');
-   if (taux > 0) {
+
+   if (taux == null) {
+      thumbnailElement.style.display = 'none';
+      return;
+   }
+   else if (taux > 0) {
       taux = taux.toFixed(1).toString().replace('.', ',');
       taux_element.innerHTML = `
          <i class="bi bi-caret-up-fill"></i>
@@ -197,7 +202,8 @@ function createChart(element, data, legende) {
                left: -10,
                bottom: -10
             }
-         }
+         },
+         events: []
       }
    });
 }
