@@ -25,11 +25,11 @@
                   <input class="user-input" type="mail" name="mail" placeholder="" value="" required="required" autofocus>
                   <label for="username">Adresse mail</label>
                </div>
-               <div class="form-input" id="password-input">   
-                  <input class="user-input" type="password" name="password" value="" required="required">
+               <div class="form-input password-input">   
+                  <input class="user-input" type="password" name="password" value=""  required="required">
                   <label for="password">Mot de passe</label>
-                  <i id="icon-eye-show" class="bi bi-eye"></i>
-                  <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
+                  <i id="eye-hide" class="icon-eye-hide bi bi-eye-slash" style="visibility: hidden;"></i>
+                  <i id="eye-show" class="icon-eye-show bi bi-eye" style="visibility: hidden;"></i>
                </div>
                <?php
                // Le formulaire a été envoyé

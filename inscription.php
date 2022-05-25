@@ -29,21 +29,27 @@
                   <input class="user-input" type="mail" name="mail" value="" required="required" autocomplete="email">
                   <label for="mail">Adresse mail</label>
                </div>
-               <div class="form-input" id="password-input">   
+               <div class="form-input password-input">   
                   <input class="user-input" type="password" name="password" value=""  required="required">
                   <label for="password">Mot de passe</label>
-                  <i id="icon-eye-show" class="bi bi-eye"></i>
-                  <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
+                  <i id="eye-hide" class="icon-eye-hide bi bi-eye-slash" style="visibility: hidden;"></i>
+                  <i id="eye-show" class="icon-eye-show bi bi-eye" style="visibility: hidden;"></i>
+               </div>
+               <div class="form-input password-input">   
+                  <input class="user-input" type="password" name="password-repeat" value=""  required="required">
+                  <label for="password-repeat">Confirmer mot de passe</label>
+                  <i id="eye-hide-repeat" class="icon-eye-hide bi bi-eye-slash" style="visibility: hidden;"></i>
+                  <i id="eye-show-repeat" class="icon-eye-show bi bi-eye" style="visibility: hidden;"></i>
                </div>
                <?php
                // Le formulaire a été envoyé
                if (!empty($_POST)) {
-                  
                   // Récupérer les données du formulaire
                   $mail_user = $_POST["mail"];
                   $username_user = $_POST["username"];
-                  $password_user = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hashage du mot de passe
-                  
+                  $password_user = $_POST["password"];
+                  $password_repeat_user = $_POST["password-repeat"];
+
                   // L'adresse mail possède le bon format
                   if(filter_var($mail_user, FILTER_VALIDATE_EMAIL)){
                      $result = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'");
@@ -51,19 +57,27 @@
 
                      // L'adresse mail ne se trouve pas encore dans la BDD
                      if ($count == 0) {
-                        $favs_cryptocurrency_start = "bitcoin,btc/ethereum,eth/cardano,ada/shiba-inu,shib";
-                        $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '$favs_cryptocurrency_start')");
-                        
-                        $_SESSION['username'] = $username_user;
-                        $_SESSION['mail'] = $mail_user;
-                        $_SESSION['favs'] = '';
 
-                        // Enregistrer la date de connexion
-                        $date_login = date('d/m/Y à H:i:s');
-                        $db->query("INSERT INTO login_date VALUES(DEFAULT, '$mail_user', '$date_login')");
+                        if ($password_user == $password_repeat_user) {
+                           // Hasher le mot de passe
+                           $password_user = password_hash($password_user, PASSWORD_DEFAULT);
+                           $favs_cryptocurrency_start = "bitcoin,btc/ethereum,eth/cardano,ada/shiba-inu,shib";
+                           $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '$favs_cryptocurrency_start')");
+                           
+                           $_SESSION['username'] = $username_user;
+                           $_SESSION['mail'] = $mail_user;
+                           $_SESSION['favs'] = '';
+                           
+                           // Enregistrer la date de connexion
+                           $date_login = date('d/m/Y à H:i:s');
+                           $db->query("INSERT INTO login_date VALUES(DEFAULT, '$mail_user', '$date_login')");
+                           
+                           // Changer de page
+                           header("Location: index.php");
+                        } else{
+                           echo "<p class='error-message'>Les champs mot de passe et confirmation du mot de passe doivent être identiques.</p>";
+                        }
 
-                        // Changer de page
-                        header("Location: index.php");
                      } else {
                         // Rediriger l'utilisateur vers la page de connexion
                         header("Location: connexion.php");

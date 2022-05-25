@@ -67,7 +67,8 @@ async function fetchData(cryptocurrencyID) {
    var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
    return new Promise((resolve, reject) => {
       var cryptocurrencyResponse = null;
-      // Les données historiques se trouvent dans le localStorage
+      // Les données historiques se trouvent dans le localStorage 
+      // On fait toujours une requête pour actualiser au mieux les données
       if (sessionStorage.getItem(cryptocurrencyID) != null && 1==2) {
          cryptocurrencyResponse = JSON.parse(localStorage.getItem(cryptocurrencyID));
          resolve(cryptocurrencyResponse);
@@ -76,8 +77,6 @@ async function fetchData(cryptocurrencyID) {
          fetch(URL)
             .then(response => {
                console.log("Requête");
-               console.log("Requête volontaire pour tester");
-
                if (response.ok) {
                   response.json().then(response => {
                      cryptocurrencyResponse = response;
