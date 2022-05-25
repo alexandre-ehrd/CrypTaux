@@ -125,6 +125,7 @@
 #cryptocurrency-statistiques > div {
    display: flex;
    justify-content: space-between;
+   flex-wrap: wrap;
 }
 
 .cryptocurrency-statistiques-categorie {

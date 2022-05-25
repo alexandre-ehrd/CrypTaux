@@ -41,7 +41,8 @@
                   // La personne est-elle dans la base de données ?
                   $is_inscrit = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'")->fetchColumn();
                   
-                  if ($is_inscrit > 0) {                     
+                  // L'utilisateur est inscrit
+                  if ($is_inscrit > 0) {
                      $reponse=$db->query("SELECT password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
                      $password = $reponse[0]->password;
                   
@@ -68,8 +69,8 @@
                         echo "<p class='error-message'>Adresse mail ou mot de passe incorrect.</p>";
                      }
                   } else {
-                     // Adresse mail inconnue
-                     echo "<p class='error-message'>Adresse mail ou mot de passe incorrect.</p>";
+                     // Rediriger l'utilisateur vers la page d'inscription
+                     header("Location: inscription.php");
                   }
                }
                ?>

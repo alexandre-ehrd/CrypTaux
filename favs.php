@@ -18,6 +18,7 @@
       <!-- Styles Mobile -->
       <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/header_mobile.css"/>
       <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/navigation_mobile.css"/>
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/favs_mobile.css"/>
       <?php
          session_start();
          
