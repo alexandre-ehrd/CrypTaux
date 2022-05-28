@@ -63,7 +63,7 @@ cryptocurrencyManager(cryptocurrencyID);
 
 /* Fonction qui retourne les données de la crypto-monnaie */
 async function fetchData(cryptocurrencyID) {
-   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
+   var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
    return new Promise((resolve, reject) => {
       var cryptocurrencyResponse = null;
       // Les données historiques se trouvent dans le localStorage 
@@ -186,7 +186,7 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       fluctuation7d = cryptocurrency['market_data']['price_change_percentage_7d'];
 
       if (myChart == null) {
-         // Création du graphique
+         // Création du graphique (obligé de refaire une requête pour récupérer les dates)
          updateChart('7 j', true);
       }
       
