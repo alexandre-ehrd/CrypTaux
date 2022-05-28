@@ -1,5 +1,6 @@
-import {fetchHistoricData, fetchCryptocurrency, createThumbnail} from './FavThumbnail.js';
+import {fetchHistoricData, fetchCryptocurrency, fillThumbnailElement} from './FavThumbnail.js';
 import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
+import {fetchCryptoCurrenciesPrices} from './LivePrice.js';
 
 
 // Récupérer la grille
@@ -26,29 +27,36 @@ fetchTrendingCryptocurrency();
 
 
 /* Fonction qui créer les éléments HTML pour les thumbnails */
-function createFavsElement(favsList) {
+async function createFavsElement(favsList) {
    gridElement.innerHTML = '';
    if (favsList != '') {
       favsList.forEach(fav => {
          fav = fav.split(",");
          let id = fav[0];
          let symbol = fav[1];
-         
+
+         // Créer l'élément HTML
          gridElement.innerHTML += `
-            <div class='thumbnail-currency thumbnail-hide' id='${id}' style='visibility: hidden; display: none;'>
-               <div class='info-currency'>
-                  <img src='' alt='${id}' crossorigin='anonymous'>
-                  <div>
+         <div class='thumbnail-currency thumbnail-hide' id='${id}' style='visibility: hidden; display: none;'>
+            <div class='info-currency'>
+               <img class='info-currency-image' src='' alt='${id}' crossorigin='anonymous'>
+               <div>
+                  <div class='info-currency-price-wrapper'>
                      <p class='fav-price'></p>
-                     <p class='fav-symbol'>${symbol.toUpperCase()}</p>
+                     <div class='fav-taux-wrapper'>
+                        <i class="bi bi-caret-up-fill"></i>
+                        <p class='fav-taux'></p>
+                     </div>
                   </div>
-                  <p class='fav-taux'></p>   
+               <div class='fav-name-wrapper'></div>
                </div>
-               <canvas class='fav-chart'></canvas>
             </div>
+            <canvas class='fav-chart'></canvas>
+         </div>
          `;
       });
-      /* Fonction qui affiche et cache les thumbnails */
+
+      // Fonction qui affiche et cache les thumbnails 
       hideThumbnails();
    }
    else {
@@ -63,21 +71,23 @@ function createFavsElement(favsList) {
 async function hideThumbnails() {
    // Compter le nombre de colonne de thumbnails
    var gridColonneCount = gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").length-1;
+   
+   // Récupérer toutes les informations pour tous les fav's
+   var favsRequest = await fetchCryptoCurrenciesPrices();
 
    for (let i = 0; i < allThumbnails.length; i++) {
       var thumbnail = allThumbnails[i];
+      var thumbnailId = thumbnail.id;
+
       // La thumbnail se situe sur la première ligne
       if (i <= gridColonneCount) {
          thumbnail.style.display = "block";
          // La thumbnail n'est pas encore affichée mais elle doit l'être
          if (thumbnail.style.display != "none" && thumbnail.classList.contains("thumbnail-hide")) {
             thumbnail.classList.remove("thumbnail-hide");
-         
-            // Requêtes pour les données
-            var cryptocurrencyResponse = await fetchCryptocurrency(thumbnail);
-            var historicDataResponse = await fetchHistoricData(thumbnail);
+            
             // Remplir la thumbnail avec les données récupérées
-            createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnail);
+            fillThumbnailElement(favsRequest[thumbnailId], thumbnail);
          }
       }
       else {
@@ -90,13 +100,39 @@ async function hideThumbnails() {
 /* Fonction qui récupère les crypto-monnaies célèbres */
 function fetchTrendingCryptocurrency() {
    var URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=1h,24h,7d';
-   var trendingResponse = null;
-   // Les données historiques se trouvent dans le sessionStorage
-   if (sessionStorage.getItem('trendingCryptocurrency') != null) {
-      trendingResponse = JSON.parse(sessionStorage.getItem('trendingCryptocurrency'));
-      trendingResponse.forEach(element => {
+  
+   // Récupérer les données des crypto-monnaies depuis le sessionStorage
+   var trendingResponse = sessionStorage.getItem('Trending-Cryptocurrencies-Data');
+   
+
+   // Les monnaies se trouvent dans le localStorage
+   if (trendingResponse != null) {
+      trendingResponse = JSON.parse(trendingResponse);
+      
+      
+      // Calculer le temps depuis la dernière mise à jour
+      var timeNow = new Date();
+      var timeStampLastRequest = trendingResponse['timestamp'];
+      var timeDiff = timeNow - timeStampLastRequest;
+      var timeDiffMinutes = Math.round(timeDiff / 60000);
+      
+      // Si la requête a été effectuée il y a moins de 1 minute, on retourne les données
+      if (timeDiffMinutes < 1) {
+         // Parcourir le dictionnaire pour créer les éléments HTML
+         for (var [key, element] of Object.entries(trendingResponse)) {
+            createTrendingElement(element);
+         }
+      }
+      else {
+         // On supprime les données de la requête précédente
+         sessionStorage.removeItem('Trending-Cryptocurrencies-Data');
+         // On effectue une nouvelle requête
+         fetchTrendingCryptocurrency();
+      }
+      
+      /* trendingResponse.forEach(element => {
          createTrendingElement(element);
-      });
+      }); */
    }
    else {
       fetch(URL)
@@ -104,12 +140,23 @@ function fetchTrendingCryptocurrency() {
             console.log("Requête");
             if (response.ok) {
                response.json().then(response => {
-                  trendingResponse = response;
+
+                  // Transformer le tableau en dictionnaire
+                  trendingResponse = {};
+                  for (var i = 0; i < response.length; i++) {
+                     trendingResponse[response[i]['id']] = response[i];
+                  }
+                  // Ajouter un timestamp pour savoir quand les données ont été récupérées
+                  trendingResponse['timestamp'] = new Date().getTime();
                   // Sauvegarder les données dans le sessionStorage
-                  sessionStorage.setItem('trendingCryptocurrency', JSON.stringify(response));
-                  trendingResponse.forEach(element => {
+                  sessionStorage.setItem('Trending-Cryptocurrencies-Data', JSON.stringify(trendingResponse));
+
+                  // Parcourir le dictionnaire pour créer les éléments HTML
+                  for (var [key, element] of Object.entries(trendingResponse)) {
+                     if (key != 'timestamp') {
                      createTrendingElement(element);
-                  });
+                     }
+                  }
                })
             }
             else{
@@ -142,7 +189,7 @@ async function createTrendingElement(cryptocurrency) {
    }
 
    cryptocurrencyFavsButton.addEventListener('mouseover', function() {
-      // Empêcher le clique d'ouvrir la page d'inforamtions sur la cryptomonnaie
+      // Empêcher le clique d'ouvrir la page d'informations sur la cryptomonnaie
       cryptocurrencyTrendingLigne.onclick = null;
    });
    cryptocurrencyFavsButton.addEventListener('mouseout', function() {
@@ -152,14 +199,17 @@ async function createTrendingElement(cryptocurrency) {
       }
    });
    cryptocurrencyFavsButton.onclick = async function() {
+      // Supprimer les données de la requête précédente
+      sessionStorage.removeItem('Trending-Cryptocurrencies-Data');
+      sessionStorage.removeItem('Cryptocurrencies-Data');
+
+      fetchTrendingCryptocurrency();
+
       // Actualiser la liste des fav's (et changer l'icone)
       let favsList = await favsManager(cryptocurrencyFavsButton, cryptocurrency);
       createFavsElement(favsList);
    }
    trendingScoreColumn.appendChild(cryptocurrencyFavsButton);
-   let trendingScore = document.createElement('span');
-   trendingScore.innerHTML = cryptocurrency['market_cap_rank'];
-   //trendingScoreColumn.appendChild(trendingScore);
    cryptocurrencyTrendingLigne.appendChild(trendingScoreColumn);
 
    let trendingNameColumn = document.createElement('td');

@@ -71,6 +71,7 @@ form {
    margin-left: 12px;
    pointer-events: none;
    background-color: var(--color-background-grey);
+   z-index: 10;
    transition: all 200ms;
 }
 
@@ -89,22 +90,23 @@ form {
    right: var(--padding);
    background-color: var(--color-grey);
 }
-#password-input input::-webkit-contacts-auto-fill-button, 
-#password-input input::-webkit-credentials-auto-fill-button {
+.password-input input::-webkit-contacts-auto-fill-button, 
+.password-input input::-webkit-credentials-auto-fill-button {
    right: calc(25px + var(--padding));
 }
 
+#eye-hide, 
+#eye-hide-repeat {
+   display: none;
+}
+
 .form-input > i {
-   visibility: hidden;
    position: absolute;
    top: 50%;
    right: 15px;
    transform: translateY(-50%);
    color: var(--color-grey);
-}
-
-#icon-eye-hide {
-   display: none;
+   cursor: pointer;
 }
 
 .error-message {

@@ -60,25 +60,29 @@
          ?>
          <div class="container-page">
             <div class="cryptocurrency-infos">
-               <img id="cryptocurrency-logo" src="" alt="">
+               <img id="cryptocurrency-logo" src="" alt="" crossorigin="anonymous">
                <div>
                   <div class="cryptocurrency-infos-name">
                      <h2 id="cryptocurrency-name"></h2>
                      <i id="cryptocurrency-favs-button" class="fav-button bi"></i>
                   </div>
-                  <p id="cryptocurrency-symbol"></p>
+                  <div id="data-last-update-wrapper">
+                     <p id="data-last-update"></p>
+                     <i id="refresh-button" class="bi bi-arrow-clockwise"></i>
+                  </div>
                </div>
             </div>
 
             <div class="wrapper-top-page">
                <div id="wrapper-chart" class="wrapper">
                   <div class="chart-header">
-                     <h3 id="cryptocurrency-price">
+                     <div class="cryptocurrency-price-wrapper">
+                        <h3 id="cryptocurrency-price"></h3>
                         <span id="cryptocurrency-fluctuation-price"></span>
-                     </h3>
+                     </div>
                      <div id="chart-period-selector">
                         <a>1 j</a>
-                        <a class="period-selected">7 j</a>
+                        <a id="chart-period-selector-7d" class="period-selected">7 j</a>
                         <a>1 a</a>
                         <a>Max</a>
                      </div>
@@ -98,6 +102,18 @@
                            ?>
                         </div>
                         <p id="cryptocurrency-capitalisation" class="cryptocurrency-statistiques-value"></p>
+                     </div>
+                     <div>
+                        <p class="cryptocurrency-statistiques-categorie">Niveau historique</p>
+                        <p id="cryptocurrency-high-price" class="cryptocurrency-statistiques-value"></p>
+                     </div>
+                     <div>
+                        <p class="cryptocurrency-statistiques-categorie">Fluctuation de prix (en 24 heures)</p>
+                        <p id="cryptocurrency-fluctuation-24h" class="cryptocurrency-statistiques-value"></p>
+                     </div>
+                     <div>
+                        <p class="cryptocurrency-statistiques-categorie">Fluctuation de prix (en 7 jours)</p>
+                        <p id="cryptocurrency-fluctuation-7d" class="cryptocurrency-statistiques-value"></p>
                      </div>
                   </div>
                </div>
@@ -139,6 +155,7 @@
       </section>
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
       
       <script src="src/scripts/Cryptocurrency.js" type="module"></script>
       <script src="src/scripts/Navigation.js"></script>

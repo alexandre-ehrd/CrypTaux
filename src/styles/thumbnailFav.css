@@ -4,7 +4,7 @@
 .container-thumbnail-currency {
    display: grid;
    gap: var(--padding);
-   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
 }
 
 .thumbnail-currency {
@@ -25,40 +25,68 @@
 
 .info-currency {
    height: 50%;
-   padding: 15px;
+   padding: var(--padding);
    display: flex;
-   gap: 10px;
+   gap: var(--padding);
 }
 
-.info-logo-currency {
-   width: fit-content;
+.info-currency-image{
    height: 100%;
-   border-radius: 15px;
-   background-color: #000000;
-   padding: 10px;
-
+   aspect-ratio: 1/1;
 }
 
-.info-currency > img {
-   height: 100%;
-   aspect-ratio: 1 / 1;
+.info-currency-price-wrapper {
+   display: flex;
+   align-items: center;
+   gap: 5px;
 }
 
 .fav-price {
-   font-size: 1.2rem;
+   font-size: 1.3rem;
    font-weight: 500;
 }
 
-.fav-symbol {
-   font-size: 1rem;
-   font-weight: 300;
-   color: var(--color-dark);
+.fav-taux-wrapper {
+   height: 80%;
+   display: flex;
+   align-items: center;
+   gap: var(--padding-small);
+   border-radius: var(--border-radius-large);
+   padding: 1px 10px;
+   color: var(--color-white);
+}
+.fav-taux-wrapper-positive {
+   background-color: var(--color-green);
+}
+.fav-taux-wrapper-negative {
+   background-color: var(--color-light-red);
+}
 
+.fav-taux-wrapper i {
+   font-size: 10px;
 }
 
 .fav-taux {
    font-size: 0.8em;
+   font-weight: 500; 
+   letter-spacing: 1px; 
+}
+
+.fav-name-wrapper {
+   display: flex;
+   align-items: flex-start;
+   gap: 10px;
+   font-size: 1rem;
+}
+
+.fav-name {
    font-weight: 600;
+   color: var(--color-dark);
+}
+
+.fav-symbol {
+   font-weight: 400;
+   color: var(--color-dark-grey);
 }
 
 .fav-chart {

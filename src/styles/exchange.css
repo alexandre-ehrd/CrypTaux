@@ -83,6 +83,7 @@
 .devise img {
    height: 30px;
    aspect-ratio: 1/1;
+   cursor: pointer;
 }
 
 select {

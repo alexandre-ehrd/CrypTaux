@@ -18,6 +18,7 @@
       <!-- Styles Mobile -->
       <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/header_mobile.css"/>
       <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/navigation_mobile.css"/>
+      <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/favs_mobile.css"/>
       <?php
          session_start();
          
@@ -79,17 +80,19 @@
                         [$name, $symbol] = [$fav[0], $fav[1]];
                         // Créer une vignette de monnaie favorite
                         echo "
-                        <div class='thumbnail-currency' id='$name' style='visibility: hidden;'>
-                           <div class='info-currency'>
-                              <img src='' alt='$name' crossorigin='anonymous'>
-                              <div>
-                                 <p class='fav-price'></p>
-                                 <p class='fav-symbol'>". strtoupper($symbol). "</p>
+                           <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;' draggable='false'>
+                              <div class='info-currency'>
+                                 <img class='info-currency-image' src='' alt='$name' crossorigin='anonymous'>
+                                 <div>
+                                    <div class='info-currency-price-wrapper'>
+                                       <p class='fav-price'></p>
+                                       <div class='fav-taux-wrapper'></div>
+                                    </div>
+                                    <div class='fav-name-wrapper'></div>
+                                 </div>
                               </div>
-                              <p class='fav-taux'></p>   
+                              <canvas class='fav-chart'></canvas>
                            </div>
-                           <canvas class='fav-chart'></canvas>
-                        </div>
                         ";
                      }
                   }
@@ -99,6 +102,7 @@
                ?>
             </div>
 
+
       </section>
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
@@ -107,6 +111,8 @@
       <script src="src/scripts/Favs.js" type="module"></script>
       <script src="src/scripts/Recherche.js" type="module"></script>
       <script src="src/scripts/FavThumbnail.js" type="module"></script>
+      <script src="src/scripts/FavsManagerHeart.js" type="module"></script>
+      <script src="src/scripts/LivePrice.js" type="module"></script>
       <script src="src/scripts/Navigation.js"></script>
    </body>
 </html>

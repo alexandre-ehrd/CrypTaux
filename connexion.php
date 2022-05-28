@@ -25,11 +25,11 @@
                   <input class="user-input" type="mail" name="mail" placeholder="" value="" required="required" autofocus>
                   <label for="username">Adresse mail</label>
                </div>
-               <div class="form-input" id="password-input">   
-                  <input class="user-input" type="password" name="password" value="" required="required">
+               <div class="form-input password-input">   
+                  <input class="user-input" type="password" name="password" value=""  required="required">
                   <label for="password">Mot de passe</label>
-                  <i id="icon-eye-show" class="bi bi-eye"></i>
-                  <i id="icon-eye-hide" class="bi bi-eye-slash"></i>
+                  <i id="eye-hide" class="icon-eye-hide bi bi-eye-slash" style="visibility: hidden;"></i>
+                  <i id="eye-show" class="icon-eye-show bi bi-eye" style="visibility: hidden;"></i>
                </div>
                <?php
                // Le formulaire a été envoyé
@@ -41,7 +41,8 @@
                   // La personne est-elle dans la base de données ?
                   $is_inscrit = $db->query("SELECT count(mail) FROM cryptaux WHERE mail='$mail_user'")->fetchColumn();
                   
-                  if ($is_inscrit > 0) {                     
+                  // L'utilisateur est inscrit
+                  if ($is_inscrit > 0) {
                      $reponse=$db->query("SELECT password FROM cryptaux WHERE mail='$mail_user'")->fetchAll(PDO::FETCH_OBJ);
                      $password = $reponse[0]->password;
                   
@@ -56,7 +57,11 @@
                         $_SESSION['mail'] = $mail_user;
                         $_SESSION['favs'] = $favs;
 
-                        // Changer de page
+                        // Enregistrer la date de connexion
+                        $date_login = date('d/m/Y à H:i:s');
+                        $db->query("INSERT INTO login_date VALUES(DEFAULT, '$mail_user', '$date_login')");
+
+                        // Redirection vers la page d'accueil
                         header("Location: index.php");
                         exit();
                      } else {
@@ -64,8 +69,8 @@
                         echo "<p class='error-message'>Adresse mail ou mot de passe incorrect.</p>";
                      }
                   } else {
-                     // Adresse mail inconnue
-                     echo "<p class='error-message'>Adresse mail ou mot de passe incorrect.</p>";
+                     // Rediriger l'utilisateur vers la page d'inscription
+                     header("Location: inscription.php");
                   }
                }
                ?>

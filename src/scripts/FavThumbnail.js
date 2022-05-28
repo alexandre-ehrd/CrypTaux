@@ -82,51 +82,70 @@ async function fetchHistoricData(thumbnailElement) {
 }
 
 
-function createThumbnail(cryptocurrencyResponse, historicDataResponse, thumbnailElement) {
-   var historicPrice = historicDataResponse['prices'];
-
-   // Créer le tableau des prix
-   historicPrice = historicPrice.map(x => x[1]);
-   // Créer le tableau de légende (nécessaire pour le graphique)
-   var legende = Object.keys(historicPrice);
-   
-   // Calculer le taux d'évolution sur 7 jours
-   var value_depart = historicPrice[0];
-   var value_arrive = historicPrice[historicPrice.length-1];
-   var taux = ((value_arrive-value_depart) / value_depart) * 100;
-   
-   var taux_element = thumbnailElement.querySelector('.fav-taux');
-   if (taux > 0) {
-      taux_element.innerHTML = `+${taux.toFixed(2)}%`;
-   }
-   else {
-      taux_element.innerHTML = `${taux.toFixed(2)}%`;
-   }
-
-   // Prix
-   var price_element = thumbnailElement.querySelector('.fav-price');
-   price_element.innerHTML = `${value_arrive.toFixed(7)}$`;
-   
-   // Graphique
-   var canvas_element = thumbnailElement.getElementsByTagName('canvas')[0];
-   createChart(canvas_element, historicPrice, legende);
-
+function fillThumbnailElement(cryptocurrencyData, thumbnailElement) {
    // Image
    var img = thumbnailElement.getElementsByTagName('img')[0];
    var googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
-   var imageURL = cryptocurrencyResponse['image']['large'];
+   var imageURL = cryptocurrencyData['image'];
    img.src = googleProxyURL + encodeURIComponent(imageURL);
    img.addEventListener('load', function() {
+      // Retourne la couleur dominante de l'image
       var color = colorThief.getColor(img);
       thumbnailElement.style.backgroundColor = `rgba(${color}, 0.3)`;
    });
+
    // Nom et symbole
-   var cryptocurrencyName = cryptocurrencyResponse['name'];
+   var nameElement = thumbnailElement.querySelector('.fav-name-wrapper');
+   nameElement.innerHTML = `
+      <p class='fav-name'>${cryptocurrencyData['name']}</p>
+      <span class='fav-symbol'>${cryptocurrencyData['symbol'].toUpperCase()}</span>
+   `;
+   var cryptocurrencyName = cryptocurrencyData['name'];
    thumbnailElement.style.visibility = 'visible';
    thumbnailElement.addEventListener("click", function() {
       // Ouvrir la page de la monnaie en personnalisant l'URL
       window.open(`cryptocurrency.php?name=${cryptocurrencyName}&id=${thumbnailElement.id}`, "_self");
    });
+
+   // Prix
+   var price_element = thumbnailElement.querySelector('.fav-price');
+   var price = cryptocurrencyData['current_price'];
+   price_element.innerHTML = `${price.toString().replace('.', ',')} $`;
+
+   // Taux d'évolution sur 7 jours
+   var taux = cryptocurrencyData['price_change_percentage_7d_in_currency'];
+   var taux_element = thumbnailElement.querySelector('.fav-taux-wrapper');
+
+   if (taux == null) {
+      thumbnailElement.style.display = 'none';
+      return;
+   }
+   else if (taux > 0) {
+      taux = taux.toFixed(1).toString().replace('.', ',');
+      taux_element.innerHTML = `
+         <i class="bi bi-caret-up-fill"></i>
+         <p class='fav-taux'>${taux} %</p>
+      `;
+      taux_element.classList.add('fav-taux-wrapper-positive');
+   }
+   else {
+      taux = taux.toFixed(1).toString().replace('.', ',');
+      // Enlever le signe négatif
+      taux = taux.substring(1);
+      taux_element.innerHTML = `
+         <i class="bi bi-caret-down-fill"></i>
+         <p class='fav-taux'>${taux} %</p>
+      `;
+      taux_element.classList.add('fav-taux-wrapper-negative');
+   }
+
+   // Graphique
+   var historicPrice = cryptocurrencyData['sparkline_in_7d']['price'];
+   // Créer le tableau de légende (nécessaire pour le graphique)
+   var legende = Object.keys(historicPrice);
+   var canvas_element = thumbnailElement.getElementsByTagName('canvas')[0];
+   
+   createChart(canvas_element, historicPrice, legende);
 }
 
 
@@ -137,7 +156,7 @@ function createChart(element, data, legende) {
       data: {
          labels: legende,
          datasets: [{
-            label: 'My First Dataset',
+            label: 'Prix ',
             data: data,
             fill: true,
             backgroundColor : 'rgba(20, 20, 20, 0.1)', // Si fill=true
@@ -183,10 +202,11 @@ function createChart(element, data, legende) {
                left: -10,
                bottom: -10
             }
-         }
+         },
+         events: []
       }
    });
 }
 
 
-export {fetchHistoricData, fetchCryptocurrency, createThumbnail};
+export {fetchHistoricData, fetchCryptocurrency, fillThumbnailElement};
