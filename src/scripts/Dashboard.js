@@ -153,7 +153,9 @@ function fetchTrendingCryptocurrency() {
 
                   // Parcourir le dictionnaire pour créer les éléments HTML
                   for (var [key, element] of Object.entries(trendingResponse)) {
+                     if (key != 'timestamp') {
                      createTrendingElement(element);
+                     }
                   }
                })
             }
