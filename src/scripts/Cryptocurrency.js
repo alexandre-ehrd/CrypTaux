@@ -5,6 +5,7 @@ import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
 
 const periodSelector = document.getElementById('chart-period-selector');
 const allPeriod = periodSelector.querySelectorAll('a');
+const period7dButton = document.getElementById('chart-period-selector-7d');
 
 const cryptocurrencyLogo = document.getElementById('cryptocurrency-logo');
 const cryptocurrencyName = document.getElementById('cryptocurrency-name');
@@ -17,8 +18,6 @@ const cryptocurrencyPrice = document.getElementById('cryptocurrency-price');
 const cryptocurrencyFluctuation = document.getElementById('cryptocurrency-fluctuation-price');
 const cryptocurrencyChart = document.getElementById('cryptocurrency-chart');
 
-
-const cryptocurrencyStatistiquesWrapper = document.getElementById('cryptocurrency-statistiques');
 const cryptocurrencyCapitalisationBoursiere = document.getElementById('cryptocurrency-capitalisation');
 const cryptocurrencyHighPrice = document.getElementById('cryptocurrency-high-price');
 const cryptocurrencyFluctuation24h = document.getElementById('cryptocurrency-fluctuation-24h');
@@ -148,6 +147,14 @@ async function cryptocurrencyManager(cryptocurrencyID) {
       refreshButton.onclick = function() {
          // Rappeler la fonction qui fetch la data et remplie la fenêtre
          cryptocurrencyManager(cryptocurrencyID);
+
+         // Désélectionner toutes les options
+         allPeriod.forEach(button => {
+            button.classList.remove('period-selected');
+         });
+         // Séléctionner le bouton 7 jours
+         period7dButton.classList.add('period-selected');
+
          // Mettre à jour le graphique
          updateChart('7 j', false);
       }
@@ -277,7 +284,7 @@ async function updateChart(period, isNew) {
    let legende = [];
    let URL = null;
    var fluctuationPourcentage = null;
-
+   
    switch (period) {
       case '1j':
          URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=1&interval=minutely`;
