@@ -58,7 +58,7 @@
                      <select id="select-cryptocurrency-first"></select>
                   </div>
                   
-                  <i class='bi bi-arrow-left-right'></i>
+                  <i class='bi bi-arrow-right'></i>
                   
                   <div class="converter-side">
                      <div class="conversion-input">

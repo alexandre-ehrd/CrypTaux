@@ -24,6 +24,11 @@ function selectValueChange_1() {
    let URLcryptocurrency = cryptocurrency['image'];
    imageCryptocurrency_1.src = URLcryptocurrency;
    imageCryptocurrency_1.alt = cryptocurrency['name'];
+   imageCryptocurrency_1.addEventListener("click", function() {
+      // Ouvrir la page de la monnaie en personnalisant l'URL
+      window.open(`cryptocurrency.php?name=${cryptocurrency['name']}&id=${cryptocurrency['id']}`, "_self");
+   });
+
    // Réinitialiser le champ de réponse
    outputCryptocurrency.innerHTML = '0';
 };
@@ -39,6 +44,10 @@ function selectValueChange_2() {
       let URLcryptocurrency = cryptocurrency['image'];
       imageCryptocurrency_2.src = URLcryptocurrency;
       imageCryptocurrency_2.alt = cryptocurrency['name'];
+      imageCryptocurrency_2.addEventListener("click", function() {
+         // Ouvrir la page de la monnaie en personnalisant l'URL
+         window.open(`cryptocurrency.php?name=${cryptocurrency['name']}&id=${cryptocurrency['id']}`, "_self");
+      });
    }
    else {
       if (selectorCryptocurrency_2.value == 'euro') {
@@ -76,6 +85,10 @@ inputCryptocurrency.addEventListener('input', function (event) {
 
 
 function convertCryptocurrency() {
+   if (inputCryptocurrency.value == '') {
+      return;
+   }
+
    let cryptocurrency_1 = cryptocurrencyDico[selectorCryptocurrency_1.value];
    let cryptocurrency_2 = null;
    
