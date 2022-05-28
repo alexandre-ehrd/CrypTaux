@@ -11,11 +11,31 @@
    height: 150px;
    display: flex;
    flex-direction: column;
-   overflow: hidden;
    border-radius: var(--border-radius-large);
    cursor: pointer;
    transition: box-shadow 200ms;
    position: relative;
+}
+
+.thumbnail-drop-indicator {
+   height: 150px;
+   border-radius: var(--border-radius-large);
+   background-color: var(--color-extra-light-grey);
+}
+
+.fav-dropzone-left {
+   z-index: 3;
+   width: calc(50% + var(--padding) / 2);
+   min-height: 100%;
+   right: calc( (50% + var(--padding) / 2) - var(--padding) / 2);
+   position: absolute;
+}
+.fav-dropzone-right{
+   z-index: 3;
+   width: calc(50% + var(--padding) / 2);
+   min-height: 100%;
+   position: absolute;
+   left: 50%;
 }
 
 .thumbnail-currency:hover {

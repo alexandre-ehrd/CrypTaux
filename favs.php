@@ -64,7 +64,7 @@
             </div>
             <div id="exchange-search-result" style="display: none;"></div>         
             <h3>Mes fav's</h3>
-            <div class="container-thumbnail-currency">
+            <div id="favs-thumbnail-wrapper" class="container-thumbnail-currency">
                <?php 
                   require('src/backend/connect_database.php');
                   $mail_user = $_SESSION['mail'];
@@ -80,7 +80,7 @@
                         [$name, $symbol] = [$fav[0], $fav[1]];
                         // Créer une vignette de monnaie favorite
                         echo "
-                           <div class='thumbnail-currency thumbnail-hide' id='$name' style='visibility: hidden;' draggable='false'>
+                           <div class='thumbnail-currency' id='$name' style='visibility: hidden;' draggable='true'>
                               <div class='info-currency'>
                                  <img class='info-currency-image' src='' alt='$name' crossorigin='anonymous'>
                                  <div>
@@ -92,8 +92,11 @@
                                  </div>
                               </div>
                               <canvas class='fav-chart'></canvas>
+                              <div class='fav-dropzone-left'></div>
+                              <div class='fav-dropzone-right'></div>
                            </div>
                         ";
+
                      }
                   }
                   else {
