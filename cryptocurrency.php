@@ -82,8 +82,8 @@
                      </div>
                      <div id="chart-period-selector">
                         <a>1 j</a>
-                        <a id="chart-period-selector-7d" class="period-selected">7 j</a>
-                        <a>1 a</a>
+                        <a>7 j</a>
+                        <a id="chart-period-selected" class="period-selected">1 a</a>
                         <a>Max</a>
                      </div>
                   </div>

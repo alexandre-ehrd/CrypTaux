@@ -12,10 +12,15 @@
       <link rel="stylesheet" href="src/styles/style.css">
       <link rel="stylesheet" href="src/styles/connexion.css">
       <link rel="stylesheet" media="screen and (max-width: 1024px)" href="src/styles/mobile/connexion_mobile.css"/>
-      <?php session_start();?>
    </head>
    <body>
-      <?php require('src/backend/connect_database.php');?>
+      <?php 
+         // Récupérer le PDO
+         require('src/backend/connect_database.php');
+         
+         // Démarer la session
+         session_start();
+      ?>
       <aside>
       <p id="logo" class="logo-mobile">Cryp<span id="logo-orange">Taux</span></p>
          <section class="form-container">
@@ -59,7 +64,7 @@
 
                         // Enregistrer la date de connexion
                         $date_login = date('d/m/Y à H:i:s');
-                        $db->query("INSERT INTO login_date VALUES(DEFAULT, '$mail_user', '$date_login')");
+                        $db->query("INSERT INTO login_date(id, mail, timestamp) VALUES(DEFAULT, '$mail_user', '$date_login')");
 
                         // Redirection vers la page d'accueil
                         header("Location: index.php");

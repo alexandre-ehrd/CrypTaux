@@ -7,6 +7,8 @@
          $pathElement .= "<a href='$value'>$key</a>";
       }
 
+      $username = htmlentities($username);
+
       echo "
       <header>
          <div class='header-left-side'>

@@ -1,3 +1,6 @@
 .DS_Store
 login_key.php
-github_cmd.txt
+aa_github_cmd.txt
+*.pdf
+.idea/
+BDD/

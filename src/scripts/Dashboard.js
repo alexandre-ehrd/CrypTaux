@@ -129,10 +129,6 @@ function fetchTrendingCryptocurrency() {
          // On effectue une nouvelle requête
          fetchTrendingCryptocurrency();
       }
-      
-      /* trendingResponse.forEach(element => {
-         createTrendingElement(element);
-      }); */
    }
    else {
       fetch(URL)
@@ -154,7 +150,7 @@ function fetchTrendingCryptocurrency() {
                   // Parcourir le dictionnaire pour créer les éléments HTML
                   for (var [key, element] of Object.entries(trendingResponse)) {
                      if (key != 'timestamp') {
-                     createTrendingElement(element);
+                        createTrendingElement(element);
                      }
                   }
                })
@@ -274,7 +270,12 @@ async function createTrendingElement(cryptocurrency) {
       trendingChange7dColumn.innerHTML = "<i class='bi bi-arrow-down-left'></i>";
       trendingChange7dColumn.classList.add('negative-pourcentage');
    }
-   let cryptocurrencyChange7d = cryptocurrency['price_change_percentage_7d_in_currency'].toFixed(2).replace('.', ',').replace('-', '');
+   let cryptocurrencyChange7d;
+   if (cryptocurrency['price_change_percentage_7d_in_currency'] == null) {
+      cryptocurrencyChange7d = cryptocurrency['price_change_percentage_7d_in_currency'] = '--';
+   } else {
+      cryptocurrencyChange7d = cryptocurrency['price_change_percentage_7d_in_currency'].toFixed(2).replace('.', ',').replace('-', '');
+   }
    trendingChange7dColumn.innerHTML += `<p>${cryptocurrencyChange7d} %</p>`;
    trendingChange7dColumnWrapper.appendChild(trendingChange7dColumn);
    cryptocurrencyTrendingLigne.appendChild(trendingChange7dColumnWrapper);

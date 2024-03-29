@@ -3,12 +3,12 @@
 
    try {
       // echo "Connexion au serveur : $server...<br>";
-      $db = new PDO("mysql:$server;dbname=$dbname;charset=utf8", $user, $password);
+      $db = new PDO("mysql:host=$server;dbname=$dbname;charset=utf8", $user, $password);
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      // echo "✅ Connecté au serveur : $server<br>";
-      $db->query("use thalex");
+      //$db->query("use $dbname");
+      //echo "✅ Connecté au serveur : $server<br>";
    } catch (PDOException $e) {
-      // print ("❌ Erreur ! : " . $e->getMessage() . "<br>");
+      //echo "❌ Erreur ! : " . $e->getMessage() . "<br>";
       die();
    }
 ?>

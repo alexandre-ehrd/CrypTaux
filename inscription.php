@@ -62,7 +62,7 @@
                            // Hasher le mot de passe
                            $password_user = password_hash($password_user, PASSWORD_DEFAULT);
                            $favs_cryptocurrency_start = "bitcoin,btc/ethereum,eth/cardano,ada/shiba-inu,shib";
-                           $db->query("INSERT INTO cryptaux VALUES ('$mail_user', '$username_user', '$password_user', '$favs_cryptocurrency_start')");
+                           $db->query("INSERT INTO cryptaux(mail, username, password, favs) VALUES ('$mail_user', '$username_user', '$password_user', '$favs_cryptocurrency_start')");
                            
                            $_SESSION['username'] = $username_user;
                            $_SESSION['mail'] = $mail_user;
@@ -70,7 +70,7 @@
                            
                            // Enregistrer la date de connexion
                            $date_login = date('d/m/Y à H:i:s');
-                           $db->query("INSERT INTO login_date VALUES(DEFAULT, '$mail_user', '$date_login')");
+                           $db->query("INSERT INTO login_date(id, mail, timestamp) VALUES(DEFAULT, '$mail_user', '$date_login')");
                            
                            // Changer de page
                            header("Location: index.php");

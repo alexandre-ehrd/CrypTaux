@@ -5,7 +5,7 @@ import {fetchFavsList, favsManager} from './FavsManagerHeart.js';
 
 const periodSelector = document.getElementById('chart-period-selector');
 const allPeriod = periodSelector.querySelectorAll('a');
-const period7dButton = document.getElementById('chart-period-selector-7d');
+const periodDefault = document.getElementById('chart-period-selected');
 
 const cryptocurrencyLogo = document.getElementById('cryptocurrency-logo');
 const cryptocurrencyName = document.getElementById('cryptocurrency-name');
@@ -63,6 +63,7 @@ cryptocurrencyManager(cryptocurrencyID);
 
 /* Fonction qui retourne les données de la crypto-monnaie */
 async function fetchData(cryptocurrencyID) {
+   const options = {method: 'GET', headers: {'x-cg-demo-api-key': 'CG-xgH2QF3aq282aU6hzZLfxeG8'}};
    var URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=true`;
    return new Promise((resolve, reject) => {
       var cryptocurrencyResponse = null;
@@ -73,7 +74,7 @@ async function fetchData(cryptocurrencyID) {
          resolve(cryptocurrencyResponse);
       }
       else {
-         fetch(URL)
+         fetch(URL, options)
             .then(response => {
                console.log("Requête");
                if (response.ok) {
@@ -112,8 +113,8 @@ async function cryptocurrencyManager(cryptocurrencyID) {
 
    if (cryptocurrency != null) {
       // Logo de la monnaie
-      var googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
-      cryptocurrencyLogo.src = googleProxyURL + encodeURIComponent(cryptocurrency['image']['large']);
+      var imageProxyURL = 'https://corsproxy.io/?';
+      cryptocurrencyLogo.src = imageProxyURL + encodeURIComponent(cryptocurrency['image']['large']);
       cryptocurrencyLogo.alt = cryptocurrency['name'];
       cryptocurrencyLogo.addEventListener('load', function() {
          cryptocurrencyLogoColor = colorThief.getColor(cryptocurrencyLogo);
@@ -152,11 +153,11 @@ async function cryptocurrencyManager(cryptocurrencyID) {
          allPeriod.forEach(button => {
             button.classList.remove('period-selected');
          });
-         // Séléctionner le bouton 7 jours
-         period7dButton.classList.add('period-selected');
+         // Séléctionner le bouton par défaut
+         periodDefault.classList.add('period-selected');
 
          // Mettre à jour le graphique
-         updateChart('7 j', false);
+         updateChart('1 a', false);
       }
 
       // Prix de la monnaie 
@@ -187,7 +188,7 @@ async function cryptocurrencyManager(cryptocurrencyID) {
 
       if (myChart == null) {
          // Création du graphique (obligé de refaire une requête pour récupérer les dates)
-         updateChart('7 j', true);
+         updateChart('1 a', true);
       }
       
       // Statistiques du marché
@@ -284,14 +285,15 @@ async function updateChart(period, isNew) {
    let legende = [];
    let URL = null;
    var fluctuationPourcentage = null;
-   
+   const options = {method: 'GET', headers: {'x-cg-demo-api-key': 'CG-xgH2QF3aq282aU6hzZLfxeG8'}};
+
    switch (period) {
       case '1j':
-         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=1&interval=minutely`;
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=1&interval=daily`;
          fluctuationPourcentage = fluctuation1d;
          break;
       case '7j':
-         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=7&interval=hourly`;
+         URL = `https://api.coingecko.com/api/v3/coins/${cryptocurrencyID}/market_chart?vs_currency=usd&days=7&interval=daily`;
          fluctuationPourcentage = fluctuation7d;
          break;
       case '1a':
@@ -305,7 +307,7 @@ async function updateChart(period, isNew) {
    }
 
    
-   fetch(URL)
+   fetch(URL, options)
       .then(response => {
          console.log("Requête");
          if (response.ok) {
